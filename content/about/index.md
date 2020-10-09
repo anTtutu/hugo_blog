@@ -21,4 +21,10 @@ toc: true
 + [Github](https://github.com/anTtutu)  
 + Email: anttu0531@gmail.com 
 + Wechat: anTtutu
++ TG: @anT_tu
 + QQ技术群: 655158296 | [技术小站](https://jq.qq.com/?_wv=1027&k=5tYpFCR)
+
+## 二维码
+QQ Group|QQ|Wechat
+|-|-|-|
+![](/contact/qqgroup_qrcode.JPG)|![](/contact/qq_qrcode.JPG)|![](/contact/wechat_qrcode.JPG)
