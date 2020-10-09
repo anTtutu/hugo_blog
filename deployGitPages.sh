@@ -91,7 +91,7 @@ function checkYes()
 function main()
 {
     # 检验入参，需要增加提交注释
-    if [ $# != 1 ]; then
+    if [ -z "$1" ] ; then
         echo "please input commit message."
         exit 1;
     fi
