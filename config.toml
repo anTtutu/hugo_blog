@@ -1,0 +1,182 @@
+#baseURL = "https://anTtutu.github.io/"          #github.io
+#baseURL = "https://y31w9z.coding-pages.com/"    #coding.net
+baseURL = "https://anttu.gitee.io/"              #gitee.io
+languageCode = "zh-CN"
+defaultContentLanguage = "zh-cn"                          # en / zh-cn / ... (This field determines which i18n file to use)
+title = "Anttu's Blog"
+theme = "maupassant"                                      # 主题
+summaryLength = 140                                        # 默认是70，显示文章摘要的长度
+preserveTaxonomyNames = true							  # 若为 false，`Getting Started` 这样的英文标签将会被转换为 `getting-started`
+enableRobotsTXT = true
+enableEmoji = true
+enableGitInfo = false     # use git commit log to generate lastmod record # 可根据 Git 中的提交生成最近更新记录。
+disablePathToLower = true                                 # 禁止将路径全部改为小写
+# GA统计分析
+#googleAnalytics = "GA ID"
+hasCJKLanguage = true     # has chinese/japanese/korean   # 自动检测是否包含 中文\日文\韩文
+paginate = 10
+copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name
+
+# 一些全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能，在 archetypes/default.md 查看更多信息。
+# Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
+toc = true                                                                            # 是否开启目录
+autoCollapseToc = true    # Auto expand and collapse toc                              # 目录自动展开/折叠
+fancybox = true           # see https://github.com/fancyapps/fancybox                 # 是否启用fancybox（图片可点击）
+
+[author]
+  name = "Anttu"
+
+[sitemap]                 # essential                     # 必需
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[params]
+  author = "Anttu"
+  subtitle = "一位Java开发者，喜欢研究技术，同时也在学习Golang和Python中，对服务器、Linux使用比较熟悉。欢迎添加技术交流QQ群：655158296"
+  keywords = "golang,go语言,go语言笔记,anttu,java,博客,bash,linux笔记,python笔记,公众号,小程序"
+  description = "专注于IT互联网，包括但不限于Java、Go语言(golang)、Python、Bash等"
+  
+#  googleAd = ""                                           # google广告  
+  localSearch = true                                      # 是否开启本地搜索
+  
+  # paginate of archives, tags and categories             # 归档、标签、分类每页显示的文章数目，建议修改为一个较大的值
+  archivePaginate = 50
+  
+  # show 'xx Posts In Total' in archive page ?            # 是否在归档页显示文章的总数
+  showArchiveCount = true
+  
+  # show word count and read time ?                       # 是否显示字数统计与阅读时间
+  moreMeta = true
+
+  # Syntax highlighting by highlight.js                   # 是否用js展示代码高亮
+  highlightInClient = false
+
+  # mathjax
+  mathjax = false           # see https://www.mathjax.org/                              # 是否使用mathjax（数学公式）
+  mathjaxEnableSingleDollar = false                                                     # 是否使用 $...$ 即可進行inline latex渲染
+  mathjaxEnableAutoNumber = false                                                       # 是否使用公式自动编号
+  mathjaxUseLocalFiles = false  # You should install mathjax in `yout-site/static/lib/mathjax`
+
+  postMetaInFooter = true   # contain author, lastMod, markdown link, license           # 包含作者，上次修改时间，markdown链接，许可信息
+  linkToMarkDown = true     # Only effective when hugo will output .md files.           # 链接到markdown原始文件（仅当允许hugo生成markdown文件时有效）
+  contentCopyright = '<a target="_blank" rel="license noopener" href="https://github.com/nusr/blog/blob/master/LICENSE">MIT</a>'     # e.g. '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
+
+  # Link custom CSS and JS assets
+  #   (relative to /static/css and /static/js respectively)
+  customCSS = ['asciinema-player.css']
+  customJS = ['asciinema-player.js']
+
+  # use public git repo url to link lastmod git commit, enableGitInfo should be true.
+  # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.
+  gitRepo = "https://github.com/anTtutu/anTtutu.github.io"
+
+# 代码高亮
+[markup]
+  [markup.highlight]
+    lineNos = true
+    style = "github"
+
+# 分类
+[menu]
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "分类"
+    url = "/tags/"
+    weight = 3 
+
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 4 
+
+# Github Issue的utteranc评论系统
+[params.utteranc]
+  enable = true
+  repo = "anTtutu/anTtutu.github.io"     # 存储评论的Repo，格式为 owner/repo
+  issueTerm = "pathname"                 # 表示你选择以那种方式让github issue的评论和你的文章关联。
+  theme = "github-light"                 # 样式主题，有github-light和github-dark两种
+
+# 不算子页面统计
+[params.busuanzi] 
+  enable = true
+  siteUV = true
+  sitePV = true
+  pagePV = true
+
+# 文章打赏 暂不支持
+[params.reward]                             
+  enable = true
+  wechat = "/payimg/weipayimg.jpg"           # 微信二维码
+  alipay = "/payimg/alipayimg.jpg"           # 支付宝二维码
+
+# 社交链接 暂不支持
+[params.social]                                         
+  g-email = "mailto:anttu0531@gmail.com"
+  g-github = "https://github.com/anTtutu"
+ # g-juejin = "https://juejin.im/user/59aeb829f265da249960595a"
+ # g-cnblogs = "http://www.cnblogs.com/stevexu"
+ # g-v2ex = "https://www.v2ex.com/member/stevexu"  
+
+# 版权信息
+[params.cc]
+  name = "知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议"
+  link = "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+
+# 流程图
+[params.flowchartDiagrams]# see https://blog.olowolo.com/example-site/post/js-flowchart-diagrams/
+  enable = false
+  options = ""
+
+# 序列图
+[params.sequenceDiagrams] # see https://blog.olowolo.com/example-site/post/js-sequence-diagrams/
+  enable = false
+  options = ""            # default: "{theme: 'simple'}"  
+
+# Display a message at the beginning of an article to warn the readers that it's content may be outdated.
+# 在文章开头显示提示信息，提醒读者文章内容可能过时。
+[params.outdatedInfoWarning]
+  enable = true
+  hint = 365               # Display hint if the last modified time is more than these days ago.       # 如果文章最后更新于这天数之前，显示提醒
+  warn = 730               # Display warning if the last modified time is more than these days ago.    # 如果文章最后更新于这天数之前，显示警告
+
+# 广告模块
+#[[params.ads]]
+#  title = "领取￥1888阿里云产品通用代金券"
+#  url = "https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=jdg9oj97"
+#[[params.ads]]
+#  title = "领取￥1888阿里云产品通用代金券"
+#  url = "https://promotion.aliyun.com/ntms/act/vmpt/aliyun-group/home.html?userCode=jdg9oj97"
+#  img = "https://img.alicdn.com/tfs/TB17qJhXpzqK1RjSZFvXXcB7VXa-200-126.jpg"
+#[[params.ads]]
+#  title = "领取￥1888阿里云产品通用代金券"
+#  url = "https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=jdg9oj97"
+#  img = "https://img.alicdn.com/tfs/TB1aDXhXpzqK1RjSZFvXXcB7VXa-259-194.jpg"
+
+# 友情连接
+#[[params.links]]
+#  title = "Android Gradle权威指南"
+#  name = "Android Gradle权威指南"
+#  url = "http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e"
+#[[params.links]]
+#  title = "常用开发工具CDN镜像"
+#  name = "常用开发工具CDN镜像"
+#  url = "http://mirrors.flysnow.org/"
+
+# See https://gohugo.io/about/hugo-and-gdpr/
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true      # 12.214.31.144 -> 12.214.31.0
+  [privacy.youtube]
+    privacyEnhanced = true
+
+
+[markup.goldmark.renderer]
+  unsafe = true
