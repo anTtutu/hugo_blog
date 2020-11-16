@@ -30,6 +30,8 @@ https://www.jetbrains.com/pycharm/download/other.html
 https://www.jetbrains.com/go/download/other.html  
 https://www.jetbrains.com/datagrip/download/other.html
 
+to be continue...
+
 ## 3、工具
 序号|App名称|图标|简单介绍|下载地址
 |-|-|-|-|-|

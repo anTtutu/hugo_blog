@@ -214,9 +214,36 @@ nginx
 # 优雅的停
 kill -QUIT nginx_PID
 ```
+
+5、启动mongodb
+需要配置好启动配置文件，否则可能提示无法创建db
+```yaml
+systemLog:
+    destination: file
+    logAppend: true
+    path: mongodb/logs/mongodb.log
+
+storage:
+    dbPath: mongodb/db
+    journal:
+        enabled: true
+
+processManagement:
+    fork: true
+```
+```bash
+# 启动mongodb
+mongod -f ./mongodb/conf/mongodb/conf
+# 优雅的停
+kill -QUIT mongodb_PID
+```
+mysql
 ![](/posts/termux/mysql_server.JPG)
 ![](/posts/termux/mysql_databases.JPG)
+redis
 ![](/posts/termux/redis.JPG)
+mongodb
+![](/posts/termux/mongodb.png)
 
 ## 10、基本功能完成，还有很多进阶设置和玩法待开发和更新进来(未完待续)
 未完待续，待补充进阶设置和玩法
