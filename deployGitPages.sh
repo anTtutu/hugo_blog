@@ -109,4 +109,4 @@ function main()
     hugoDeployGitee "$1" "${GITEE}"
 }
 
-main $1
+main "$1"
