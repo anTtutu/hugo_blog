@@ -15,7 +15,15 @@ toc: true
 搜索ad关键字，定位左下角广告xml代码
 ![](/posts/ynote/ynote_ad.jpg)
 ## 3、简单修改测试
-直接把布局展示的坐标全部修改成"0,0,0,0"这样的布局，没想到重启真的不展示了，但是这里留下空白的区域了，但是先勉强这么眼不见为净吧，后续试试怎么调整布局
-## 4、调整xml布局
-修改示例  
+直接把布局展示的坐标全部修改成"0,0,0,0"这样的布局，没想到重启真的不展示了，但是这里留下空白的区域，不是很完美
+![](/posts/ynote/ynote_success.jpg)
+## 4、注释修改的地方
+修改示例：  
 ![](/posts/ynote/ynote_disable.jpg)
+完美修改示例：
+![](/posts/ynote/ynote_disable_perfect.jpg)
+## 5、成功展示
+只修改布局效果：
+![](/posts/ynote/ynote_success.jpg)
+完全注释的完美效果：
+![](/posts/ynote/ynote_perfect.jpg)
