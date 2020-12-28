@@ -9,9 +9,10 @@ toc: true
 
 ## 1、前言
 go build默认产生的可执行文件没有图标icon，有时候挺丑的，想增加icon怎么办呢
+![](/posts/icon/before.jpg)
 
-## 2、方法1-win10下用minGW
-怎么安装和使用minGW参考前一篇文章[Win10下新的gcc工具](2020-12-05-win10_gcc_build_tools.md)
+## 2、方法1 - windres命令
+怎么安装和使用minGW参考前一篇文章[Win10下新的gcc工具](/post/2020-12-05-win10_gcc_build_tools)
 
 ### 2.1、创建rc文件
 以test.go举例, 假设打包文件名test.exe, ico文件名test.ico  
@@ -34,7 +35,7 @@ go build -ldflags="-H windowsgui -w -s"
 
 测试有bug，打包出来的exe工具没法执行，比不带ico体积小。后续研究出来结果再补充完美
 
-## 3、方法2-rsrc命令
+## 3、方法2 - rsrc命令
 需要先下载rsrc命令
 ```golang
 go get github.com/akavel/rsrc
@@ -55,27 +56,28 @@ manifest文件名test.exe.manifest
     type="win32">
     </assemblyIdentity>
 
-<dependency>
-    <dependentAssembly>
-        <assemblyIdentity
-        type="win32"
-        name="Microsoft.Windows.Common-Controls"
-        version="6.0.0.0"
-        processorArchitecture="*"
-        publicKeyToken="6595b64144ccf1df"
-        language="*">
-        </assemblyIdentity>
-    </dependentAssembly>
-</dependency>
+    <dependency>
+        <dependentAssembly>
+            <assemblyIdentity
+            type="win32"
+            name="Microsoft.Windows.Common-Controls"
+            version="6.0.0.0"
+            processorArchitecture="*"
+            publicKeyToken="6595b64144ccf1df"
+            language="*">
+            </assemblyIdentity>
+        </dependentAssembly>
+    </dependency>
 </assembly>
 ```
 
-## 3.2、执行rsrc命令创建syso
+### 3.2、执行rsrc命令创建syso
 ```golang
 rsrc -manifest test.exe.manifest -ico test.ico -o test.exe.syso
 ```
 
 ### 3.3、执行go build
-```goland
+```golang
 go build
 ```
+![](/posts/icon/result.jpg)
