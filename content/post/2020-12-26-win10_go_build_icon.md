@@ -30,11 +30,8 @@ windres -o test.exe.syso test.exe.rc
 
 ### 2.3、执行go build
 ```golang
-go build -ldflags="-H windowsgui -w -s"
+go build
 ```
-
-测试有bug，打包出来的exe工具没法执行，比不带ico体积小。后续研究出来结果再补充完美
-
 ## 3、方法2 - rsrc命令
 需要先下载rsrc命令
 ```golang
@@ -81,3 +78,11 @@ rsrc -manifest test.exe.manifest -ico test.ico -o test.exe.syso
 go build
 ```
 ![](/posts/icon/result.jpg)
+
+## 注：
+测试发现，有些打包命令建议带参数：
+```golang
+go build -ldflags="-H windowsgui -w -s"
+```
+会导致打包出来的文件无法执行，可能是windowsgui这个导致的，而且对比比直接go build出来的文件偏小  
+直接go build打包的文件也会带ico并正确执行。
