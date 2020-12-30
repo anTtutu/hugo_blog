@@ -11,7 +11,7 @@ GITHUB="anTtutu.github.io"
 CODING="anttu.coding.me"
 GITEE="anttu.gitee.io"
 
-GITCODE_DIR="GitCode"
+GITCODE_DIR="Github"
 HUGO_BLOG_DIR="hugo_blog"
 CONFIG_FILE_NAME="config.toml"
 
