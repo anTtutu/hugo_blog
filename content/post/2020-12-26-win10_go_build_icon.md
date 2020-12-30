@@ -47,21 +47,21 @@ manifest文件名test.exe.manifest
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
     <assemblyIdentity
-    version="1.0.0.0"
-    processorArchitecture="x86"
-    name="controls"
-    type="win32">
+        version="1.0.0.0"
+        processorArchitecture="x86"
+        name="controls"
+        type="win32">
     </assemblyIdentity>
 
     <dependency>
         <dependentAssembly>
             <assemblyIdentity
-            type="win32"
-            name="Microsoft.Windows.Common-Controls"
-            version="6.0.0.0"
-            processorArchitecture="*"
-            publicKeyToken="6595b64144ccf1df"
-            language="*">
+                type="win32"
+                name="Microsoft.Windows.Common-Controls"
+                version="6.0.0.0"
+                processorArchitecture="*"
+                publicKeyToken="6595b64144ccf1df"
+                language="*">
             </assemblyIdentity>
         </dependentAssembly>
     </dependency>
@@ -84,5 +84,5 @@ go build
 ```golang
 go build -ldflags="-H windowsgui -w -s"
 ```
-会导致打包出来的文件无法执行，可能是windowsgui这个导致的，而且对比比直接go build出来的文件偏小  
-直接go build打包的文件也会带ico并正确执行。
+会导致打包出来的文件无法执行，可能是windowsgui这个导致的，而且对比比直接go build出来的文件大小偏小  
+直接go build打包的文件也会带ico并可以正确执行。
