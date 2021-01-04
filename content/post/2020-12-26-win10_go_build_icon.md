@@ -80,9 +80,10 @@ go build
 ![](/posts/icon/result.jpg)
 
 ## 注：
-测试发现，有些打包命令建议带参数：
+测试发现，有的blog写的打包命令建议带参数：
 ```golang
 go build -ldflags="-H windowsgui -w -s"
 ```
-会导致打包出来的文件无法执行，可能是windowsgui这个导致的，而且对比比直接go build出来的文件偏小  
-直接go build打包的文件也会带ico并正确执行。
+应该只有gui的程序才需要带，本文举例是非gui界面的，因此带了反而会出现无法正确运行。    
+对比带了该参数比直接的go build打包出来的文件大小不一致，偏小很多，可能非gui的命令行程序不适合带这个参数。比如用walk的gui go项目带了没问题。  
+验证通过2、3步骤做了ico处理的，建议通过go build打包。
