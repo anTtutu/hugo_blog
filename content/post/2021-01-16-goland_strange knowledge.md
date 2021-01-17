@@ -413,7 +413,7 @@ func main() {
 {}
 ```
 
-忽略空值  
+忽略空值"omitempty"  
 ```golang
 package main
 
@@ -438,7 +438,7 @@ func main() {
 {"name":"张三","age":18}
 ```
 
-忽略字段
+忽略字段"-"
 ```golang
 package main
 
