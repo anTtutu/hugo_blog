@@ -88,6 +88,17 @@ function checkYes()
     fi
 }
 
+function commitAndPush()
+{
+    git pull
+
+    git add .
+
+    git commit -m "$1"
+
+    git push
+}
+
 function main()
 {
     # 检验入参，需要增加提交注释
@@ -98,6 +109,9 @@ function main()
 
     # 二次确认 
     checkYes
+
+    # commit and push
+    commitAndPush "$1"
 
     # deploy github pages
     hugoDeployGithub "$1" "${GITHUB}"
