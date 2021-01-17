@@ -88,7 +88,8 @@ function checkYes()
     fi
 }
 
-function commitAndPush()
+# commit and push mine
+function commitAndPushMine()
 {
     git pull
 
@@ -111,7 +112,7 @@ function main()
     checkYes
 
     # commit and push
-    commitAndPush "$1"
+    commitAndPushMine "$1"
 
     # deploy github pages
     hugoDeployGithub "$1" "${GITHUB}"
