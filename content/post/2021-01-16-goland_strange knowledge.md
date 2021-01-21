@@ -462,3 +462,45 @@ func main() {
 输出结果:
 {"name":"张三","age":18}
 ```
+
+## 13、...参数
+表示不定参数  
+笑话-题外话：第一次使用redis时，做批量写入，因为参数不定还闹过乌龙，以为...是展示不全导致的  
+函数可变数量参数  
+```golang
+package main
+
+import "fmt"
+
+func main() {
+   //multiParam 可以接受可变数量的参数
+   multiParam("jerry", 1)
+   multiParam("php", 1, 2)
+}
+func multiParam(name string, args ...int) {
+   fmt.Println(name)
+   //接受的参数放在args数组中
+   for _, e := range args {
+      fmt.Println(e)
+   }
+}
+```
+
+可变函数的参数
+```golang
+package main
+
+import "fmt"
+
+func main() {
+    //multiParam 可以接受可变数量的参数
+    multiParam("jerry", "herry")
+    multiParam("php", "mysql", "js")
+}
+func multiParam(args ...string) {
+    //接受的参数放在args数组中
+    for _, e := range args {
+        fmt.Println(e)
+    }
+}
+```
