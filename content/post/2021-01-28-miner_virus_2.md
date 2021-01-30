@@ -334,7 +334,7 @@ export PROMPT_COMMAND="history -a"
 ```
 
 ## 5、挖矿病毒的参考
-因为我发觉的2次挖矿病毒跟下面的表现很想，可能是变种了，有些环节不一样  
+因为我发觉的2次挖矿病毒跟下面的部分表相很像但是又不完全一样，可能是变种或者改进了 
 kinsing: https://blog.trendmicro.com.tw/?p=66511  
 kinsing: https://blog.csdn.net/cfm_gavin/article/details/103803448  
 sh: https://notes.daiyuhe.com/clear-linux-mining-virus/  
