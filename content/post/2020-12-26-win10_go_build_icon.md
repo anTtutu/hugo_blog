@@ -84,6 +84,9 @@ go build
 ```golang
 go build -ldflags="-H windowsgui -w -s"
 ```
-应该只有gui的程序才需要带，本文举例是非gui界面的，因此带了反而会出现无法正确运行。    
-对比带了该参数比直接的go build打包出来的文件大小不一致，偏小很多，可能非gui的命令行程序不适合带这个参数。比如用walk的gui go项目带了没问题。  
+应该只有gui的程序才需要带，本文举例是非gui界面的，因此带了反而会出现无法正确运行。
+![](/posts/icon/diff.jpg)
+对比带了该参数比直接的go build打包出来的文件大小不一致，偏小很多，可能非gui的命令行程序不适合带这个参数。
+![](/posts/icon/diff2.png)
+比如用walk的gui go项目带了没问题。  
 验证通过2、3步骤做了ico处理的，建议通过go build打包。
