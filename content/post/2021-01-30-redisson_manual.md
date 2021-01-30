@@ -3,7 +3,7 @@ title: "redisson不全手册"
 date: 2021-01-30T00:29:47+08:00
 tags: [ "java", "redis", "redisson" ]
 description: "redisson不全手册"
-categories: [ "mine", "redis", "redisson" ]
+categories: [ "java", "redis", "redisson" ]
 toc: true
 ---
 
