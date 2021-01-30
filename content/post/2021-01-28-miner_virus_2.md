@@ -260,7 +260,7 @@ S.5....T.  c /etc/sysconfig/authconfig
 .M.......  g /boot/initramfs-3.10.0-957.el7.x86_64.img
 ```
 参数说明：
-  
+
 参数|含义
 -|-
 S|表示文件长度发生了变化
