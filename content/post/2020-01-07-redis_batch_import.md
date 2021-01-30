@@ -3,7 +3,7 @@ title: "30W数据批量导入redis集群"
 date: 2020-01-07T00:29:47+08:00
 tags: [ "redis" ]
 description: "30W数据批量导入redis集群"
-categories: [ "reids" ]
+categories: [ "redis" ]
 toc: true
 ---
 
