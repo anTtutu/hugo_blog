@@ -1,9 +1,9 @@
 ---
-title: "挖矿病毒2"
+title: "挖矿病毒2-分析和排查思路"
 date: 2021-01-28T00:29:47+08:00
-tags: [ "miner" ]
-description: "挖矿病毒2"
-categories: [ "miner" ]
+tags: [ "mine", "virus", "linux", "check" ]
+description: "挖矿病毒2-分析和排查思路"
+categories: [ "mine", "virus", "linux", "check" ]
 toc: true
 ---
 
@@ -61,7 +61,7 @@ toc: true
 ## 3、排查思路
 先找到病毒主体文件，然后需要有清晰的排查思路，结合搜集到的信息，可以去一些安全或者漏洞网站查询是否有人中招和排查经验，结合已经曝光的信息再加上自己的思路，可以事半功倍
 ### 3.1、top异常服务
-有的挖矿病毒不会修改服务名，有的会隐藏成sysupdate、networkservice、sysguard这些看着像系统进程的名称，需要凭职业经验分辨
+有的挖矿病毒不会修改服务名，有的会隐藏成sysupdate、networkservice、sysguard这些看着像系统进程的名称，有的还会改成apache、php、mysql等服务名，需要凭职业经验分辨  
 ```bash
 top
 top > top.txt
