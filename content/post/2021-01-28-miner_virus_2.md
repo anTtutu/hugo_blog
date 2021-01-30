@@ -259,16 +259,17 @@ S.5....T.  c /etc/sysconfig/authconfig
 .M.......  g /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 .M.......  g /boot/initramfs-3.10.0-957.el7.x86_64.img
 ```
-说明：
-参数|含义 
+参数说明：
+  
+参数|含义
 -|-
-S|表示文件长度发生了变化 
-M|表示文件的访问权限或文件类型发生了变化 
-5|表示MD5校验和发生了变化 
-D|表示设备节点的属性发生了变化 
-L|表示文件的符号链接发生了变化 
-U|表示文件/子目录/ 设备节点的owner 发生了变化 
-G|表示文件/子目录/ 设备节点的group 发生了变化 
+S|表示文件长度发生了变化
+M|表示文件的访问权限或文件类型发生了变化
+5|表示MD5校验和发生了变化
+D|表示设备节点的属性发生了变化
+L|表示文件的符号链接发生了变化
+U|表示文件/子目录/设备节点的owner发生了变化
+G|表示文件/子目录/设备节点的group发生了变化
 T|表示文件最后一次的修改时间是发生了变化
 
 ### 3.18、检查命令的完整性
@@ -334,7 +335,7 @@ export PROMPT_COMMAND="history -a"
 ```
 
 ## 5、挖矿病毒的参考
-因为我发觉的2次挖矿病毒跟下面的部分表相很像但是又不完全一样，可能是变种或者改进了 
+因为我发觉的2次挖矿病毒跟下面的部分表相很像但是又不完全一样，可能是变种或者改进了  
 kinsing: https://blog.trendmicro.com.tw/?p=66511  
 kinsing: https://blog.csdn.net/cfm_gavin/article/details/103803448  
 sh: https://notes.daiyuhe.com/clear-linux-mining-virus/  
