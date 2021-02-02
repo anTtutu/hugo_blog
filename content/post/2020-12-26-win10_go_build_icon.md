@@ -92,7 +92,7 @@ go build -ldflags="-H windowsgui -w -s"
 比如用walk的gui go项目带了没问题。  
 验证通过2、3步骤做了ico处理的，建议通过go build打包。
 
-### 4、可以写打包脚本
+## 4、可以写打包脚本
 创建build.bat
 ```bat
 @echo off
