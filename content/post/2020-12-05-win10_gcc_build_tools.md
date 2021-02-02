@@ -12,6 +12,8 @@ toc: true
 
 不过mingw更加简单和小巧，cygwin或者wls都还需要再需要apg-get或者yum安装一些包，mingw更加简单，解压即用。
 
+macos也有，直接无脑brew install mingw-w64
+
 ## 2、下载
 现在64位系统居多，mingw有个分支版本mingw-64，建议下载这个  
 [去sourceforge下载](https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/)  
@@ -28,7 +30,7 @@ toc: true
 下面对几个选项给出说明 
 参数|说明 
 |-|-|
-Version|制定版本号，从4.9.1-8.1.0，按需选择，没有特殊要求就用最新版吧  
+Version|指定版本号，从4.9.1-8.1.0，按需选择，没有特殊要求就用最新版吧  
 Architecture|跟操作系统有关，64位系统选择x86_64，32位系统选择i686  
 Threads|设置线程标准可选posix或win32  
 Exception|设置异常处理系统，x86_64可选为seh和sjlj，i686为dwarf和sjlj  
