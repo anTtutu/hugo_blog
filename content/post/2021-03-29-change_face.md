@@ -38,14 +38,76 @@ nvidia-CUDA
 
 ## 5、执行如下步骤
 本着快速应用的地步，优先选择步骤3的完整项目包
-### 1、2) extract images from video data_src.bat           --把源视频拆分成图片
+![](/posts/deepface/menu.png)
 
+### 5.1 在workspace目录下准备好2份视频，分别命名data_dst.mp4、data_src.mp4
+>data_dst.mp4: 需要被换脸的视频
+>data_src.mp4: 可以提取脸的源视频
 
-### 2、3) extract images from video data_dst FULL FPS.bat  --把目标视频拆分成图片
-### 3、4) data_src extract faces extract.bat               --从源图片中提取人脸，也叫切脸
-### 4、5) data_dst extract faces extract.bat               --从目标图片中提取人脸
-### 5、6) train Quick96.bat                                --训练模型，耗时，不会自己结束
+### 5.2 在workspace下检查工作目录，没有就参考如下截图创建空目录
+![](/posts/deepface/workspace.png)
+![](/posts/deepface/dst.png)
+![](/posts/deepface/src.png)
+
+## 6、开始工作
+脚本中间的具体参数很好理解，这个工程也有完整的中文版，实在不熟悉的可以网上找下翻译好的中文完整工具包下载，这里不做过多说明，只简单告诉步骤
+### 6.1、把源视频拆分成图片
+执行脚本
+```bat
+2) extract images from video data_src.bat
+```
+![](/posts/deepface/srcpic.png)
+
+### 6.2、把目标视频拆分成图片
+执行脚本
+```bat
+3) extract images from video data_dst FULL FPS.bat
+```
+![](/posts/deepface/dstpic.png)
+
+### 6.3、从源图片中提取人脸，也叫切脸
+执行脚本
+```bat
+4) data_src extract faces extract.bat
+```
+参数|说明|备注
+-|-|-
+f|全脸|
+wf|带额全脸|
+head|连头发一起换|越大越消耗GPU运算
+![](/posts/deepface/srcface.png)
+
+### 6.4、从目标图片中提取人脸
+执行脚本
+```bat
+5) data_dst extract faces extract.bat
+```
+![](/posts/deepface/dstface.png)
+
+### 6.5、训练模型，耗时，不会自己结束
+执行脚本
+```bat
+6) train Quick96.bat
+```
 >1、SAEHD模型做出来的视频质量更好，但是要求的配置更高。  
 >2、退出后再次点击train Quick96.bat 可以继续训练，进度不会丢失
-### 6、7) merge Quick96.bat                                --图片换脸
-### 7、8) merged to mp4.bat                                --把图片合成视频
+如下是几个小时训练的进度，分别是低于1000，1000 ~ 2000，2000 ~ 3000 3个阶段的，建议更多时间训练高于万次或者自己满意为止
+![](/posts/deepface/900.png)
+![](/posts/deepface/1000.png)
+![](/posts/deepface/2000.png)
+![](/posts/deepface/3000.png)
+最后生成自己训练的模型文件：如下图
+![](/posts/deepface/model.png)
+
+### 6.6、图片换脸
+执行脚本
+```bat
+7) merge Quick96.bat
+```
+
+### 6.7、把图片合成视频
+执行脚本
+```bat
+8) merged to mp4.bat
+```
+<video src="/posts/deepface/result.mp4" width="800px" height="600px" controls="controls"></video>
