@@ -1,7 +1,7 @@
 ---
 title: "python生成matplotlib的统计图"
 date: 2021-04-30T00:29:47+08:00
-tags: [ "python", "pandas", "matplotlib" ]
+tag : [ "python", "pandas", "matplotlib" ]
 description: "python生成matplotlib统计图"
 categories: [ "python", "pandas", "matplotlib" ]
 toc: true
@@ -10,7 +10,7 @@ draft: true
 
 ## 1、前言
 
-记录下python生成统计图的一些常规使用，主要是2D的统计图，3D的不涉及
+记录下python生成统计图的一些常规使用，主要是2D的统计图，3D的暂不涉及
 
 ## 2、准备工作
 
