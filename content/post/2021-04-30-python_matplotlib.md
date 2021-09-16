@@ -89,6 +89,7 @@ plt.rcParams['axes.unicode_minus'] = False
 ### 2.6 其他常用参数介绍
 
 线条样式：lines
+
 函数|说明
 -|-
 plt.rcParams['lines.linestyle'] = '-.'|线条样式
@@ -97,19 +98,25 @@ plt.rcParams['lines.color'] = 'blue'|线条颜色
 plt.rcParams['lines.marker'] = None|默认标记
 plt.rcParams['lines.markersize'] = 6|标记大小
 plt.rcParams['lines.markeredgewidth'] = 0.5|标记附近的线宽
+
 横、纵轴：xtick、ytick
+
 函数|说明
 -|-
 plt.rcParams['xtick.labelsize']|横轴字体大小
 plt.rcParams['ytick.labelsize']|纵轴字体大小
 plt.rcParams['xtick.major.size']|x轴最大刻度
 plt.rcParams['ytick.major.size']|y轴最大刻度
+
 figure中的子图：axes
+
 函数|说明
 -|-
 plt.rcParams['axes.titlesize']|子图的标题大小
 plt.rcParams['axes.labelsize']|子图的标签大小
+
 图像、图片：figure、savefig
+
 函数|说明
 -|-
 plt.rcParams['figure.dpi']|图像分辨率
