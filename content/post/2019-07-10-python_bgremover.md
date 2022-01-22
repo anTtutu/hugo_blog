@@ -29,6 +29,21 @@ pip install backgroundremover
 ```
 
 ## 3、下载模型并设置
+如果不提前下载模型的话，在首次执行的时候会自动下载，但是需要从 google 网盘下载，因此需要有翻墙能力。  
+如果手工下载可以参考下面地址：  
+1、(https://github.com/xuebinqin/U-2-Net)，参考章节"Download the u2net_portrait.pth"  
+2、(https://pan.baidu.com/s/1FbUIBJsEua7G1vYo06lSmg) 提取码: o0uu
+3、(https://drive.google.com/u/0/uc?id=1rbSTGKAE-MTxBYHd-51l2hMOQPT_7EPy&export=download)
+```
+## Window：
+c:/Windows/user/.u2net/u2net.pth
+
+## Mac:
+/Users/lyc/.u2net/u2net.pth
+
+## Linux:
+/root/.u2net/u2net.pth
+```
 
 ## 4、图片
 从本地文件图像中删除背景
