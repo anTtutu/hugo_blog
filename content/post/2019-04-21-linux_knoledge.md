@@ -8,9 +8,9 @@ toc: true
 ---
 
 ## 前言
-linux的 tmp 目录和 var 目录会被系统定期清理
+linux的一些小细节记录
 
-## 1、tmp目录
+## 1、tmp目录、var目录自动清理
 tmp下的文件或目录长时间没有更新或者改动的话会被系统定期时间，配置参考如下:
 ```bash
 vi /usr/lib/tmpfiles.d/tmp.conf
@@ -27,7 +27,7 @@ x /var/tmp/systemd-private-%b-*
 X /var/tmp/systemd-private-%b-*/tmp
 ```
 
-## 2、tcp连接数
+## 2、tcp连接数统计
 ```bash
 netstat -ant|awk '/^tcp/ {++S[$NF]} END {for(a in S) print (a,S[a])}'
 
@@ -46,14 +46,17 @@ wget --no-check-certificate -O brutexss.zip "http://files.cnblogs.com/files/Pitc
 ## 4、wget抓取网站
 ```bash
 wget -m -e robots=off https://www.baidu.com
--m是克隆整个网站,-e robots=off是让wget忽视robots.txt
+-m 是克隆整个网站
+-e robots=off 是让wget忽视robots.txt
 ```
 
 ## 5、shell批量注释
+```
 <<'COMMENT'
 ...
 
-COMMENT
+COMMENT  
+```
 举例如下：
 ```bash
 #!/bin/bash
@@ -67,15 +70,20 @@ echo "Do something else"
 ```
 
 ## 6、linux的proc
-/dev/pts/x       虚拟终端
-/dev/ttySx       串行控制端
-/dev/ttyx        控制台
-/dev/console     单用户控制台
+类型|说明
+-|-
+/dev/pts/x|虚拟终端
+/dev/ttySx|串行控制端
+/dev/ttyx|控制台
+/dev/console|单用户控制台
 
-/etc/motd        用于登陆的提示信息
+## 7、ssh登录提示信息
+类型|说明
+-|-
+/etc/motd|用于登陆的提示信息
 
-## 7、使用iptables模拟故障
-使用 iptables 来模拟网络故障的时候，我们针对 Redis 写入进行处理。
+## 8、使用iptables模拟故障
+使用 iptables 来模拟网络故障的时候，我们针对 Redis 写入进行处理。  
 简单来说就是在 Redis Server 端口 OUTPUT 的网络包分别进行 REJECT 和 DROP 操作。
 ```bash
 sudo iptables -D OUTPUT -p tcp --destination-port 22368 -j REJECT
@@ -86,58 +94,104 @@ sudo iptables -D OUTPUT -p tcp --destination-port 22368 -j DROP
 Caused by: java.net.SocketTimeoutException: connect timed out
 ```
 
-## 8、删除乱码文件
-查询文件的inode编号
-```bash
-ls -li 
-```
-列出文件的节点ID, 如: 123456789 
-单个删除
-```bash
-find ./ -inum 123456789 -print -exec rm -rf {} \; 
-```
-批量删除 
-```bash
-for n in 123456789 987654321; 
-do 
-   find . -inum $n -exec rm -f {} \;
-done 
-```
--inum是find命令的参数  
--exec后面是shell命令  
-{}代表当前文件（夹），  
-\;表示shell命令结束  
-
 ## 9、tty、pts
-tty本地登陆
-pts远程登录
-
-## 10、一些特殊参数
-参数|说明
+类型|说明
 -|-
-$#|是传给脚本的参数个数  
-$0|是脚本本身的名字
-$1|是传递给该shell脚本的第一个参数
-$2|是传递给该shell脚本的第二个参数
-$@|是传给脚本的所有参数的列表
-$*|是以一个单字符串显示所有向脚本传递的参数，与位置变量不同，参数可超过9个
-$$|是脚本运行的当前进程ID号
-$?|是显示最后命令的退出状态，0表示没有错误，其他表示有错误
+tty|本地登陆
+pts|远程登录
 
-## 11、base64
-Linux下用base64命令加解密字符串
+## 10、base64
+### Linux下用base64命令加解密字符串
 ```bash
-加密：
-$ echo Hello World | base64
+编码：
+$ echo "Hello World" | base64
 SGVsbG8gV29ybGQK
-解密：
-$ echo SGVsbG8gV29ybGQK | base64 -d
+解码：
+$ echo "SGVsbG8gV29ybGQK" | base64 -d
 Hello World
 ```
-mac:
+### mac:
 ```bash
-字符串： 
+编码： 
 echo "abc" | base64
+YWJjCg==
 解码：     
 echo "YWJjCg==" | base64 -D
+abc
 ```
+### windows
+```bat
+编码：
+certutil -encode 1.txt 2.txt
+//将 1.txt 编码为 2.txt
+解码：
+certutil -decode 2.txt 3.txt
+//将 2.txt 解码为 3.txt
+```
+#### 注:
+windows的base64编码是将1.txt的内容输出到2.txt，2.txt必须不存在由命令自己生成  
+base64解码是将刚才生成的2.txt的编码输出到3.txt，3.txt必须不存在由命令自己生成  
+windows的base64编码比标准的base64尾部数字有少许字符不同或者缺少
+
+## 11、md5等摘要生成
+### linux：
+```bash
+echo -n "123456" | md5sum
+e10adc3949ba59abbe56e057f20f883e
+```
+### mac:
+```bash
+$ md5 -s "123456"
+MD5 ("123456") = e10adc3949ba59abbe56e057f20f883e
+```
+其他摘要
+```bash
+#生成32位散列字符串, 可以不带字符串
+md5 -s "111111"
+MD5 ("111111") = 96e79218965eb72c92a549dd5a330112
+
+#生成40位SHA1散列字符串
+echo -n "111111" | openssl sha1
+3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d
+
+#生成64位SHA256散列字符串
+echo -n "111111" | openssl sha256
+bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a
+
+#生成128位SHA512散列字符串
+echo -n "111111" | openssl sha512
+b0412597dcea813655574dc54a5b74967cf85317f0332a2591be7953a016f8de56200eb37d5ba593b1e4aa27cea5ca27100f94dccd5b04bae5cadd4454dba67d
+
+#32位HMAC md5字符串
+echo -n "111111" | openssl dgst -md5 -hmac "key"
+617673cb651cec1b48e88f24d8e4df8d
+
+#40位hmac sha1字符串
+echo -n "111111" | openssl sha1 -hmac "key"
+1cda07ef7e4d03ec3c1bbddbc6f7f5f6aed7a8ce
+
+#64位hmac sha256字符串
+echo -n "111111" | openssl sha256 -hmac "key"
+847b111693b519f01f26feee81c4a1b73cf2fe2bd8d5df913c4daa1ef0957809
+
+#128位hmac sha512字符串
+echo -n "111111" | openssl sha512 -hmac "key"
+14b58f8452542bccc82fcabbd4ac268e9d3ce08dd054f0293097fbedfcc3afefcb6d0f1d3468a3926959d22fd67a595ec1c9b0c4b3f7f15cc34589cfad336273
+
+#计算文件md5
+md5 xx.txt
+
+#计算文件sha1
+openssl sha1 xx.txt
+```
+#### windows:
+```bat
+D:\>certutil -hashfile sensors-analytics-1.7.2676-centos6-standalone.tar MD5
+MD5 哈希(文件 sensors-analytics-1.7.2676-centos6-standalone.tar):
+f3 32 43 0f c5 97 15 2d 0e e4 51 48 2a c5 7f ab
+CertUtil: -hashfile 命令成功完成。
+```
+
+#### 注:
+linux下的其他摘要跟mac的命令差不多  
+windows下没测试出字符串的方式，只能针对文件生成md5摘要
