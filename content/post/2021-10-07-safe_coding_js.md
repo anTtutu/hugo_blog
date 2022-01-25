@@ -1,9 +1,9 @@
 ---
 title: "前端编码安全"
 date: 2021-10-07T00:29:47+08:00
-tag : [ "前端", "编码安全"]
+tag : [ "前端", "safe" ]
 description: "前端编码安全"
-categories: [ "前端", "编码安全"]
+categories: [ "前端", "safe" ]
 toc: true
 ---
 

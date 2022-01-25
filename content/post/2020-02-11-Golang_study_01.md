@@ -1,9 +1,9 @@
 ---
 title: Golang学习笔记01 - 关键字和基础数据类型介绍
 date: 2020-02-11T21:46:20+08:00
-tags: [ "golang" ]
+tags: [ "go" ]
 description: "Golang学习笔记"
-categories: [ "golang" ]
+categories: [ "go" ]
 toc: true
 ---
 

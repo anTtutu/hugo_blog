@@ -1,9 +1,9 @@
 ---
 title: "Mac下远程运行Linux的GUI程序"
 date: 2020-09-17T00:29:47+08:00
-tags: [ "Mac", "linux" ]
+tags: [ "mac", "linux" ]
 description: "Mac下远程运行Linux的GUI程序"
-categories: [ "Mac", "linux" ]
+categories: [ "mac", "linux" ]
 toc: true
 ---
 

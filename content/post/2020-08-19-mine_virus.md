@@ -1,9 +1,9 @@
 ---
 title: "分析挖矿病毒"
 date: 2020-08-19T00:29:47+08:00
-tags: [ "virus", "mine" ]
+tags: [ "mine", "virus", "linux", "check" ]
 description: "分析挖矿病毒"
-categories: [ "linux", "virus" ]
+categories: [ "mine", "virus", "linux", "check" ]
 toc: true
 ---
 

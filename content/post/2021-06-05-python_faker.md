@@ -1,9 +1,9 @@
 ---
 title: "python工具-测试数据生成器"
 date: 2021-06-05T00:29:47+08:00
-tag : [ "python", "测试", "生成器"]
+tag : [ "python", "test", "faker" ]
 description: "python工具-测试数据生成器"
-categories: [ "python", "测试", "生成器"]
+categories: [ "python", "test", "faker" ]
 toc: true
 ---
 

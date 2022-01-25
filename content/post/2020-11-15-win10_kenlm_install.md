@@ -1,9 +1,9 @@
 ---
 title: "Win10安装kenlm语言模型模块"
 date: 2020-11-15T00:29:47+08:00
-tags: [ "Win10", "python", "kenlm" ]
+tags: [ "win10", "python", "kenlm" ]
 description: "Win10安装kenlm语言模型模块"
-categories: [ "Win10", "python", "kenlm" ]
+categories: [ "win10", "python", "kenlm" ]
 toc: true
 ---
 

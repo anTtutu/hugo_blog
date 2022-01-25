@@ -1,9 +1,9 @@
 ---
 title: "android下的termux模拟器安装openJDK和运行springboot项目"
 date: 2021-03-10T00:29:47+08:00
-tags: [ "android", "termux", "arm64", "springboot" ]
+tags: [ "android", "termux", "arm64", "springboot", "java" ]
 description: "android下的termux模拟器安装openJDK和运行springboot项目"
-categories: [ "android", "termux" ]
+categories: [ "android", "termux", "arm64", "springboot", "java" ]
 toc: true
 ---
 

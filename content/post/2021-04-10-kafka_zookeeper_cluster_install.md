@@ -1,9 +1,9 @@
 ---
 title: "kafka集群和zk集群搭建"
 date: 2021-04-10T00:29:47+08:00
-tags: [ "kafka", "zookeeper", "zk" ]
+tags: [ "kafka", "zookeeper", "zk", "java" ]
 description: "kafka集群和zk集群搭建"
-categories: [ "kafka", "zookeeper", "zk" ]
+categories: [ "kafka", "zookeeper", "zk", "java" ]
 toc: true
 ---
 

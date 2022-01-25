@@ -1,9 +1,9 @@
 ---
 title: "Win10有道云笔记去掉左下角广告"
 date: 2020-11-16T00:29:47+08:00
-tags: [ "Win10", "ynote" ]
+tags: [ "win10", "ynote" ]
 description: "Win10有道云笔记去掉左下角广告"
-categories: [ "Win10", "ynote" ]
+categories: [ "win10", "ynote" ]
 toc: true
 ---
 

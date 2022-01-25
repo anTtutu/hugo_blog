@@ -1,9 +1,9 @@
 ---
 title: "maven校验依赖包CVE漏洞"
 date: 2021-09-19T00:29:47+08:00
-tag : [ "maven" ]
+tag : [ "maven", "java" ]
 description: "maven校验依赖包CVE漏洞"
-categories: [ "maven" ]
+categories: [ "maven", "java" ]
 toc: true
 ---
 
