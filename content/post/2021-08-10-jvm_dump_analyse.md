@@ -1,9 +1,9 @@
 ---
 title: "jvm的大dump文件分析"
 date: 2021-08-10T00:29:47+08:00
-tag : [ "dump", "jvm"]
+tag : [ "dump", "jvm", "java" ]
 description: "jvm的大dump文件分析"
-categories: [ "dump", "jvm"]
+categories: [ "dump", "jvm", "java" ]
 toc: true
 ---
 

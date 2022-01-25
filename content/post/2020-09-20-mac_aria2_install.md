@@ -1,9 +1,9 @@
 ---
 title: "Mac下安装aria2下载工具"
 date: 2020-09-20T00:29:47+08:00
-tags: [ "Mac", "aria2" ]
+tags: [ "mac", "aria2" ]
 description: "Mac下安装aria2下载工具"
-categories: [ "Mac", "aria2" ]
+categories: [ "mac", "aria2" ]
 toc: true
 ---
 

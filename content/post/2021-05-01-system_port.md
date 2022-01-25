@@ -1,9 +1,9 @@
 ---
 title: "系统端口速查"
 date: 2021-05-01T00:29:47+08:00
-tag : [ "port", "端口"]
+tag : [ "port", "linux", "windows" ]
 description: "系统端口速查"
-categories: [ "port", "端口"]
+categories: [ "port", "linux", "windows" ]
 toc: true
 ---
 

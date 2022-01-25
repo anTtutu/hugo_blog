@@ -1,9 +1,9 @@
 ---
 title: "Win10下新的gcc工具"
 date: 2020-12-05T00:29:47+08:00
-tags: [ "Win10", "gcc" ]
+tags: [ "win10", "gcc" ]
 description: "Win10下新的gcc工具"
-categories: [ "Win10", "gcc" ]
+categories: [ "win10", "gcc" ]
 toc: true
 ---
 

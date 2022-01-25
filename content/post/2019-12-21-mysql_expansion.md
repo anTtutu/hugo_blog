@@ -1,9 +1,9 @@
 ---
 title: mysql集群在线无损扩容
 date: 2019-12-21T21:46:20+08:00
-tags: [ "mysql" ]
+tags: [ "mysql", "linux" ]
 description: "mysql集群在线无损扩容"
-categories: [ "mysql" ]
+categories: [ "mysql", "linux" ]
 toc: true
 ---
 

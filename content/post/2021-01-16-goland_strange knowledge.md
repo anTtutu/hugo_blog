@@ -1,9 +1,9 @@
 ---
 title: "golang奇怪的知识点"
 date: 2021-01-16T00:29:47+08:00
-tags: [ "golang" ]
+tags: [ "go" ]
 description: "golang奇怪的知识点"
-categories: [ "golang" ]
+categories: [ "go" ]
 toc: true
 ---
 

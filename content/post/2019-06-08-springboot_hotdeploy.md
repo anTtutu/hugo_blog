@@ -1,9 +1,9 @@
 ---
 title: springboot的devTools热部署
 date: 2019-06-08T21:46:20+08:00
-tags: [ "springboot" ]
+tags: [ "springboot", "java" ]
 description: "springboot的devTools热部署"
-categories: [ "springboot" ]
+categories: [ "springboot", "java" ]
 toc: true
 ---
 

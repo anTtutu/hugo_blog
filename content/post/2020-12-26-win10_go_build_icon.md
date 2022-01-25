@@ -1,9 +1,9 @@
 ---
 title: "Win10下打包go工具增加icon"
 date: 2020-12-26T00:29:47+08:00
-tags: [ "Win10", "build" ]
+tags: [ "win10", "build", "go" ]
 description: "Win10下打包go工具增加icon"
-categories: [ "Win10", "build" ]
+categories: [ "win10", "build", "go" ]
 toc: true
 ---
 

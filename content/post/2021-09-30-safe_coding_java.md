@@ -1,9 +1,9 @@
 ---
 title: "java编码安全"
 date: 2021-09-30T00:29:47+08:00
-tag : [ "java", "编码安全"]
+tag : [ "java", "safe" ]
 description: "java编码安全"
-categories: [ "java", "编码安全"]
+categories: [ "java", "safe" ]
 toc: true
 ---
 

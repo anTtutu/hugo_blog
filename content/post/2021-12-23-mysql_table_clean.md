@@ -1,9 +1,9 @@
 ---
 title: "mysql大表的数据清理"
 date: 2021-12-23T00:29:47+08:00
-tag : [ "mysql"]
+tag : [ "mysql", "clean" ]
 description: "mysql大表的数据清理"
-categories: [ "mysql"]
+categories: [ "mysql", "clean" ]
 toc: true
 ---
 

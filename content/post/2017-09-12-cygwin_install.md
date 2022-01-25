@@ -1,9 +1,9 @@
 ---
 title: Cygwin安装
 date: 2017-09-12T21:46:20+08:00
-tags: [ "cygwin" ] 
+tags: [ "cygwin", "win10" ] 
 description: "Cygwin安装"
-categories: [ "cygwin" ]
+categories: [ "cygwin", "win10" ]
 toc: true
 ---
 

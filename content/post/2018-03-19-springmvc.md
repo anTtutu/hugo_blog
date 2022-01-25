@@ -1,9 +1,9 @@
 ---
 title: springmvc的参数校验注解整理
 date: 2018-03-19T21:46:20+08:00
-tags: [ "java" ] 
+tags: [ "java", "jsr" ] 
 description: "springmvc的参数校验注解整理"
-categories: [ "java" ]
+categories: [ "java", "jsr" ]
 toc: true
 ---
 

@@ -1,9 +1,9 @@
 ---
 title: mysql低版本源代码安装
 date: 2018-08-14T21:46:20+08:00
-tags: [ "mysql" ] 
+tags: [ "mysql", "linux" ] 
 description: "mysql低版本源代码安装"
-categories: [ "mysql" ]
+categories: [ "mysql", "linux" ]
 toc: true
 ---
 
