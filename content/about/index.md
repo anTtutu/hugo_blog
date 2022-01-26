@@ -13,7 +13,7 @@ toc: true
 
 了解一些linux、DB、服务器方面的少量知识。
 
-学习Golang和Python中，目前Golang比较感兴趣，Python只是工具爬虫等使用才会调试。
+学习Golang和Python中，目前Golang比较感兴趣。
 
 这个博客是我参考[飞雪无情](https://www.flysnow.org)优化的模板主题，欢迎我们共同成长。
 
