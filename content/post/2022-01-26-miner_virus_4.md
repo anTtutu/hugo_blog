@@ -87,20 +87,28 @@ CONTAINER ID        IMAGE                                                       
 fd3a4ea7e1d9        ubuntu                                                                "/bin/bash /var/tmp/./crypto/.../httpd-crypto"   11 hours ago        Exited (1) 11 hours ago                                                    
 ```
 
+## 7、查看镜像
+```bash
+[root@harbor ~]# docker images |grep docker72590
+```
+
 ## 7、停容器
 ```bash
-[root@harbor ~]# docker stop fd3a4ea7e1d9
+[root@harbor ~]# docker stop c083afcd779c
+[root@harbor ~]# docker stop d241358140a8
 ```
+#### 注意：
+要找到守护进程和主体进程，清理干净
 
 ## 8、删容器
 ```bash
-[root@harbor ~]# docker rm fd3a4ea7e1d9
-c5607dd23d6b
+[root@harbor ~]# docker rm c083afcd779c
+[root@harbor ~]# docker rm d241358140a8
 ```
 
 ## 9、删镜像
 ```bash
-[root@harbor ~]# docker rmi 4e5021d210f6
+[root@harbor ~]# docker rmi b39e0b392b7e
 ```
 
 ## 10、入侵原因
