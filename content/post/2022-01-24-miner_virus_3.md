@@ -155,6 +155,6 @@ ELF用ida pro 分析下，汇编晦涩难懂，只能提取是否还有价值的
 规划好网络，测试、生产、办公环境等做好虚拟隔离
 
 ## 5、挖矿病毒的参考
-挖矿进程——pool.minexmr.com的解决办法1: https://blog.csdn.net/dot_life/article/details/105480202  
-挖矿进程——pool.minexmr.com的解决办法2: https://blog.csdn.net/qq_16845639/article/details/77650271  
-kerberods挖矿病毒查杀及分析: https://blog.csdn.net/u010457406/article/details/89328869
+挖矿进程——pool.minexmr.com的解决办法1: <https://blog.csdn.net/dot_life/article/details/105480202>  
+挖矿进程——pool.minexmr.com的解决办法2: <https://blog.csdn.net/qq_16845639/article/details/77650271>  
+kerberods挖矿病毒查杀及分析: <https://blog.csdn.net/u010457406/article/details/89328869>

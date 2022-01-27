@@ -1,29 +1,29 @@
 ---
 title: oracle知识梳理-awr\ash\addm日志开启并提取
 date: 2017-08-27T21:46:20+08:00
-tags: [ "oracle" ] 
+tags: [ "oracle", "awr" ] 
 description: "oracle知识梳理-awr\ash\addm日志开启并提取"
-categories: [ "oracle" ]
+categories: [ "oracle", "awr" ]
 toc: true
 ---
 
-## 之前工作经常搜集AWR日志，但是因工作环境的调整，6年下来的笔记都无法带出来，只能回忆一些和找一些网上的信息整理了。
+## 前言
+之前工作经常搜集AWR日志，但是因工作环境的调整，6年下来的笔记都无法带出来，只能回忆一些和找一些网上的信息整理了。  
+常规的性能分析，awr足够了，但是深层次的问题，需要更多的日志，下面整理下awr、ash、addm日志的手工提取方式
 
-#### 常规的性能分析，awr足够了，但是深层次的问题，需要更多的日志，下面整理下awr、ash、addm日志的手工提取方式
+## 1、awr报告开启和提取操作步骤
+### 前提条件
+数据库为Oracle 10g以上版本。
 
-# 一、awr报告开启和提取操作步骤:
-
-#### 前提条件数据库为Oracle 10g以上版本。
-
-#### 背景信息
-
-#### Oracle默认快照1小时生成一次、保持7天，可以根据需要调整快照生成的频率、保持时长。如果要手工生成快照，则用
+### 背景信息
+Oracle默认快照1小时生成一次、保持7天，可以根据需要调整快照生成的频率、保持时长。  
+如果要手工生成快照，则用
 ```sql
 ~> sqlplus / as sysdba;登录数据库执行命令：
 SQL> exec dbms_workload_repository.create_snapshot();
 ```
-## 步骤 1 以oracle用户登录操作系统。
-## 步骤 2 登录数据库。
+### 步骤1 以oracle用户登录操作系统。
+### 步骤2 登录数据库。
 ```sql
 ~> sqlplus / as sysdba;
 登录成功后，返回信息如下：
@@ -36,7 +36,7 @@ Oracle Database 11g Enterprise Edition Release 11.1.0.7.0 - 64bit Production
 With the Partitioning, Oracle Label Security, OLAP, Data Mining,
 Oracle Database Vault and Real Application Testing options
 ```
-## 步骤 3 生成AWR报表。
+### 步骤3 生成AWR报表。
 ```sql
 1. 开始收集AWR报表
 SQL> @?/rdbms/admin/awrrpt.sql;
@@ -118,7 +118,7 @@ Enter value for report_name:
 如下所示为生成的AWR报表样例：
 Report written to awrrpt_1_3166_3168.html
 ```
-## 步骤 4 如果没指定目录和文件名，生成的AWR报表在当前目录，执行如下命令查看。
+### 步骤4 如果没指定目录和文件名，生成的AWR报表在当前目录，执行如下命令查看。
 ```sql
 1. 回到当前目录。
 SQL> host;
@@ -130,17 +130,17 @@ awrrpt_1_3166_3168.html
 ----结束
 ```
 
-# 二、ash报告开启和提取操作步骤:
-#### 收集活动会话的历史信息、短暂的性能问题（比如只是持续几分钟的性能问题）、特定时段的数据库运行的性能状态信息，以及针对特定的模块、SQL_ID、SESSION_ID、service等来收集的性能状态信息。
-#### 背景信息
-#### ASH每秒钟收集一次当前处于非空闲等待事件的、活动状态的session的信息，不收集空闲的会话。
+## 2、ash报告开启和提取操作步骤:
+收集活动会话的历史信息、短暂的性能问题（比如只是持续几分钟的性能问题）、特定时段的数据库运行的性能状态信息，以及针对特定的模块、SQL_ID、SESSION_ID、service等来收集的性能状态信息。  
+### 背景信息
+ASH每秒钟收集一次当前处于非空闲等待事件的、活动状态的session的信息，不收集空闲的会话。
 
-## 步骤 1 以Oracle用户登录操作系统。
-## 步骤 2 登录数据库。
+### 步骤1 以Oracle用户登录操作系统。
+### 步骤2 登录数据库。
 ```sql
 :~> sqlplus / as sysdba; 
 ```
-## 步骤 3 生成ASH报表
+### 步骤3 生成ASH报表
 ```sql
 1. 开始收集ASH报表。
 SQL> @?/rdbms/admin/ashrpt.sql;
@@ -220,7 +220,7 @@ Enter value for report_name:
 如下所示为生成的ASH报表样例：
 Report written to ashrpt_1_0729_1920.html
 ```
-## 步骤 4 如果没指定目录和文件名，生成的ASH报表在当前目录，执行如下命令查看。
+### 步骤4 如果没指定目录和文件名，生成的ASH报表在当前目录，执行如下命令查看。
 ```sql
 1. 回到当前目录。
 SQL> host;
@@ -232,15 +232,15 @@ ashrpt_1_0729_1920.html
 ----结束
 ```
 
-# 三、ADDM日志开启和提取操作步骤:
-#### 收集定期内的数据库状态、潜在的数据库性能瓶颈，以及内建专家系统给出的Oracle性能调优方法和数据统计分析。
+## 3、ADDM日志开启和提取操作步骤:
+收集定期内的数据库状态、潜在的数据库性能瓶颈，以及内建专家系统给出的Oracle性能调优方法和数据统计分析。
 
-## 步骤 1 以oracle用户登录操作系统。
-## 步骤 2 登录数据库。
+### 步骤1 以oracle用户登录操作系统。
+### 步骤2 登录数据库。
 ```sql
 :~> sqlplus / as sysdba; 
 ```
-## 步骤 3 生成addm报表。
+### 步骤3 生成addm报表。
 ```sql
 1. 开始收集addm报表。
 SQL> @?/rdbms/admin/addmrpt; 
@@ -280,7 +280,7 @@ Enter value for report_name:
 如下所示为生成的ADDM报表样例：
 Report written to addmrpt_1_3311_3316.txt
 ```
-## 步骤 4 如果没指定目录和文件名，生成的ADDM报表在当前目录，执行如下命令查看。
+### 步骤4 如果没指定目录和文件名，生成的ADDM报表在当前目录，执行如下命令查看。
 ```sql
 1. 回到当前目录。
 SQL> host;

@@ -19,27 +19,28 @@ toc: true
 如果访问量大，我们还得兼顾本地缓存的线程安全问题。  
 必要的时候也要考虑缓存的回收策略。
 
-### Guava
+#### Guava
 Guava Cache 是google guava中的一个内存缓存模块，用于将数据缓存到JVM内存中。他很好的解决了上面提到的几个问题。
-* 很好的封装了get、put操作，能够集成数据源；
-* 线程安全的缓存，与ConcurrentMap相似，但前者增加了更多的元素失效策略，后者只能显示的移除元素；
-* Guava Cache提供了三种基本的缓存回收方式：  
+- 很好的封装了get、put操作，能够集成数据源；
+- 线程安全的缓存，与ConcurrentMap相似，但前者增加了更多的元素失效策略，后者只能显示的移除元素；
+- Guava Cache提供了三种基本的缓存回收方式：  
                 基于容量回收、定时回收和基于引用回收。  
                     定时回收有两种：按照写入时间，最早写入的最先回收；  
                                  按照访问时间，最早访问的最早回收；
-* 监控缓存加载/命中情况
+- 监控缓存加载/命中情况
 
 Guava Cache的架构设计灵感ConcurrentHashMap，在简单场景中可以通过HashMap实现简单数据缓存，但如果要实现缓存随时间改变、存储的数据空间可控则缓存工具还是很有必要的。  
 Cache存储的是键值对的集合，不同时是还需要处理缓存过期、动态加载等算法逻辑，需要额外信息实现这些操作，对此根据面向对象的思想，还需要做方法与数据的关联性封装，主要实现的缓存功能有：
-* 自动将节点加载至缓存结构中，当缓存的数据超过最大值时，使用LRU算法替换；
-* 它具备根据节点上一次被访问或写入时间计算缓存过期机制，缓存的key被封装在WeakReference引用中，缓存的value被封装在WeakReference或SoftReference引用中；
-* 还可以统计缓存使用过程中的命中率、异常率和命中率等统计数据。
-* 当缓存的数据超过最大值时，使用LRU算法替换。
+- 自动将节点加载至缓存结构中，当缓存的数据超过最大值时，使用LRU算法替换；
+- 它具备根据节点上一次被访问或写入时间计算缓存过期机制，缓存的key被封装在WeakReference引用中，缓存的value被封装在WeakReference或SoftReference引用中；
+- 还可以统计缓存使用过程中的命中率、异常率和命中率等统计数据。
+- 当缓存的数据超过最大值时，使用LRU算法替换。
 
-### Caffeine
+#### Caffeine
 Caffeine Cache它也是站在巨人的肩膀上-Guava Cache，借着他的思想优化了算法发展而来  
 
 说到优化，Caffeine Cache到底优化了什么呢？Caffeine 因使用 Window TinyLfu 回收策略，提供了一个近乎最佳的命中率。
+
 ### 淘汰算法特点
 刚提到guava基于LRU封装，常见的缓存淘汰算法还有FIFO，LFU。
 #### FIFO：
@@ -50,6 +51,7 @@ Caffeine Cache它也是站在巨人的肩膀上-Guava Cache，借着他的思想
 最近最少频率使用，利用额外的空间记录每个数据的使用频率，然后选出频率最低进行淘汰。这样就避免了 LRU 不能处理时间段的问题。
 
 上面三种策略各有利弊，实现的成本也是一个比一个高，同时命中率也是一个比一个好。Guava Cache虽然有这么多的功能，但是本质上还是对LRU的封装，如果有更优良的算法，并且也能提供这么多功能，相比之下就相形见绌了。
+
 ### 局限性
 #### LFU的局限性：
 在 LFU 中只要数据访问模式的概率分布随时间保持不变时，其命中率就能变得非常高。  
@@ -148,15 +150,15 @@ weakValues和softValues不可以同时使用
 如果使用了多个cache，比如redis、caffeine等，必须指定某一个CacheManage为@primary，在@Cacheable注解中没指定 cacheManager 则使用标记为primary的那个。
 
 ### 2.1 cache方面的注解主要有以下5个：
-* @Cacheable 触发缓存入口（这里一般放在创建和获取的方法上，@Cacheable注解会先查询是否已经有缓存，有会使用缓存，没有则会执行方法并缓存）
-* @CacheEvict 触发缓存的eviction（用于删除的方法上）
-* @CachePut 更新缓存且不影响方法执行（用于修改的方法上，该注解下的方法始终会被执行）
-* @Caching 将多个缓存组合在一个方法上（该注解可以允许一个方法同时设置多个注解）
-* @CacheConfig 在类级别设置一些缓存相关的共同配置（与其它缓存配合使用）
+- @Cacheable 触发缓存入口（这里一般放在创建和获取的方法上，@Cacheable注解会先查询是否已经有缓存，有会使用缓存，没有则会执行方法并缓存）
+- @CacheEvict 触发缓存的eviction（用于删除的方法上）
+- @CachePut 更新缓存且不影响方法执行（用于修改的方法上，该注解下的方法始终会被执行）
+- @Caching 将多个缓存组合在一个方法上（该注解可以允许一个方法同时设置多个注解）
+- @CacheConfig 在类级别设置一些缓存相关的共同配置（与其它缓存配合使用）
 
 #### 2.1.1 说一下@Cacheable 和 @CachePut的区别：
-* @Cacheable：它的注解的方法是否被执行取决于Cacheable中的条件，方法很多时候都可能不被执行。
-* @CachePut：这个注解不会影响方法的执行，也就是说无论它配置的条件是什么，方法都会被执行，更多的时候是被用到修改上。
+- @Cacheable：它的注解的方法是否被执行取决于Cacheable中的条件，方法很多时候都可能不被执行。
+- @CachePut：这个注解不会影响方法的执行，也就是说无论它配置的条件是什么，方法都会被执行，更多的时候是被用到修改上。
 
 #### 2.1.2 简要介绍Cacheable类中各个方法的使用：
 ```java
@@ -629,12 +631,12 @@ LoadingCache<String, Object> cache1 = Caffeine.newBuilder()
 
 #### 注意：
 AsyncLoadingCache不支持弱引用和软引用。
-* Caffeine.weakKeys()： 使用弱引用存储key。如果没有其他地方对该key有强引用，那么该缓存就会被垃圾回收器回收。由于垃圾回收器只依赖于身份(identity)相等，因此这会导致整个缓存使用身份 (==) 相等来比较 key，而不是使用 equals()。
-* Caffeine.weakValues() ：使用弱引用存储value。如果没有其他地方对该value有强引用，那么该缓存就会被垃圾回收器回收。由于垃圾回收器只依赖于身份(identity)相等，因此这会导致整个缓存使用身份 (==) 相等来比较 key，而不是使用 equals()。
-* Caffeine.softValues() ：使用软引用存储value。当内存满了过后，软引用的对象以将使用最近最少使用(least-recently-used ) 的方式进行垃圾回收。由于使用软引用是需要等到内存满了才进行回收，所以我们通常建议给缓存配置一个使用内存的最大值。 softValues() 将使用身份相等(identity) (==) 而不是equals() 来比较值。
+- Caffeine.weakKeys()： 使用弱引用存储key。如果没有其他地方对该key有强引用，那么该缓存就会被垃圾回收器回收。由于垃圾回收器只依赖于身份(identity)相等，因此这会导致整个缓存使用身份 (==) 相等来比较 key，而不是使用 equals()。
+- Caffeine.weakValues() ：使用弱引用存储value。如果没有其他地方对该value有强引用，那么该缓存就会被垃圾回收器回收。由于垃圾回收器只依赖于身份(identity)相等，因此这会导致整个缓存使用身份 (==) 相等来比较 key，而不是使用 equals()。
+- Caffeine.softValues() ：使用软引用存储value。当内存满了过后，软引用的对象以将使用最近最少使用(least-recently-used ) 的方式进行垃圾回收。由于使用软引用是需要等到内存满了才进行回收，所以我们通常建议给缓存配置一个使用内存的最大值。 softValues() 将使用身份相等(identity) (==) 而不是equals() 来比较值。
 
 Caffeine.weakValues()和Caffeine.softValues()不可以一起使用。
 
 ## 8、参考和引用
-Caffeine：https://blog.csdn.net/a953713428/article/details/92159746  
-Guava：https://blog.csdn.net/a953713428/article/details/91672602
+Caffeine：<https://blog.csdn.net/a953713428/article/details/92159746>  
+Guava：<https://blog.csdn.net/a953713428/article/details/91672602>

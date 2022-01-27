@@ -7,16 +7,16 @@ categories: [ "mine", "virus", "linux", "check" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 1月23日晚上22点附近，公司群收到管理员说阿里云报了挖矿病毒的警告  
 因此本人手里处理过2次挖矿病毒，针对挖矿病毒的杀毒和溯源，个人整理下心得，也有一部分思路来源网络整理
 
-## 2、分析
-### 2.1、top查看异常进程和占用率
+## 1、分析
+### 1.1 top查看异常进程和占用率
 ![](/posts/virus/top2.png)
 发现一个叫sh的进程名几乎占用全部的cpu资源
 
-### 2.2、根据pid查找挖矿病毒的目录
+### 1.2 根据pid查找挖矿病毒的目录
 当然用其他方法也可以找出，这里是当挖矿病毒正在运行时这么查找更加容易
 ![](/posts/virus/proc.png)
 找到挖矿病毒的主体文件所在目录了/tmp/admin/sh
@@ -26,41 +26,41 @@ toc: true
 ![](/posts/virus/dir.png)
 大多数厉害的挖矿病毒是不会留下脚本的，需要自己根据蛛丝马迹找，能找到脚本可以把修改的地方针对性的还原，没法找到脚本就没法100%还原被修改的配置了
 
-### 2.3、拿到挖矿主体二进制文件
+### 1.3 拿到挖矿主体二进制文件
 查看是否加壳，用PEiD.0.95查看
 ![](/posts/virus/PE.png)
 目前抓住的这个没有加壳，上一次的有加壳
 ![](/posts/virus/PE_info.png)
 不过查看加壳与否我都没法脱壳的，只是用工具查看是否还有价值的信息，加了强壳的二进制查看的价值不大了
 
-### 2.4、二进制查看
+### 1.4 二进制查看
 尝试是否能找到一点有用的信息  
 比如这个没加壳的就容易看到一些有价值的信息
 ![](/posts/virus/byte.png)
 
-### 2.5、有能力的可以上ida查看汇编信息
+### 1.5 有能力的可以上ida查看汇编信息
 本人不才。。。只能看个图
 不管是汇编视图还是二进制视图，因个人能力不足，无法查看更多有价值的信息
 ![](/posts/virus/ida1.png)
 ![](/posts/virus/ida2.png)
 
-### 2.6、查找其他痕迹，查看感染来源
+### 1.6 查找其他痕迹，查看感染来源
 ![](/posts/virus/last.png)
 
-### 2.7、查看日志
+### 1.7 查看日志
 ![](/posts/virus/message.png)
 
-### 2.8、病毒工具扫描
+### 1.8 病毒工具扫描
 ![](/posts/virus/warn1.png)
 ![](/posts/virus/warn2.png)
 
-### 2.9、找守护挖矿的进程
+### 1.9 找守护挖矿的进程
 可能是定时任务，也可能是其他二进制脚本
 ![](/posts/virus/kinsing.png)
 
-## 3、排查思路
+## 2、排查思路
 先找到病毒主体文件，然后需要有清晰的排查思路，结合搜集到的信息，可以去一些安全或者漏洞网站查询是否有人中招和排查经验，结合已经曝光的信息再加上自己的思路，可以事半功倍
-### 3.1、top异常服务
+### 2.1 top异常服务
 有的挖矿病毒不会修改服务名，有的会隐藏成sysupdate、networkservice、sysguard这些看着像系统进程的名称，有的还会改成apache、php、mysql等服务名，需要凭职业经验分辨  
 ```bash
 top
@@ -68,33 +68,33 @@ top > top.txt
 vi top.txt
 ```
 
-### 3.2、查看异常进程目录
+### 2.2 查看异常进程目录
 ```bash
 ps -axuf | grep pid
 ls /proc/{$pid}/
 ```
 
-### 3.3、检查定时任务
+### 2.3 检查定时任务
 ```bash
 /etc/crontab
 /var/spool/cron/root
 ```
 有修改的话需要还原
 
-### 3.4、检查账号
+### 2.4 检查账号
 ```bash
 /etc/passwd
 /etc/shadow
 ```
 有新增异常账号需要删除,需要留意特权账号uid=0的
 
-### 3.5、检查sudo
+### 2.5 检查sudo
 ```bash
 /etc/sudoers
 ```
 有新增的异常命令或者账号需要清理
 
-### 3.6、检查环境变量
+### 2.6 检查环境变量
 root账号的环境变量文件
 ```bash
 ~/.bash_profile
@@ -117,7 +117,7 @@ echo $PATH
 echo $PATH
 ```
 
-### 3.7、检查执行命令历史记录
+### 2.7 检查执行命令历史记录
 大多数厉害的挖矿病毒会清理history -c，因此抱着试试看的想法还是检查下
 ```bash
 .bash_history
@@ -130,7 +130,7 @@ echo $PATH
 .dbshell
 ```
 
-### 3.8、检查新增的文件或命令
+### 2.8 检查新增的文件或命令
 ```bash
 ls -lart /bin
 ls -lart /sbin
@@ -140,7 +140,7 @@ ls -lart /tmp
 ls -lart /etc/init.d/
 ```
 
-### 3.9、针对上一步可以采用修改日期排查法
+### 2.9 针对上一步可以采用修改日期排查法
 ```bash
 # 查找777权限的文件
 find . -name * -perm 777
@@ -150,14 +150,14 @@ find . -type f -newermt 2020-09-24 -ls
 find . -newermt "2019-09-09 00:00:00" -not -newermt "2019-09-10 00:00:00+1"  
 ```
 
-### 3.10、检查异常端口
+### 2.10 检查异常端口
 ```bash
 netstat -antlp|more
 arp -a
 lsof -i
 ```
 
-### 3.11、检查启动项
+### 2.11 检查启动项
 ```bash
 vi  /etc/inittab
 id=3：initdefault  #系统开机后直接进入哪个运行级别
@@ -177,7 +177,7 @@ ls -lart /etc/rc.d/init.d/
 ```
 清理异常启动项
 
-### 3.12、检查计划任务
+### 2.12 检查计划任务
 一般会隐藏
 ```bash
 crontab -l
@@ -189,7 +189,7 @@ ls /etc/cron*
 ```
 清理和还原定时任务
 
-### 3.13、异常目录
+### 2.13 异常目录
 挖矿一般喜欢用.隐藏目录或者/tmp下
 ```bash
 ls -lart /tmp | more
@@ -197,7 +197,7 @@ ls -lart ~ | more
 ls -lart $HOME | more
 ```
 
-### 3.14、检查安装的服务
+### 2.14 检查安装的服务
 ```bash
 chkconfig  --list | more
 # 中文环境
@@ -206,7 +206,7 @@ chkconfig --list | grep "3:启用\|5:启用"
 chkconfig --list | grep "3:on\|5:on"
 ```
 
-### 3.15、检查日志和分析
+### 2.15 检查日志和分析
 
 系统日志 日志默认存放位置：/var/log/
 
@@ -225,7 +225,7 @@ chkconfig --list | grep "3:on\|5:on"
 /var/log/utmp|记录当前已经登录的用户信息，这个文件会随着用户的登录和注销不断变化，只记录当前登录用户的信息。同样这个文件不能直接vi，而要使用w,who,users等命令来查询
 /var/log/secure|记录验证和授权方面的信息，只要涉及账号和密码的程序都会记录，比如SSH登录，su切换用户，sudo授权，甚至添加用户和修改用户密码都会记录在这个日志文件中
 
-### 3.16、其他有用的日志
+### 2.16 其他有用的日志
 apt-get安装日志
 ```bash
 gedit /var/log/apt/term.log
@@ -240,7 +240,7 @@ yum安装日志和历史信息
 yum history info
 ```
 
-### 3.17、检查安装的rpm包或者是否动过手脚
+### 2.17 检查安装的rpm包或者是否动过手脚
 ```bash
 [root@docker-test ~]# rpm -Va
 ....L....  c /etc/pam.d/fingerprint-auth
@@ -272,25 +272,25 @@ U|表示文件/子目录/设备节点的owner发生了变化
 G|表示文件/子目录/设备节点的group发生了变化
 T|表示文件最后一次的修改时间是发生了变化
 
-### 3.18、检查命令的完整性
+### 2.18 检查命令的完整性
 ```bash
 rpm -qf /bin/ls
 ```
 
-### 3.19、检查hosts文件
+### 2.19 检查hosts文件
 ```bash
 /etc/hosts
 ```
 清理异常的映射地址
 
-### 3.20、检查.ssh文件
+### 2.20 检查.ssh文件
 ```bash
 ls -lart ~/.ssh
 ls -lart $HOME/.ssh
 ```
 清理异常的pub key和ssh信任
 
-### 3.21、检查防火墙-iptables
+### 2.21 检查防火墙-iptables
 ```bash
 iptables --list
 # centos
@@ -299,22 +299,22 @@ cat /etc/sysconfig/iptables-config
 ```
 清理异常的规则
 
-### 3.22、检查别名
+### 2.22 检查别名
 ```bash
 alias
 ```
 清理异常的别名
 
-## 4、加固
+## 3、加固
 这里列举下部分比较容易的加固方式
-### 4.1、条件提前做md5sum值
+### 3.1 条件提前做md5sum值
 ```bash
 find / -user root -perm -2000 -print | xargs md5sum > 1.log
 find / -user root -perm -4000 -print | xargs md5sum > 2.log
 ```
 提前把关键文件的md5值搜集，后续可以比对
 
-### 4.2、增加history的记录条数和详细信息
+### 3.2 增加history的记录条数和详细信息
 保存1W条history
 ```bash
 HISTFILESIZE=2000 #设置保存历史命令的文件大小
@@ -334,10 +334,10 @@ export PROMPT_COMMAND="history -a"
 ###### 加固历史命令显示 #########
 ```
 
-## 5、挖矿病毒的参考
+## 4、挖矿病毒的参考
 因为我发觉的2次挖矿病毒跟下面的部分表相很像但是又不完全一样，可能是变种或者改进了  
-kinsing: https://blog.trendmicro.com.tw/?p=66511  
-kinsing: https://blog.csdn.net/cfm_gavin/article/details/103803448  
-sh: https://notes.daiyuhe.com/clear-linux-mining-virus/  
-sh: https://blog.csdn.net/jabyn/article/details/111239735  
-xr: https://www.freebuf.com/column/240100.html
+kinsing: <https://blog.trendmicro.com.tw/?p=66511>    
+kinsing: <https://blog.csdn.net/cfm_gavin/article/details/103803448>  
+sh: <https://notes.daiyuhe.com/clear-linux-mining-virus/>  
+sh: <https://blog.csdn.net/jabyn/article/details/111239735>  
+xr: <https://www.freebuf.com/column/240100.html>

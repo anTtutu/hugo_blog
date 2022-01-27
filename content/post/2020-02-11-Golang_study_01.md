@@ -7,6 +7,7 @@ categories: [ "go" ]
 toc: true
 ---
 
+## 前言
 记录自己的Golang学习笔记
 
 # 一、Golang关键字和介绍

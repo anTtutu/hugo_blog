@@ -7,14 +7,14 @@ categories: [ "win10", "build", "go" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 go build默认产生的可执行文件没有图标icon，有时候挺丑的，想增加icon怎么办呢
 ![](/posts/icon/before.jpg)
 
-## 2、方法1 - windres命令
+## 1、方法1 - windres命令
 怎么安装和使用minGW参考前一篇文章[Win10下新的gcc工具](/post/2020-12-05-win10_gcc_build_tools)
 
-### 2.1、创建rc文件
+### 1.1、创建rc文件
 以test.go举例, 假设打包文件名test.exe, ico文件名test.ico  
 rc文件命名test.exe.rc
 
@@ -23,23 +23,23 @@ rc文件命名test.exe.rc
 IDI_ICON1 ICON "test.ico"
 ```
 
-### 2.2、执行windres命令创建syso文件
+### 1.2、执行windres命令创建syso文件
 ```golang
 windres -o test.exe.syso test.exe.rc
 ```
 
-### 2.3、执行go build
+### 1.3、执行go build
 ```golang
 go build
 ```
 
-## 3、方法2 - rsrc命令
+## 2、方法2 - rsrc命令
 需要先下载rsrc命令
 ```golang
 go get github.com/akavel/rsrc
 ```
 
-### 3.1、创建manifest文件
+### 2.1、创建manifest文件
 仍然以test.go举例，假设打包文件名test.exe，ico文件名test.ico  
 manifest文件名test.exe.manifest
 
@@ -69,18 +69,18 @@ manifest文件名test.exe.manifest
 </assembly>
 ```
 
-### 3.2、执行rsrc命令创建syso
+### 2.2、执行rsrc命令创建syso
 ```golang
 rsrc -manifest test.exe.manifest -ico test.ico -o test.exe.syso
 ```
 
-### 3.3、执行go build
+### 2.3、执行go build
 ```golang
 go build
 ```
 ![](/posts/icon/result.jpg)
 
-## 注：
+### 注：
 测试发现，有的blog写的打包命令建议带参数：
 ```golang
 go build -ldflags="-H windowsgui -w -s"
@@ -92,7 +92,7 @@ go build -ldflags="-H windowsgui -w -s"
 比如用walk的gui go项目带了没问题。  
 验证通过2、3步骤做了ico处理的，建议通过go build打包。
 
-## 4、可以写打包脚本
+## 3、可以写打包脚本
 创建build.bat
 ```bat
 @echo off

@@ -8,7 +8,7 @@ toc: true
 draft: true
 ---
 
-## 1、前言
+## 前言
 在新项目用了半年的redisson，个人总结下使用经验，同时对比下jedis的不同
 
 jedis接近redis底层命令

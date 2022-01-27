@@ -45,7 +45,7 @@ mysqld --datadir=/data --basedir=/usr/local/mysql56 --user=mysql --gdb --skip-ne
 
 ## 3、ALTER表
 ALTER TABLE ${tableName} ENGINE=INNODB
-```
+```sql
 ALTER TABLE t_event ENGINE=INNODB;
 
 OK, Time: 0.014000s
@@ -59,7 +59,7 @@ OK, Time: 0.014000s
 
 ## 5、另外一种方式
 还可以使用pt-online-schema-change脚本在线DDL，属于percona-toolki运维工具系列
-```shell
+```bash
  pt-online-schema-change  
   -h地址
   -P端口号

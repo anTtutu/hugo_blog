@@ -7,14 +7,14 @@ categories: [ "win10", "gcc" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 偶尔碰到从github download的开源项目需要gcc编译，以前用cygwin，cygwin是仿真模拟器，如果不想过于折腾的话，可以用mingw或者wls ubuntu。
 
 不过mingw更加简单和小巧，cygwin或者wls都还需要再需要apg-get或者yum安装一些包，mingw更加简单，解压即用。
 
 macos也有，直接无脑brew install mingw-w64
 
-## 2、下载
+## 1、下载
 现在64位系统居多，mingw有个分支版本mingw-64，建议下载这个  
 [去sourceforge下载](https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/)  
 
@@ -38,7 +38,7 @@ Build revision|构建版本号，选择最大即可
 
 下载压缩包的话，选择合适位置解压，将mingw64/bin加入环境变量即可
 
-## 3、离线包下载
+## 2、离线包下载
 前面2种方式都是只安装工具，但是类库需要在线安装，如果下载偏慢或者网速不够好容易失败，比如我就失败好多次，结果只好选择离线包下载  
 [离线包下载](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z/download)  
 离线包可是7z格式，可以直接解压到比如D:\mingw-64目录下，然后配置环境变量  
@@ -49,13 +49,14 @@ Build revision|构建版本号，选择最大即可
 ![](/posts/mingw/set_path_1.jpg)
 ![](/posts/mingw/set_path_2.jpg)
 
-## 4、验证
+## 3、验证
 添加环境变量后，打开CMD，执行gcc -v  
 能看到类似信息即说明安装成功  
 ![](/posts/mingw/gcc_check.jpg)
 
-## 5、测试下gcc编译
-### 5.1、在D:\创建一个hello.c的文件，然后用文本工具打开，新增测试代码hello world
+## 4、测试下gcc编译
+### 4.1、编译
+在D:\创建一个hello.c的文件，然后用文本工具打开，新增测试代码hello world
 ```C++
 #include <stdio.h>
 
@@ -70,7 +71,7 @@ int main(int argc, char argv[])
 ```
 ![](/posts/mingw/code_hello_world.jpg)
 
-### 5.2、然后执行编译命令
+### 4.2、然后执行编译命令
 ```bash
 gcc hello.c -o hello.exe
 ```
@@ -81,8 +82,8 @@ gcc hello.c
 ```
 ![](/posts/mingw/gcc_buid.jpg)
 
-### 5.3、查看编译结果
+### 4.3、查看编译结果
 ![](/posts/mingw/build_result.jpg)
 
-### 5.4、双击hello.exe或a.exe
+### 4.4、双击hello.exe或a.exe
 ![](/posts/mingw/hello.jpg)

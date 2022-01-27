@@ -7,7 +7,7 @@ categories: [ "mac", "linux" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 2019年嫌公司发的E480定制16G太卡更换自己的MacBookPro2015后，一直也没碰到linux下的GUI程序，前阵子有程序jvm内存泄露，生成的dump文件有5G，用自己的mbp解析内存不足，就想到以前整理的IBM的dump分析工具jca458，然后盲目的试了试，修改了DISPLAY的ip，然后启动报错...  
 
 看来windows下的X11脚本连接Xmanager行不通了，得另外想法子
@@ -37,23 +37,23 @@ java.awt.AWTError: Can't connect to X11 window server using '*.*.*.*:0.0' as the
         at com.ibm.jinwoo.thread.Analyzer.main(Analyzer.java:7029)
 ```
 
-## 2、查询了下报错信息
+## 1、查询了下报错信息
 MacOS从v10.5附带了X11的升级版本XQuartz，但是从10.7后又不附带了，需要自己额外安装  
-苹果官网介绍X11：(https://support.apple.com/zh-cn/HT201341)  
-XQuartz下载地址：(www.xquartz.org)
+苹果官网介绍X11：<https://support.apple.com/zh-cn/HT201341>  
+XQuartz下载地址：<https://www.xquartz.org>
 
-## 3、Xwindows介绍
+## 2、Xwindows介绍
 XWindow系统最初是由MIT在1984年开发的，目的是为了给Unix以及类Unix操作系统一个通用性强且硬件无关的GUI接口。
 
 目前常见的XWindow系统都是基于11版本进行改良的，所以统称为X11。
 
 目前像KDE、GNOME这些所谓的linux GUI其实就是Xwindows的一种。
 
-## 4、在Mac安装XQuartz
+## 3、在Mac安装XQuartz
 下载步骤2中的XQuartz,然后按照提示一路安装完成
 ![](/posts/x11/xquartz.jpg)
 
-## 5、可能服务器上需要安装xauth(可选，参考验证后再决策)
+## 4、可能服务器上需要安装xauth(可选，参考验证后再决策)
 ```bash
 [root@javaMemoryDumpAnalyzer]# yum search xauth
 Loaded plugins: fastestmirror, refresh-packagekit, security
@@ -67,7 +67,7 @@ xorg-x11-xauth.x86_64 : X.Org X11 X authority utilities
   Name and summary matches only, use "search all" for everything.
 ```
 
-如果没安装会提示
+### 4.1 如果没安装会提示
 ```bash
 [root@javaMemoryDumpAnalyzer]# yum search xauth
 Loaded plugins: fastestmirror, refresh-packagekit, security
@@ -79,12 +79,12 @@ Warning: No matches found for: xauth
 No Matches found
 ```
 
-安装命令
+### 4.2 安装命令
 ```bash
 yum install xauth
 ```
 
-## 6、修改服务器上的配置
+## 5、修改服务器上的配置
 打开服务器上的/etc/ssh/sshd_config
 
 然后将X11Forwarding以及X11UseLocalhost这两行修改为：
@@ -97,15 +97,15 @@ X11UseLocalhost no
 AddressFamily inet
 ```
 
-## 7、在服务器上安装X11小工具（可选步骤，用于验证X11是否成功）
+## 6、在服务器上安装X11小工具（可选步骤，用于验证X11是否成功）
 这步是为了验证X11是否配置成功并生效
 在服务器上执行
 ```bash
 yum install xorg-x11-apps
 ```
 
-## 8、在Mac端连接服务器并启用X11转发功能
-打开步骤4安装完成的XQuartz，然后选择XQuartz菜单的『应用程序』 - 『终端』
+## 7、在Mac端连接服务器并启用X11转发功能
+打开步骤3安装完成的XQuartz，然后选择XQuartz菜单的『应用程序』 - 『终端』
 ![](/posts/x11/run.jpg)
 
 输入ssh连接命令
@@ -117,8 +117,8 @@ ssh -Y <用户名>@<服务器ip/域名>
 X11 forwarding request failed on channel 0
 ```
 
-## 9、测试运行X11验证小程序（可选）
-步骤7中测试X11小程序派上用场了，虽然是可选步骤，为了保险，还是可以安装下一步一步测试
+## 8、测试运行X11验证小程序（可选）
+步骤6中测试X11小程序派上用场了，虽然是可选步骤，为了保险，还是可以安装下一步一步测试
 ```bash
 xeyes
 xclock
@@ -126,7 +126,7 @@ xclock
 运行之后稍等，Mac这边会弹出2个窗口的小程序，分别是一个会随光标转动的眼睛和一个会走动的时钟，如下图这样展示就表示成功了。
 ![](/posts/x11/eyes.jpg)![](/posts/x11/clock.jpg)
 
-## 10、原理解析
+## 9、原理解析
 当ssh连接简历完成并成功开启X11转发后，服务器默认会监听127.0.0.1(localhost)的6010端口
 
 可以在服务器上查看DISPLAY环境变量
@@ -146,10 +146,10 @@ localhost：表示X服务器的地址。
 
 而Mac上的XQuartz可以看成是一个带窗口管理功能的X服务器。
 
-## 11、结束语
+## 10、结束语
 最后自己需要的IBM jca分析工具也启动成功了。类似的linux GUI工具还有很多，如：Oracle家的linux安装软件，linux下的Wireshark，赛门铁克家的VCS等
 ![](/posts/x11/jca.jpg)
 
-注意：  
+### 注意：  
 X11转发对网络传输要求较高，建议在服务器与客户端之间网络稳定的情况下使用，否则网络不畅可能出现窗口卡顿或显示不全的情况  
 一旦ssh掉线或者关闭XQuartz终端窗口，那么所有的X11应用也将被强制退出

@@ -7,10 +7,10 @@ categories: [ "mac", "app" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 最近准备给自己的mbp2015升级下固态硬盘，替换成西数蓝盘sn550 1T的，为了保险，备份下工具app
 
-## 2、开发
+## 1、开发
 序号|App名称|版本号|图标|简单介绍|下载地址
 |-|-|-|-|-|-|
 1|iTerm2|3.3.9|![](/posts/app/iterm2.png)|Mac下的替换系统自带的本地终端工具|免费，[官网下载地址](https://www.iterm2.com/downloads.html)
@@ -32,14 +32,14 @@ https://www.jetbrains.com/datagrip/download/other.html
 
 to be continue...
 
-## 3、工具
+## 2、工具
 序号|App名称|图标|简单介绍|下载地址
 |-|-|-|-|-|
 
-## 4、图片和视频
+## 3、图片和视频
 序号|App名称|图标|简单介绍|下载地址
 |-|-|-|-|-|
 
-## 5、办公
+## 4、办公
 序号|App名称|图标|简单介绍|下载地址
 |-|-|-|-|-|

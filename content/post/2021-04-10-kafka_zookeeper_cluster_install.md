@@ -7,11 +7,11 @@ categories: [ "kafka", "zookeeper", "zk", "java" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 一台应用的第三方服务器的kafka只有3个分区，测试一直存在积压的消息，搭建了一套最简单集群测试下，记录中间的参数。
 
-## 2、准备工作
-环境准备
+## 1、准备工作
+### 1.1 环境准备
 环境|版本|说明
 -|-|-
 centos|7.0|操作系统服务器，3台
@@ -19,40 +19,39 @@ JDK|1.8.261|安装好jdk并设置好环境变量
 zookeeper|3.4.9|zk官方安装包
 kafka|2.2.0_2.12|kafka官方安装包
 
-服务器
+### 1.2 服务器
 IP|端口|说明
 -|-|-
 192.168.211.125|zk:2181<br>zk heartbeat:2888、3888<br>kafka:9092|zk默认端口<br>zk心跳默认端口<br>kafka默认监听端口
 192.168.211.126|zk:2181<br>zk heartbeat:2888、3888<br>kafka:9092|zk默认端口<br>zk心跳默认端口<br>kafka默认监听端口
 192.168.211.127|zk:2181<br>zk heartbeat:2888、3888<br>kafka:9092|zk默认端口<br>zk心跳默认端口<br>kafka默认监听端口
 
-目录规划
+### 1.3 目录规划
 中间件|安装目录|数据目录|日志目录|说明
 -|-|-|-|-
 jdk|/home/jdk_version|-|-|Oracle jdk是直接tgz解压的，只需要安装目录<br>openjdk不需要这个目录规划
 zk|/home/zookeeper_version|/opt/data/zookeeper|/opt/data/zookeeper/zkdata<br>/opt/data/zookeeper/zklogs|zkdata是zk的数据目录，zklogs是日志目录
 kafka|/home/kafaka_version|/opt/data/kafka|/opt/data/kafka/kafka_logs|kafka_logs是日志目录
 
-## 3、下载zk
-官网：https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/  
-下载地址：https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
+## 2、下载zk
+官网：<https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/>  
+下载地址：<https://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz>
 
-## 4、下载kafka
-官网：http://kafka.apache.org/  
-下载地址：https://archive.apache.org/dist/kafka/2.2.0/kafka_2.12-2.2.0.tgz
+## 3、下载kafka
+官网：<http://kafka.apache.org/>  
+下载地址：<https://archive.apache.org/dist/kafka/2.2.0/kafka_2.12-2.2.0.tgz>
 
-## 5、安装jdk
+## 4、安装jdk
 这些作为java开发来说，很简单，只是简单记录下步骤，不做过多解释
-### 5.1 安装openjdk
+### 4.1 安装openjdk
 ```bash
 yum install java-1.8.0-openjdk
 ```
-### 5.2 安装Oracle jdk
-```bat
-https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
-```
+### 4.2 安装Oracle jdk
+Oracle jdk下载地址： <https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html>
 
-### 5.3 配置环境变量
+
+### 4.3 配置环境变量
 新增JAVA_HOME、JRE_HOME并设置到PATH
 ```bash
 vi ~/.bash_profile
@@ -60,7 +59,7 @@ JAVA_HOME=/home/jdk1.8.0_281
 PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
 ```
 
-### 5.4 测试环境变量
+### 4.4 测试环境变量
 ```bash
 java -version
 
@@ -69,12 +68,12 @@ Java(TM) SE Runtime Environment (build 1.8.0_281-b09)
 Java HotSpot(TM) 64-Bit Server VM (build 25.281-b09, mixed mode)
 ```
 
-## 6、安装zk集群
+## 5、安装zk集群
 ```bash
 tar -zvxf zookeeper-3.4.9.tar.gz
 ```
 
-### 6.1、配置参数
+### 5.1 配置参数
 ```bash
 cd /home/zookeeper-3.4.9/conf
 cp zoo_sample.cfg zoo.cfg
@@ -102,13 +101,13 @@ echo 3 > /opt/data/zookeeper/zkdata/myid  #192.168.211.127
 ```
 注：没单独说明的3台都重复一样的安装步骤，只myid注意id值3台不一样
 
-### 6.2、启动zk集群
+### 5.2 启动zk集群
 ```bash
 cd /home/zookeeper-3.4.9/bin
 ./zkServer.sh start
 ```
 
-### 6.2、测试zk集群状态
+### 5.4 测试zk集群状态
 ```bash
 cd /home/zookeeper-3.4.9/bin
 ./zkServer.sh status
@@ -135,12 +134,12 @@ leader|主节点
 follower|从节点
 standalone|单机
 
-## 7、安装kafka集群
+## 6、安装kafka集群
 ```bash
 tar -zvxf kafka_2.12-2.2.0.tgz 
 ```
 
-### 7.1、配置参数
+### 6.1 配置参数
 ```bash
 cd /home/kafka_2.12-2.2.0/config
 vim server.properties
@@ -170,20 +169,20 @@ mkdir -p /opt/data/kafka/kafka_logs
 ```
 注：没单独说明的3台都重复一样的安装步骤，只注意broker.id需要不一样、listeners和advertised.listeners本机的监听ip不一样
 
-### 7.2、启动kafka集群
+### 6.2 启动kafka集群
 ```bash
 cd /home/kafka_2.12-2.2.0/bin
 nohup ./kafka-server-start.sh /home/kafka_2.12-2.2.0/config/server.properties &
 ```
 
-## 8、检测kafka工作情况
+## 7、检测kafka工作情况
 前面的集群都搭建好了，开始进行kafka的工作校验了
-### 8.1、创建topic
+### 7.1 创建topic
 ```bash
 ./kafka-topics.sh --zookeeper 192.168.211.125:2181,192.168.211.126:2181,192.168.211.127:2181 --create --replication-factor 1 --partitions 1 --topic test
 ```
 
-### 8.2、查询创建的topic
+### 7.2 查询创建的topic
 ```bash
 ./kafka-topics.sh --zookeeper 192.168.211.125:2181,192.168.211.126:2181,192.168.211.127:2181 --list
 
@@ -191,19 +190,19 @@ __consumer_offsets
 test
 ```
 
-### 8.4、测试生产端
+### 7.3 测试生产端
 ```bash
 ./kafka-console-producer.sh --broker-list 192.168.211.127:9092 --topic test
 ```
 
-### 8.5、测试消费端
+### 7.4 测试消费端
 ```bash
 ./kafka-console-consumer.sh --bootstrap-server 192.168.211.126:9092 --topic test --from-beginning
 
 ./kafka-console-consumer.sh --bootstrap-server 192.168.211.125:9092 --topic test --from-beginning
 ```
 
-### 8.6、发送测试数据
+### 7.5 发送测试数据
 ```bash
 ./kafka-console-producer.sh --broker-list 192.168.211.127:9092 --topic test
 >1
@@ -225,10 +224,10 @@ test
 126-consumer：
 ![](/posts/kafka/consumer_126.png)
 
-### 8.7、监控topic
+### 7.6 监控topic
 ```bash
 ./kafka-topics.sh --zookeeper 192.168.211.125:2181,192.168.211.126:2181,192.168.211.127:2181 --describe --topic test
 ```
 
-## 9、性能测试结果
+## 8、性能测试结果
 性能测试结果等后续整理补充...
