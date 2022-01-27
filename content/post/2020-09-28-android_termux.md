@@ -7,7 +7,7 @@ categories: [ "android", "termux" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 临近2020年国庆8天长假，因需要安装信息安全管理软件，由自带mbp更换公司的matebook新笔记本，想着还是用android机配置一套服务器环境更加便携，便试试找下不需要root的android模拟器，没想到还真找到了。  
 
 有2套方案：  
@@ -17,7 +17,7 @@ toc: true
 1|linux deploy|android下完美运行linux神器，需要root
 2|termux|另外一个android下的linux模拟器神器，不需root
 
-## 2、准备
+## 1、准备
 android手机一部，建议用吃灰的手机，不需要太新也不需要太久，建议android版本5.0或者以上，android版本7.0比较好。
 
 分类|名称|说明|备注
@@ -27,7 +27,7 @@ android手机一部，建议用吃灰的手机，不需要太新也不需要太�
 SSH|iterm2|任意版本|ssh用，windows下用putty、xshell也可，怎么顺手怎么来
 应用市场|Google Play Store<br>酷安|任意版本|下载termux和termux免费插件
 
-## 3、安装
+## 2、安装
 可以通过Google Play、F-Droid、酷安3个途径下载apk  
 第一选择：Google Play，需要FQ  
 第二选择：F-Droid，官网，不需要FQ  
@@ -37,7 +37,7 @@ Termux官网和Github地址：
 [termux官网](https://termux.com/ "termux官网")  
 [termux Github](https://github.com/termux/termux-app "termux Github")  
 
-## 4、下载
+## 3、下载
 Huawei手机之前的型号都是自带google服务框架的，前几年的手机不用担心去掉了服务框架，不过从被实体清单打压后的机型可能要安装，不过可以先进腾讯应用宝市场安装Google Play Store和Go谷歌安装器
 
 [Go谷歌安装器下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.goplaycn.googleinstall "Go谷歌安装器下载地址")  
@@ -55,7 +55,7 @@ Google Play Store官方的apk，无需FQ下载
 [酷安的termux下载地址](https://www.coolapk.com/apk/com.termux "酷安的termux下载地址")  
 版本进度比Google Play Store稍慢
 
-## 5、安装APK
+## 4、安装APK
 这里没什么难度  
 ![](/posts/termux/app_list.JPG)
 ![](/posts/termux/apk_right.JPG)
@@ -80,7 +80,7 @@ Check your network connection and try again.
 1、FQ  
 2、Wifi和4G来回切换试试
 
-## 6、简单上手
+## 5、简单上手
 Termux除了支持apt命令外，还在此基础上封装了pkg命令，pkg命令向下兼容apt命令。apt命令大家应该都比较熟悉了，这里直接简单的介绍下pkg命令:
 ```bash
 pkg search <query>              # 搜索包
@@ -103,7 +103,7 @@ dpkg -l                      # 查看已安装的包
 man dpkg                     # 查看详细文档
 ```
 
-## 7、安装个人需要的软件包
+## 6、安装个人需要的软件包
 Package|介绍|安装命令|备注
 |-|-|-|-|
 vim|vim|pkg install vim|vi
@@ -157,7 +157,7 @@ en_US.UTF-8
 ```
 ![](/posts/termux/sdk_list.JPG)
 
-## 8、环境安装完毕后，开始通过ssh控制termux
+## 7、环境安装完毕后，开始通过ssh控制termux
 毕竟电脑端用键盘打字方便很多
 ```bash
 passwd   #给当前用户设置密码，2次输入相同密码后
@@ -173,8 +173,8 @@ ssh $(whoami)@192.168.*.* -p 8022 #ssh termux账号@termux IP，8022端口，不
 连上后，比手机的键盘打字方便多了
 ![](/posts/termux/ssh.png)
 
-## 9、开始用ssh操作termux的一些服务
-1、设置mysql的root帐号密码
+## 8、开始用ssh操作termux的一些服务
+### 8.1 设置mysql的root帐号密码
 ```bash
 # 登录Termux用户，
 mysql -u $(whoami)
@@ -189,7 +189,7 @@ flush privileges;
 exit;
 ```
 
-2、启停mysql
+### 8.2 启停mysql
 ```bash
 # 启动mysql
 mysqld
@@ -197,7 +197,7 @@ mysqld
 kill -QUIT mysql_PID
 ```
 
-3、启停redis
+### 8.3 启停redis
 ```bash
 # 启动redis服务
 redis-server
@@ -207,7 +207,7 @@ redis-cli
 kill -QUIT redis_PID
 ```
 
-4、启动nginx
+### 8.4 启动nginx
 ```bash
 # 启动nginx
 nginx 
@@ -215,7 +215,7 @@ nginx
 kill -QUIT nginx_PID
 ```
 
-5、启动mongodb
+### 8.5 启动mongodb
 需要配置好启动配置文件，否则可能提示无法创建db
 ```yaml
 systemLog:
@@ -245,5 +245,5 @@ redis
 mongodb
 ![](/posts/termux/mongodb.png)
 
-## 10、基本功能完成，还有很多进阶设置和玩法待开发和更新进来(未完待续)
+## 9、基本功能完成，还有很多进阶设置和玩法待开发和更新进来(未完待续)
 未完待续，待补充进阶设置和玩法

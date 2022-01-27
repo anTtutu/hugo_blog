@@ -7,12 +7,16 @@ categories: [ "redis" ]
 toc: true
 ---
 
-### 碰到工作中有数据要一次性快速刷入redis的场景
+## 前言
+碰到工作中有数据要一次性快速刷入redis的场景  
 查了下资料，找到了快速高效的写入方法了
 
 ## 1、先想法子把数据组装程redis底层的命令格式
-比如：hset key filed value
-     set key value
+比如：
+```bash
+hset key filed value
+set key value
+```
 
 ## 2、大量的基础数据生成redis命令
 之前我是采用golang读取数据源并转化程redis命令

@@ -8,7 +8,7 @@ toc: true
 ---
 
 ## 1、参考
-https://faker.readthedocs.io/  
+官方地址： <https://faker.readthedocs.io/>  
 ruby 和 java 下都有类似的 faker 工具，但是对比过 java 的，还是 python 这个完善很多。ruby 的暂没测试
 
 ## 2、用法示例

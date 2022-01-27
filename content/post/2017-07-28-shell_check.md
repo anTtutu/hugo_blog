@@ -1,9 +1,9 @@
 ---
 title: 开发技能-shell面试整理
 date: 2017-07-28T21:46:20+08:00
-tags: [ "shell" ] 
+tags: [ "shell", "linux" ] 
 description: "开发技能-shell面试整理"
-categories: [ "shell" ]
+categories: [ "shell", "linux" ]
 toc: true
 ---
 
@@ -152,7 +152,7 @@ expect "*#"
 interact 
 ```
 
-## 10、判断：
+## 10、判断
 
 通常用” [ ] “来表示条件测试。注意这里的空格很重要。要确保方括号的空格。 
 ```bash
@@ -160,7 +160,7 @@ interact
 [ -x “/bin/ls” ] ：判断/bin/ls是否存在并有可执行权限 
 [ -n “$var” ] ：判断var变量是否有值[“$a”=“$b”]：判断a和$b是否相等
 ```
-#### 检查文件类型：
+### 10.1 检查文件类型
 ```bash
 -e  文件是否存在   test -e filename
 -f  文件是否存在，且为文件 file
@@ -171,7 +171,7 @@ interact
 -p  文件是否存在，且为FIFO(pipe)文件
 -L  文件是否存在，且为连接文件
 ```
-#### 检查文件权限：
+### 10.2 检查文件权限
 ```bash
 -r  文件是否存在，且可读权限
 -w  文件是否存在，且可写权限
@@ -181,13 +181,13 @@ interact
 -k  文件是否存在，且具有 Sticky bit 属性
 -s  文件是否存在，且为 非空白文件
 ```
-#### 两个文件比较：
+### 10.2 两个文件比较
 ```bash
 -nt  newer than 判断file1是否比file2新     如：test file1 -nt file2
 -ot  older than 判断file1是否比file2旧
 -ef  判断是否为同一文件，可用在判断hard link上，判定两个文件是否指向同一个inode 
 ```
-#### 两个整数的判断：
+### 10.3 两个整数的判断
 ```bash
 -eq  equal 相等，  test n1 -eq n2
 -ne  not equal 不相等
@@ -196,21 +196,21 @@ interact
 -ge  greater than or equal 大于等于
 -le  less than or equal 小于等于
 ```
-#### 判定字符串：
+### 10.4 判定字符串
 ```bash
 test -z string  判断字符串是否为0， string为空，返回true，  test -z string
 test -n string  判断字符串是否非为0， string 为空， 返回false， -n可省略
 test str1 = str2 是否相等
 test str1 != str2 是否不相等
 ```
-#### 多重条件：
+### 10.5 多重条件
 ```bash
 -a 同时成立，and  ， test -r file -a -x file : file同时具有rx权限时，返回true
 -o 任意一个成立， or
 !  取反
 ```
-## 11、流程控制：
-if
+## 11、流程控制
+### 11.1 if
 “if” 表达式 如果条件为真则执行then后面的部分： 
 ```bash
 if ….; then 
@@ -222,7 +222,7 @@ else
 fi
 ```
 
-case
+### 11.2 case
 case表达式可以用来匹配一个给定的字符串，而不是数字。 
 ```bash
 case … in 
@@ -230,7 +230,7 @@ case … in
 esac
 ```
 
-select
+### 11.3 select
 select结构从技术角度看不能算是循环结构，只是相似而已，它是bash的扩展结构用于交互式菜单显示，功能类似于case结构比case的交互性要好 
 ```bash
 select color in “red” “blue” “green” “white” “black” 
@@ -240,7 +240,8 @@ done
 echo “You have selected $color”
 ```
 
-loop
+## 12、loop
+### 12.1 while-loop
 while-loop 将运行直到表达式测试为真。will run while the expression that we test for is true. 
 关键字”break” 用来跳出循环。而关键字”continue”用来不执行余下的部分而直接跳到下一个循环。 
 ```bash
@@ -252,6 +253,7 @@ done
 退出循环：不满足
 ``` 
 
+### 12.1 until-loop
 ```bash
 until …; do 
 …. 
@@ -262,6 +264,7 @@ done
 退出值不为0
 ``` 
 
+### 12.2 for-loop
 for-loop表达式查看一个字符串列表 (字符串用空格分隔) 然后将其赋给一个变量： 
 ```bash
 for var in ….; do 
@@ -269,9 +272,8 @@ for var in ….; do
 done
 ```
 
-## 12、抓包：
-
-Linux： 
+## 13、抓包
+### 13.1 Linux
 tcpdump
 ```bash 
 -i 监听的网口，比如eth0 
@@ -279,5 +281,5 @@ tcpdump
 -s 设置缓存字节数 
 -c 抓包次数 
 ```
-windows: 
+### 13.2 windows
 fiddler wireshark(同时可以看包的报文)

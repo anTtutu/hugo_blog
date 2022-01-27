@@ -45,11 +45,11 @@ export PATH=$JAVA_HOME/bin:$PATH
 ![](/posts/dump/analyse_result.png)
 
 ## 6、查看分析结果
-大对象：
+### 6.1 大对象
 ![](/posts/dump/problem.png)
-大对象分析：
+### 6.2 大对象分析
 ![](/posts/dump/big_object.png)
-线程堆栈信息：
+### 6.3 线程堆栈信息
 ![](/posts/dump/jvm_stack.png)
 
 ## 7、上面很明显的线程内存泄露，结合实际场景修复吧

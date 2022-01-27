@@ -36,7 +36,7 @@ toc: true
 
 ## 2、用maven打包可执行main函数的jar包
 使用maven打可执行main的jar包怎么搞？
-### 2.1、pom中添加配置信息
+### 2.1 pom中添加配置信息
 ```xml
     <groupId>com.anttu.test</groupId>
     <artifactId>test</artifactId>
@@ -89,12 +89,12 @@ mvn assembly:assembly
 mvn -Dmaven.test.skip=true  assembly:assembly
 ```
 
-### 2.3、执行命令编译和打包
+### 2.3 执行命令编译和打包
 ```bash
 mvn clean package
 ```
 
-### 2.4、运行
+### 2.4 运行
 ```bash
 java -jar test-1.0-SNAPSHOT.jar
 ```
@@ -103,7 +103,7 @@ java -jar test-1.0-SNAPSHOT.jar
 maven的scope一共包括：
 compile、runtime、test、system、provided、import
 
-### 3.1、compile
+### 3.1 compile
 ```xml
 <dependency>
  	<groupId>org.apache.httpcomponents</groupId>
@@ -115,7 +115,7 @@ compile、runtime、test、system、provided、import
 compile是默认值，当我们引入依赖时，如果标签没有指定，那么默认就是complie。  
 compile表示被依赖项目需要参与当前项目的编译，包括后续的测试，运行周期也参与其中，同时打包的时候也会包含进去。是最常用的，所以也是默认的。
 
-### 3.2、runtime
+### 3.2 runtime
 ```xml
 <dependency>
    <groupId>mysql</groupId>
@@ -127,7 +127,7 @@ compile表示被依赖项目需要参与当前项目的编译，包括后续的�
 runtime表示被依赖项目无需参与项目的编译，不过后期的测试和运行周期需要其参与。与compile相比，跳过编译而已。  
 数据库的驱动包一般都是runtime，因为在我们在编码时只会使用JDK提供的jdbc接口，而具体的实现是有对应的厂商提供的驱动(如mysql驱动)，实在运行时生效的，所以这类jar包无需参与项目的编译。
 
-### 3.3、test
+### 3.3 test
 ```xml
 <dependency>
    <groupId>junit</groupId>
@@ -138,7 +138,7 @@ runtime表示被依赖项目无需参与项目的编译，不过后期的测试�
 ```
 test表示只会在测试阶段使用，在src/main/java里面的代码是无法使用这些api的，并且项目打包时，也不会将"test"标记的打入"jar"包或者"war"包。
 
-### 3.4、system
+### 3.4 system
 ```xml
 <dependency>
     <groupId>com.mytest</groupId>
@@ -152,7 +152,7 @@ system依赖不是由maven仓库，而是本地的jar包，因此必须配合sys
 这类jar包默认会参与编译、测试、运行，但是不会被参与打包阶段。  
 如果也想打包进去的话，需要在插件里做配置\<includeSystemScope\>true\</includeSystemScope\>，也就是我们本篇开题提到的问题。
 
-### 3.5、provided
+### 3.5 provided
 ```xml
 <dependency>
    <groupId>javax.servlet</groupId>
@@ -163,7 +163,7 @@ system依赖不是由maven仓库，而是本地的jar包，因此必须配合sys
 ```
 provided表示的是在编译和测试的时候有效，在执行（mvn package）进行打包成war、jar包的时候不会加入，比如：servlet-api，因为servlet-api，tomcat等web服务器中已经存在，如果在打包进去，那么包之间就会冲突
 
-### 3.6、import
+### 3.6 import
 ```xml
 <dependencyManagement>
   <dependencies>

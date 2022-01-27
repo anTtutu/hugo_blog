@@ -7,11 +7,11 @@ categories: [ "go" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 golang里面的奇怪知识点总结，本人才疏学浅，可能总结得不到位或者有些纰漏，仅把学习golang知识的一些细节记录下，权当学习笔记  
 最后的其他分类里面有很多几年前学习golang时候的一些基础规则，也放进来吧，当回顾下好了
 
-## 2、包名带!
+## 1、包名带!
 无意间发现包名有个别带!，不知道为啥，找了一下午资料也没找到合适的解答  
 如下图：  
 ![](/posts/golang/package.jpg)
@@ -20,7 +20,7 @@ golang里面的奇怪知识点总结，本人才疏学浅，可能总结得不�
 对比mod里面的引用：
 ![](/posts/golang/package_mod.jpg)
 
-## 3、GOROOT下包用途介绍
+## 2、GOROOT下包用途介绍
 golang sdk的安装目录，目录结构如下
 ```bash
 +---api
@@ -43,7 +43,7 @@ pkg|存放golang标注库的所有归档文件，会出现一个计算机架构�
 src|存放golang自身标准库的源码文件
 test|存放用于测试和验证go相关特性的文件，包含源码
 
-## 4、GOPATH下包用途介绍
+## 3、GOPATH下包用途介绍
 历史产物，原来设计者想把gopath当成workspace来管理的，windows系统举例：
 ```bash
 tree /A | more
@@ -66,26 +66,25 @@ GOPATH基本上是用户的工作区，用mod后GOPATH/src就在慢慢退化
 注：
 只是放弃GOPATH的src创建项目的功能，不是GOPATH不需要配置，毕竟一些第三方包依赖和编译还是会使用pkg的
 
-## 5、mod
+## 4、mod
 go modules是golang的依赖包管理工具，只是出现得比较晚，1.11才面世，之前还有dep、glide、govendor等包管理工具，本人只接触过govendor  
 dep是golang官方的一个实验项目，后2种属于第三方包管理工具，最后官方在1.11版本用mod统一进行了管理。  
-可以参考官方对比(https://github.com/golang/go/wiki/PackageManagementTools)
+可以参考官方对比: <https://github.com/golang/go/wiki/PackageManagementTools>
 
 1.13版本开始默认使用Go Modules模式，也就是GO111MODULE=on默认是开启状态：  
-一共有3种状态可以了解下：  
-
+### 4.1 一共有3种状态可以了解下 
 环境变量参数|模式|说明
 -|-|-
 GO111MODULE=auto|默认模式|同时满足以下两个条件时使用Go Modules：<br>1、当前目录不在GOPATH/src/下<br>2、在当前目录或上层目录中存在go.mod文件
 GO111MODULE=off|GOPATH模式|从不使用Go Modules。相反，它查找vendor目录和GOPATH以查找依赖项
 GO111MODULE=on|GO MOdules模式|从不咨询GOPATH。GOPATH不再作为导入目录，但它仍然存储下载的依赖项（GOPATH/pkg/mod/）和已安装的命令（GOPATH/bin/），只移除了GOPATH/src/
 
-配置Go Modules相关命令：  
-windows设置命令：注释需要去掉
+### 4.2 配置Go Modules相关命令：  
+#### windows设置命令：注释需要去掉
 ```golang
 go env -w GO111MODULE=on //(or off，1.13后推荐开启on)
 ```
-mac、linux设置命令：注释需要去掉
+#### mac、linux设置命令：注释需要去掉
 ```bash
 export GO111MODULE=on #(or off,1.13后推荐开启on)
 ```
@@ -116,7 +115,7 @@ require (
 exclude old/thing v1.2.3
 replace bad/thing v1.4.5 => good/thing v1.4.5
 ```
-### 5.1、go.mod目前有以下5个动词:
+### 4.3、go.mod目前有以下5个动词
 动词|说明
 -|-
 module|用于定义当前项目的模块路径。
@@ -133,7 +132,7 @@ replace|用于将一个模块版本替换为另外一个模块版本
 //|与代码的行注释一样表示注释的开始，但这里不能使用多行/* 这是注释 */注释
 indirect|表示间接的依赖
 
-### 5.2、go.sum
+### 4.5、go.sum
 go.sum是类似于比如dep的Gopkg.lock的一类文件，它详细罗列了当前项目直接或间接依赖的所有模块版本，并写明了那些模块版本的SHA-256哈希值以备Go在今后的操作中保证项目所依赖的那些模块版本不会被篡改。
 ```golang
 example.com/apple v0.1.2 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ= 
@@ -154,7 +153,7 @@ example.com/apple v0.1.2/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 
 那什么情况下会不存在zip hash呢，就是当Go认为肯定用不到某个模块版本的时候就会省略它的zip hash，就会出现不存在zip hash，只存在go.mod hash的情况。
 
-## 6、goproxy
+## 5、goproxy
 因为google的关系，国内有些google.com域名下的服务是无法访问的，需要切换国内的代理  
 
 常用的七牛云代理：https://goproxy.cn  
@@ -163,12 +162,12 @@ example.com/apple v0.1.2/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 1、为特殊指示符，用于指示Go回源到模块版本的源地址去抓取(比如 GitHub 等)，当值列表中上一个Go module proxy返回404或410错误时，Go自动尝试列表中的下一个，遇见“direct”时回源，遇见EOF时终止并抛出类似“invalid version: unknown revision...”的错误  
 2、可以拉去私有库
 
-因此常见设置是：
+### 因此常见设置是：
 ```golang
 GOPROXY="https://goproxy.cn,direct"
 ```
 
-windows设置命令：
+### windows设置命令：
 ```golang
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
@@ -177,8 +176,8 @@ mac、linux设置命令：
 export GOPROXY=https://goproxy.cn,direct
 ```
 
-## 7、日常可能用到的命令
-### 7.1、go get
+## 6、日常可能用到的命令
+### 6.1、go get
 命令|说明
 -|-
 go get golang.org/x/text@latest|拉取最新的版本(优先择取tag)
@@ -187,7 +186,7 @@ go get `golang.org/x/text@v0.3.2`|拉取tag为v0.3.2的commit
 go get golang.org/x/text@342b2e|拉取hash为342b231的commit，最终会被转换为v0.3.2
 go get -u |更新现有的依赖
 
-### 7.3、语义化版本
+### 6.2、语义化版本
 语义化版本是一套由Gravatars创办者兼GitHub共同创办者Tom Preston-Werner所建立的约定。在这套约定下，语义化版本号及其更新方式包含了很多有用的信息。
 
 语义化版本号格式为：X.Y.Z（主版本号.次版本号.修订号），使用方法如下：
@@ -195,7 +194,7 @@ go get -u |更新现有的依赖
 - 2、API保持向下兼容的新增及修改时，递增次版本号。  
 - 3、修复问题但不影响API时，递增修订号。  
 
-### 举个例子
+#### 举个例子:
 有一个语义化版本号为：v2.3.4，则其主版本号为2，次版本为3，修订号为4。而前面的v是version（版本）的首字母，是Go语言惯例使用的，标准的语义化版本没有这个约定。如下图：
 ![](/posts/golang/version.png)
 使用Go命令行工具或go.mod文件时，就可以使用语义化版本号来进行模块查询语义化版本号来进行模块查询，具体规则如下：  
@@ -216,7 +215,7 @@ go get -u |更新现有的依赖
 ### 举个例子：
 my/thing、my/thing/v2、my/thing/v3，而与Git分支的集成如下：
 ![](/posts/golang/git_branch.png)
-### 7.2、go mod
+### 6.3 go mod
 命令|说明
 -|-
 go mod download|下载go.mod文件中指明的所有依赖
@@ -227,8 +226,8 @@ go mod edit|编辑go.mod文件
 go mod vendor|导出现有的所有依赖 (事实上 Go modules 正在淡化 Vendor 的概念)
 go mod verify|校验一个模块是否被篡改过
 
-## 8、其他
-### 8.1、每一行不需要;结尾
+## 7、其他
+### 7.1、每一行不需要;结尾
 如：源码来源于excelize  
 ```golang
 func OpenFile(filename string) (*File, error) {
@@ -245,16 +244,16 @@ func OpenFile(filename string) (*File, error) {
 	return f, nil
 }
 ```
-### 8.2、不能有多余的import和变量，全局的可以  
+### 7.2、不能有多余的import和变量，全局的可以  
 静态检查，标红：  
 ![](/posts/golang/unused_import.jpg)
 去掉多余的import后，正常：  
 ![](/posts/golang/normal_import.jpg)
-### 8.3、只能有一个main package，相当于程序入口  
+### 7.3、只能有一个main package，相当于程序入口  
 ```golang
 package main
 ```
-### 8.4、{不能另起一行开头写
+### 7.4、{不能另起一行开头写
 只能跟java默认的排版一样放函数名后面。如：源码来源于excelize
 ```golang
 func OpenFile(filename string) (*File, error) {
@@ -271,7 +270,7 @@ func OpenFile(filename string) (*File, error) {
 	return f, nil
 }
 ```
-### 8.5、可以返回多个值
+### 7.5、可以返回多个值
 不是跟java一样多个值的话需要用对象，如：File和error，源码来源于excelize  
 ```golang
 func OpenFile(filename string) (*File, error) {
@@ -288,7 +287,7 @@ func OpenFile(filename string) (*File, error) {
 	return f, nil
 }
 ```
-### 8.6、go只有一种循环for
+### 7.6、go只有一种循环for
 如：源码来源于excelize  
 ```golang
 func (f *File) UpdateLinkedValue() {
@@ -305,7 +304,7 @@ func (f *File) UpdateLinkedValue() {
 	}
 }
 ```
-## 9、只有一个后自增i++，没有++i，同理自减也一样
+## 8、只有一个后自增i++，没有++i，同理自减也一样
 如：源码来源于举例写的  
 ```golang
 func bubbleSort(array []int) {
@@ -318,7 +317,7 @@ func bubbleSort(array []int) {
     }
 }
 ```
-## 10、=与:=的使用区别  
+## 9、=与:=的使用区别  
 =赋值  
 :=声明并赋值
 
@@ -352,7 +351,7 @@ number1, number2, number3 := 1, 2, 3
 
 :=只能在声明“局部变量”的时候使用，而“var”没有这个限制
 
-## 11、首字母大小写
+## 10、首字母大小写
 Go语言通过首字母的大小写来控制访问权限。无论是方法，变量，常量或是自定义的变量类型，如果首字母大写，则可以被外部包访问，反之则不可以。  
 
 结构体中的字段名，如果首字母小写的话，则该字段无法被外部包访问和解析，比如，json解析  
@@ -385,7 +384,7 @@ func main() {
 {"name":"张三","address":"中国北京"}
 ```
 
-## 12、struct tag
+## 11、struct tag
 结构体首字母小写，json无法获取属性，参考上面的介绍说明
 ```golang
 package main
@@ -463,7 +462,7 @@ func main() {
 {"name":"张三","age":18}
 ```
 
-## 13、...参数
+## 12、...参数
 表示不定参数  
 笑话-题外话：第一次使用redis时，做批量写入，因为参数不定还闹过乌龙，以为...是展示不全导致的  
 函数可变数量参数  

@@ -26,7 +26,7 @@ tar xvf mysql-5.6.32.tar.gz
 cd mysql-5.6.32
 ```
 或者web下载  
-历史各版本下载：(https://downloads.mysql.com/archives/community/)  
+历史各版本下载：<https://downloads.mysql.com/archives/community/>  
 Source Code -> Generic Linux 通用tar包
 
 ## 3、安装编译环境
@@ -101,7 +101,7 @@ service mysql start  --启动MySQL
 ```
 ### 6.3 配置环境变量
 MySQL启动成功后，root默认没有密码，我们需要设置root密码。  
-设置之前，我们需要先设置PATH，要不不能直接调用mysql  
+设置之前，我们需要先设置PATH，要不不能直接调用mysql   
 修改/etc/profile文件，在文件末尾添加
 ```bash
 PATH=/data/mysql/bin:$PATH

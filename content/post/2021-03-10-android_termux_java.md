@@ -7,18 +7,18 @@ categories: [ "android", "termux", "arm64", "springboot", "java" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 2020年9月份打造好了termux，但是苦于jdk没法安装，只能简单的用ecj(eclipse的java，类似jdk的javac)，但是springboot或者tomcat的项目怎么跑啊?
 今天为了做培训演示，找到了termux下的openJDK资源，记录下安装的经过。termux的安装和工具准备参考前一篇[android下安装termux模拟器-超便携linux](/post/2020-09-28-android_termux)
 
-## 2、git下载openJDK的安装脚本
+## 1、git下载openJDK的安装脚本
 ssh登录termux，接着下载termux安装openJDK的脚本
 ```bash
 git clone https://github.com/MasterDevX/Termux-Java.git
 cd Termux-Java
 chmod 700 installjava uninstall_java.sh
 ```
-## 3、下载openJDK的包(可选)
+## 2、下载openJDK的包(可选)
 因为步骤2中installjava会下载一个7、80M的openJDK的tar.gz包，为了减少失败，可以用wget先提前下载对应版本的包
 ```bash
 dpkg --print-architecture
@@ -39,7 +39,7 @@ else
     wget https://github.com/Hax4us/java/releases/download/${tag}/jdk8_${archname}.tar.gz -q
 fi
 ```
-## 4、安装
+## 3、安装
 看看执行过程有没出错，正常的话应该安装完会出现success提示，如下图
 ```bash
 bash installjava
@@ -48,7 +48,7 @@ Java was successfully installed!
 ```
 ![](/posts/termux/installjava_success.png)
 
-## 5、测试
+## 4、测试
 也可以参考下图
 ```bash
 java -version
@@ -61,7 +61,7 @@ echo $JAVA_HOME
 ```
 ![](/posts/termux/java.png)
 
-## 6、上传springboot项目
+## 5、上传springboot项目
 先添加springboot启动脚本
 ```bash
 #!/bin/bash
@@ -153,7 +153,7 @@ case "$1" in
 esac
 ```
 
-## 7、启动springboot项目
+## 6、启动springboot项目
 ```bash
 chmod 700 startJar.sh
 ./startJar.sh start
@@ -166,7 +166,7 @@ nohup java -server $XMS $XMX -Djava.io.tmpdir="$tmpdir" -jar $JARFILE > $SERVICE
 核对springboot的启动日志，是否正常
 ![](/posts/termux/springboot_start.png)
 
-## 8、测试访问
+## 7、测试访问
 测试springboot项目提前写好的接口
 ```bash
 curl http://127.0.0.1:8090/test/demo
@@ -182,5 +182,5 @@ curl http://127.0.0.1:8090/test/demo
 {"id":10,"account":"test10","password":"password10","name":"张三10","sex":1,"company":"testCompany10"}]
 ```
 ![](/posts/termux/test_springboot.png)
-大功告成，现在springboot项目也起来了，访问了termux的mariadb，这些需要在写测试springboot项目提前配置好，这里没做介绍。
+大功告成，现在springboot项目也起来了，访问了termux的mariadb，这些需要在写测试springboot项目提前配置好，这里没做介绍。  
 termux安装参考前一篇[android下安装termux模拟器-超便携linux](/post/2020-09-28-android_termux)

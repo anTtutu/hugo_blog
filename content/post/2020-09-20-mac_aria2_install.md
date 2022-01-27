@@ -7,28 +7,28 @@ categories: [ "mac", "aria2" ]
 toc: true
 ---
 
-## 1、前言
+## 前言
 尝试在自己的Mac上源码方式安装aria2，根据教程修改了下限制的线程数，然后总结下经验
 
-## 2、下载aria2源码
-下载地址：(https://github.com/aria2/aria2)
+## 1、下载aria2源码
+下载地址：<https://github.com/aria2/aria2>
 ```bash
 git clone https://github.com/aria2/aria2.git
 ```
 
-## 3、提前准备Mac的编译环境
+## 2、提前准备Mac的编译环境
 因aria2是C++的，需要C++的环境，可以通过brew安装
 ```bash
 xcode-select --install
 
 brew install autoconf automake cppunit libtool libxml2 gettext openssl pkg-config sqlite zlib
 ```
-## 4、参考前人总结的源码修改经验修改aria2的源码
+## 3、参考前人总结的源码修改经验修改aria2的源码
 ```bash
 cd aria2/src
 vim OptionHandlerFactory.cc
 ```
-1、将
+### 3.1 将
 ```c++
 OptionHandler* op(new NumberOptionHandler(PREF_MAX_CONNECTION_PER_SERVER,
                                                TEXT_MAX_CONNECTION_PER_SERVER,
@@ -41,7 +41,7 @@ OptionHandler* op(new NumberOptionHandler(PREF_MAX_CONNECTION_PER_SERVER,
                                                "128", 1, -1, 'x'));
 ```
 
-2、将
+### 3.2 将
 ```c++
 PREF_MIN_SPLIT_SIZE, TEXT_MIN_SPLIT_SIZE, "20M", 1_m, 1_g, 'k'));
 ```
@@ -50,7 +50,7 @@ PREF_MIN_SPLIT_SIZE, TEXT_MIN_SPLIT_SIZE, "20M", 1_m, 1_g, 'k'));
 PREF_MIN_SPLIT_SIZE, TEXT_MIN_SPLIT_SIZE, "4K", 1_k, 1_g, 'k'));
 ```
 
-3、将
+### 3.3 将
 ```c++
 PREF_CONNECT_TIMEOUT, TEXT_CONNECT_TIMEOUT, "60", 1, 600));
 ```
@@ -59,7 +59,7 @@ PREF_CONNECT_TIMEOUT, TEXT_CONNECT_TIMEOUT, "60", 1, 600));
 PREF_CONNECT_TIMEOUT, TEXT_CONNECT_TIMEOUT, "30", 1, 600));
 ```
 
-4、将
+### 3.4 将
 ```c++
 PREF_PIECE_LENGTH, TEXT_PIECE_LENGTH, "1M", 1_m, 1_g));
 ```
@@ -68,7 +68,7 @@ PREF_PIECE_LENGTH, TEXT_PIECE_LENGTH, "1M", 1_m, 1_g));
 PREF_PIECE_LENGTH, TEXT_PIECE_LENGTH, "4k", 1_k, 1_g));
 ```
 
-5、将
+### 3.5 将
 ```c++
 new NumberOptionHandler(PREF_RETRY_WAIT, TEXT_RETRY_WAIT, "0", 0, 600));
 ```
@@ -77,7 +77,7 @@ new NumberOptionHandler(PREF_RETRY_WAIT, TEXT_RETRY_WAIT, "0", 0, 600));
 new NumberOptionHandler(PREF_RETRY_WAIT, TEXT_RETRY_WAIT, "2", 0, 600));
 ```
 
-6、将
+### 3.6 将
 ```c++
 new NumberOptionHandler(PREF_SPLIT, TEXT_SPLIT, "5", 1, -1, 's'));
 ```
@@ -87,7 +87,7 @@ new NumberOptionHandler(PREF_SPLIT, TEXT_SPLIT, "8", 1, -1, 's'));
 ```
 好的，到这里为止我们全部修改完成，保存退出。
 
-## 5、编译
+## 4、编译
 每一步都没ERROR，注意查看控制台信息并排错，如果前面编译环境准备到位，应该不会编译环节报错的
 ```bash
 autoreconf -i
@@ -135,7 +135,7 @@ Options:
 ```
 表示环境变量也准备成功
 
-## 6、设置aria2的配置文件(可选)
+## 5、设置aria2的配置文件(可选)
 aria2配置文件参考如下
 ```bash
 mkdir ~/.aria2
@@ -269,13 +269,13 @@ disk-cache=64M
 ```
 如果新增了conf文件后下载报错，也可以去掉conf文件
 
-## 7、测试下载
+## 6、测试下载
 ```bash
 aria2c http://mirror.compevo.com/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso
 ```
 稍等会看到下载目录下有centos的iso镜像
 
-## 注意
+## 7、注意
 Mac下开启rpc配置项和ssl证书需要参考官方这里的讨论做下测试  
 打开rpc配置：
 ```properties
@@ -284,4 +284,4 @@ Mac下开启rpc配置项和ssl证书需要参考官方这里的讨论做下测�
 # 启用RPC, 默认:false
 enable-rpc=true
 ```
-issue：(https://github.com/aria2/aria2/issues/1379)  
+issue：<https://github.com/aria2/aria2/issues/1379>

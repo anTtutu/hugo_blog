@@ -1,34 +1,46 @@
 ---
 title: Oracle11gR2手工配置dataguard
 date: 2017-05-22T21:46:20+08:00
-tags: [ "oracle" ] 
+tags: [ "oracle", "dataguard" ] 
 description: "Oracle11gR2手工配置dataguard"
-categories: [ "oracle" ]
+categories: [ "oracle", "dataguard" ]
 toc: true
 ---
 
-#### 网上有很多Oracle Dataguard的配置教程，但不难发现，很多采用的是rman duplicate这种方法，尽管此种方法较为简便。但在某种程度上，却也误导了初学者，虽说也能配置成功，但只知其然不知其所以然，Dataguard的本质没有吃透，也不利于其维护和调优。
-#### 本配置基于Oracle官方文档，目的在于加深对于Dataguard的了解。　
-#### 本配置的结果是最大性能模式下的异步传输 ，因此在参数文件中，只涉及基本的主备参数，没有考虑switchover和最大性能模式下的real time apply。在监听的配置中，也没有考虑Data Guard Broker的应用情况
+## 前言 
+网上有很多Oracle Dataguard的配置教程，但不难发现，很多采用的是rman duplicate这种方法，尽管此种方法较为简便。但在某种程度上，却也误导了初学者，虽说也能配置成功，但只知其然不知其所以然，Dataguard的本质没有吃透，也不利于其维护和调优。
 
-## 配置环境：
+### 注：
+本配置基于Oracle官方文档，目的在于加深对于Dataguard的了解。  　
+本配置的结果是最大性能模式下的异步传输，因此在参数文件中，只涉及基本的主备参数，没有考虑switchover和最大性能模式下的real time apply。在监听的配置中，也没有考虑Data Guard Broker的应用情况。
+
+## 1、环境准备
 ```bash
 主库： 备库：
 操作系统版本： Oracle Linux 6.3 Oracle Linux 6.3
 数据库版本： Oracle 11.2.0.1.0 Oracle 11.2.0.1.0
-主机名： node1.being.com node2.being.com
-IP： 192.168.1.11 192.168.1.12
-db_name orcl victor
-db_unique_name orcl orcl
-instance_name orcl victor
-service_names orcl victor
+主机名： 
+node1.being.com 
+node2.being.com
+IP： 
+192.168.1.11
+192.168.1.12
+db_name:
+orcl victor
+db_unique_name:
+orcl orcl
+instance_name:
+orcl victor
+service_names:
+orcl victor
 ```
-## 注意：
-1. Dataguard中只需要db_unique_name保持一致即可
-2. 主库中除了安装Oracle软件以外，还需要dbca建库。而备库中，只需要安装Oracle软件即可，即在./runInstaller安装过程中，第三步选择install software only即可
-3. 主备库的ORACLE_BASE=/u01/app/oracle,ORACLE_HOME=$ORACLE_BASE/product/11.2.0.1/db_1
+### 注意：
+- 1. Dataguard中只需要db_unique_name保持一致即可
+- 2. 主库中除了安装Oracle软件以外，还需要dbca建库。而备库中，只需要安装Oracle软件即可，即在./runInstaller安装过程中，第三步选择install software only即可
+- 3. 主备库的ORACLE_BASE=/u01/app/oracle,ORACLE_HOME=$ORACLE_BASE/product/11.2.0.1/db_1
 
-### 一、配置监听
+## 2、搭建
+### 2.1 配置监听
 #### 1> 主库上
 ```bash
 [oracle@node1 ~]$ cd $ORACLE_HOME/network/admin/
@@ -60,10 +72,11 @@ TO_ORCL =
 )
 )
 ```
-注意：该配置只是基于基本的Dataguard配置，没有考虑Dataguard broker的配置
-### 二、主库环境准备 -->> 在node1上操作
+#### 注意：
+该配置只是基于基本的Dataguard配置，没有考虑Dataguard broker的配置
+### 2.2 主库环境准备 -->> 在node1上操作
 #### 1> 将数据库设置为归档模式
-```bash
+```sql
 SQL> archive log list -->>若Database log mode为No Archive Mode，则表示该数据库运行在非归档模式下。进行以下操作
 SQL> shutdown immediate
 SQL> startup mount
@@ -71,12 +84,12 @@ SQL> alter database archivelog;
 SQL> alter database open;
 ```
 #### 2> 将数据库设置为Force Logging模式
-```bash
+```sql
 SQL> select force_logging from v$database; -->>若为NO，则进行以下操作
 SQL> alter database force logging;
 ```
 #### 3> 修改主库参数文件
-```bash
+```sql
 SQL> alter system set log_archive_config='dg_config=(orcl,victor)';
 -->> 代表该Dataguard是两个节点，一主一从，若要配置多个节点，则需要在此处添加。
 SQL> alter system set log_archive_dest_1='location=USE_DB_RECOVERY_FILE_DEST valid_for=(online_logfiles,primary_role) db_unique_name=orcl';
@@ -89,36 +102,36 @@ SQL> alter system set remote_login_passwordfile=exclusive scope=spfile; -->> 设
 SQL> alter system set log_archive_format='%t_%s_%r.arc' scope=spfile; -->> 设置归档日志的格式，该设置需重启数据库才能生效
 -->> 最后两项可不用显性设定
 ```
-### 三、 为备库创建各种文件 -->> 在node1上操作
+### 2.3 为备库创建各种文件 -->> 在node1上操作
 #### 1> 密码文件
 ```bash
 [oracle@node1 ~]$ cd $ORACLE_HOME/dbs/
 [oracle@node1 dbs]$ orapwd file=orapworcl entries=5 force=y password=oracle
 ```
 #### 2> 参数文件
-```bash
+```sql
 SQL> create pfile='/home/oracle/orcl.ora' from spfile;
 ```
 #### 3> 备份数据库
 对数据库做备份有多种办法，包括冷备、在线热备、RMAN备份，在这里我们使用RMAN备份
-```bash
+```sql
 [oracle@node1 ~]$ mkdir /home/oracle/rman
 [oracle@node1 ~]$ rman target /
 RMAN> backup database format '/home/oracle/rman/full_%U';
 ```
 #### 4> 备份控制文件
-```bash
+```sql
 SQL> alter system switch logfile;
 SQL> alter database create standby controlfile as '/home/oracle/victor.ctl';
 ```
-### 四、将上述四类文件copy到备库
+### 2.4 将上述四类文件copy到备库
 ```bash
 [oracle@node1 ~]$ scp $ORACLE_HOME/dbs/orapworcl oracle@192.168.1.12:/u01/app/oracle/product/11.2.0.1/db_1/dbs/orapwvictor
 [oracle@node1 ~]$ scp /home/oracle/orcl.ora oracle@192.168.1.12:/home/oracle/victor.ora
 [oracle@node1 ~]$ scp -r /home/oracle/rman/ oracle@192.168.1.12:/home/oracle/rman
 [oracle@node1 ~]$ scp /home/oracle/victor.ctl oracle@192.168.1.12:/home/oracle
 ```
-### 五、 创建备库
+### 2.5 创建备库
 #### 1> 修改参数文件
 ```bash
 [oracle@node2 ~]$ vim victor.ora
@@ -153,7 +166,7 @@ log_file_name_convert='/u01/app/oracle/oradata/orcl/','/u01/app/oracle/oradata/v
 [oracle@node2 ~]$ cp /home/oracle/victor.ctl /u01/app/oracle/oradata/victor/control01.ctl
 ```
 #### 3> 创建备库
-```bash
+```sql
 [oracle@node2 ~]$ sqlplus / as sysdba
 SQL> create spfile from pfile='/home/oracle/victor.ora';
 SQL> startup mount
@@ -162,21 +175,21 @@ RMAN> restore database;
 RMAN> alter database open;
 SQL> alter database recover managed standby database disconnect from session;
 ```
-### 六、测试
+### 2.6 测试
 #### 1> 在备库上查询归档日志的序列号
-```bash
+```sql
 SQL> select sequence# from v$archived_log;
 ```
 #### 2> 在主库上切换一次日志
-```bash
+```sql
 SQL> alter system switch logfile;
 ```
 #### 3> 在备库上查询归档日志的序列号,看是否有增加
-```bash
+```sql
 SQL> select sequence# from v$archived_log;
 ```
 #### 4> 在备库上查询归档日志是否被应用
-```bash
+```sql
 SQL> select sequence#,applied from v$archived_log;
 ```
 当然，也可以用具体案例进行测试，譬如在主库中新建一张表，对表进行增、删、改，然后切换日志，看备库能否应用。

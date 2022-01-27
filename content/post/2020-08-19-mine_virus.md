@@ -7,18 +7,19 @@ categories: [ "mine", "virus", "linux", "check" ]
 toc: true
 ---
 
+## 前言
 8月13日一早接到负责公司内服务器的IT工程师提醒，测试环境有2台服务器CPU飙得超高，让检查下
 
 ## 1、查看IP
 发现是2019年7月份搭建的mysql集群和redis集群测试服务器，先运行top检查进程，发现有个程序占了服务器8C的580%，几乎完全把CPU核心占满了
 ![](/posts/virus/top.png)
 
-## 2、百度
+## 2、百度下案例
 第一直觉是挖矿病毒，然后根据进程名称查了下百度，有一个人在CSDN发了一个咨询贴，正好碰到的一模一样，可以100%确认是挖矿病毒了
 ![](/posts/virus/ps.jpg)  
 ![](/posts/virus/baidu.png)
 
-## 3、停病毒进程
+## 3、杀病毒进程
 杀死病毒进程，防止有守护进程或定时任务，深入清理，去掉crontab并确认30分钟内没重新加载挖矿进程
 ![](/posts/virus/crontab.jpg)
 
