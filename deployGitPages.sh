@@ -55,6 +55,7 @@ function hugoDeployGitee()
 # git and hugo command
 function gitAndhugo()
 {
+    # delete old file
     rm -r ./public/* 
     # hugo and copy public to project
     hugo
