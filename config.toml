@@ -1,6 +1,6 @@
-baseURL = "https://anTtutu.github.io/"          #github.io
+#baseURL = "https://anTtutu.github.io/"          #github.io
 #baseURL = "https://y31w9z.coding-pages.com/"    #coding.net
-#baseURL = "https://anttu.gitee.io/"              #gitee.io
+baseURL = "https://anttu.gitee.io/"              #gitee.io
 languageCode = "zh-CN"
 defaultContentLanguage = "zh-cn"                          # en / zh-cn / ... (This field determines which i18n file to use)
 title = "Anttu's Blog"
