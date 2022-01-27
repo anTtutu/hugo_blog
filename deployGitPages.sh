@@ -55,6 +55,7 @@ function hugoDeployGitee()
 # git and hugo command
 function gitAndhugo()
 {
+    rm -r ./public/* 
     # hugo and copy public to project
     hugo
     cp -r ./public/*  ../${GITCODE_DIR}/$2/
