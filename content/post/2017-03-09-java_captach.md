@@ -1,6 +1,6 @@
 ---
 title: Java高防OCR和机器人图形验证码
-date: 2017-05-09T21:46:20+08:00
+date: 2017-03-09T21:46:20+08:00
 tags: [ "java", "captcha" ] 
 description: "Java原生图形验证码"
 categories: [ "java", "captcha" ]
