@@ -1,6 +1,6 @@
 ---
 title: Oracle11gR2手工配置dataguard
-date: 2017-05-22T21:46:20+08:00
+date: 2017-05-26T21:46:20+08:00
 tags: [ "oracle", "dataguard" ] 
 description: "Oracle11gR2手工配置dataguard"
 categories: [ "oracle", "dataguard" ]

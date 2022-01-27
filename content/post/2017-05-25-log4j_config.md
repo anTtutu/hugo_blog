@@ -1,6 +1,6 @@
 ---
 title: Log4j参数整理
-date: 2017-05-22T21:46:20+08:00
+date: 2017-05-25T21:46:20+08:00
 tags: [ "log4j", "java" ] 
 description: "Log4j参数整理"
 categories: [ "log4j", "java" ]
