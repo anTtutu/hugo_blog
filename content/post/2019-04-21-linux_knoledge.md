@@ -196,7 +196,7 @@ CertUtil: -hashfile 命令成功完成。
 linux下的其他摘要跟mac的命令差不多  
 windows下没测试出字符串的方式，只能针对文件生成md5摘要
 
-## 11、挖矿病毒二进制命令无法被删除
+## 12、挖矿病毒二进制命令无法被删除
 ```bash
 [root@kubernetes-master sbin]# lsattr scoutd 
 ----i--------e-- scoutd
@@ -208,7 +208,7 @@ rm: remove regular file ‘scoutd’? y
 [root@kubernetes-master sbin]# lsattr scoutd 
 lsattr: No such file or directory while trying to stat scoutd
 ```
-### 11.1 文件属性介绍
+### 12.1 文件属性介绍
 属性|说明
 -|-
 A|即Atime，告诉系统不要修改对这个文件的最后访问时间。
@@ -224,7 +224,7 @@ u|当一个应用程序请求删除这个文件，系统会保留其数据块以
 t|文件系统支持尾部合并（tail-merging）。
 X|可以直接访问压缩文件的内容。
 
-### 11.2 参数介绍
+### 12.2 参数介绍
 参数|说明
 -|-
 -R|递归处理，将指定目录下的所有文件及子目录一并处理。
