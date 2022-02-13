@@ -1,9 +1,9 @@
 ---
-title: "spring boot cli&spring cloud cli简单介绍"
-date: 2022-02-07T00:29:47+08:00
-tag : [ "java", "springboot", "cli" ]
-description: "spring boot cli&spring cloud cli简单介绍"
-categories: [ "java", "springboot", "cli" ]
+title: "logrotate日期切割"
+date: 2022-02-13T00:29:47+08:00
+tag : [ "linux", "log", "split" ]
+description: "logrotate日期切割"
+categories: [ "linux", "log", "split" ]
 toc: true
 ---
 
