@@ -195,3 +195,41 @@ CertUtil: -hashfile 命令成功完成。
 #### 注:
 linux下的其他摘要跟mac的命令差不多  
 windows下没测试出字符串的方式，只能针对文件生成md5摘要
+
+## 11、挖矿病毒二进制命令无法被删除
+```bash
+[root@kubernetes-master sbin]# lsattr scoutd 
+----i--------e-- scoutd
+[root@kubernetes-master sbin]# chattr -i scoutd 
+[root@kubernetes-master sbin]# lsattr scoutd    
+-------------e-- scoutd
+[root@kubernetes-master sbin]# rm scoutd 
+rm: remove regular file ‘scoutd’? y
+[root@kubernetes-master sbin]# lsattr scoutd 
+lsattr: No such file or directory while trying to stat scoutd
+```
+### 11.1 文件属性介绍
+属性|说明
+-|-
+A|即Atime，告诉系统不要修改对这个文件的最后访问时间。
+S|即Sync，一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘。
+a|即Append Only，系统只允许在这个文件之后追加数据，不允许任何进程覆盖或截断这个文件。如果目录具有这个属性，系统将只允许在这个目录下建立和修改文件，而不允许删除任何文件。
+b|不更新文件或目录的最后存取时间。
+c|将文件或目录压缩后存放。
+d|当dump程序执行时，该文件或目录不会被dump备份。
+D|检查压缩文件中的错误。
+i|即Immutable，系统不允许对这个文件进行任何的修改。如果目录具有这个属性，那么任何的进程只能修改目录之下的文件，不允许建立和删除文件。
+s|彻底删除文件，不可恢复，因为是从磁盘上删除，然后用0填充文件所在区域。
+u|当一个应用程序请求删除这个文件，系统会保留其数据块以便以后能够恢复删除这个文件，用来防止意外删除文件或目录。
+t|文件系统支持尾部合并（tail-merging）。
+X|可以直接访问压缩文件的内容。
+
+### 11.2 参数介绍
+参数|说明
+-|-
+-R|递归处理，将指定目录下的所有文件及子目录一并处理。
+-v<版本编号>|设置文件或目录版本。
+-V|显示指令执行过程。
++<属性>|开启文件或目录的该项属性。
+-<属性>|关闭文件或目录的该项属性。
+=<属性>|指定文件或目录的该项属性。
