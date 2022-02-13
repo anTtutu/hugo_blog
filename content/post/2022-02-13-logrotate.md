@@ -183,7 +183,7 @@ size size|当日志文件到达指定的大小时才转储，bytes(缺省)及KB(
 missingok|在日志轮循期间，任何错误将被忽略，例如“文件无法找到”之类的错误。
 
 ## 6、参考文献
-[1]https://linux.cn/article-4126-1.html  
-[2]http://xmodulo.com/2014/09/logrotate-manage-log-files-linux.html  
-[3]http://blog.csdn.net/fuming0210sc/article/details/50906372  
-[4]http://blog.csdn.net/forthemyth/article/details/44062529
+[1]<https://linux.cn/article-4126-1.html>  
+[2]<http://xmodulo.com/2014/09/logrotate-manage-log-files-linux.html>  
+[3]<http://blog.csdn.net/fuming0210sc/article/details/50906372>  
+[4]<http://blog.csdn.net/forthemyth/article/details/44062529>
