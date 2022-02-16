@@ -27,7 +27,7 @@ springcloud cli是作为 springboot cli的扩展插件安装的，需要下载�
 
 官方下载链接：<https://github.com/spring-cloud/spring-cloud-cli/archive/refs/tags/v2.2.4.RELEASE.tar.gz>
 
-## 2、安装安装springboot cli
+## 2、安装springboot cli
 ```bash
 tar -zvxf spring-boot-cli-2.6.3-bin.tar.gz
 cd spring-cli-2.6.3/
