@@ -1,8 +1,8 @@
 ---
-title: "python工具-测试数据生成器"
+title: "python工具-faker测试数据生成器"
 date: 2021-06-05T00:29:47+08:00
 tag : [ "python", "test", "faker" ]
-description: "python工具-测试数据生成器"
+description: "python工具-faker测试数据生成器"
 categories: [ "python", "test", "faker" ]
 toc: true
 ---
@@ -16,7 +16,8 @@ ruby 和 java 下都有类似的 faker 工具，但是对比过 java 的，还�
 from faker import Faker
 
 fake = Faker(locale='zh_CN') 
-#为生成数据的文化选项，默认为en_US，只有使用了相关文化，才能生成对应的随机信息，由于文化差异，设置文化的时候会导致有些字段比如省份等会出现方法报错等问题
+#为生成数据的文化选项，默认为en_US，只有使用了相关文化，才能生成对应的随机信息
+#由于文化差异，设置文化的时候会导致有些字段比如省份等会出现方法报错等问题
 ```
 ## 3、常用函数介绍
 参数|说明

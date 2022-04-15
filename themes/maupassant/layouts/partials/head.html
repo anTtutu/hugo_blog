@@ -8,8 +8,13 @@
     {{ end }}
 
     {{ if .IsHome -}}
+    {{ if .Site.Params.subtitle -}}
     <title>{{ .Site.Title }} | {{ .Site.Params.subtitle}}</title>
     <meta property="og:title" content="{{ .Site.Title }} | {{ .Site.Params.subtitle}}">
+    {{ else -}}
+    <title>{{ .Site.Title }}</title>
+    <meta property="og:title" content="{{ .Site.Title }}">
+    {{ end -}}
     <meta property="og:type" content="website">
     <meta name="Keywords" content="{{.Site.Params.keywords}}">
     <meta name="description" content="{{ .Site.Params.description }}">
@@ -37,7 +42,7 @@
     <link rel="stylesheet" href='{{ "css/normalize.css" | relURL}}'>
     <link rel="stylesheet" href='{{ "css/style.css" | relURL }}'>
     {{ range .AlternativeOutputFormats -}}
-        {{ printf `<link rel="%s" type="%s+%s" href="%s" title="%s" />` .Rel .MediaType.Type .MediaType.Suffix .Permalink $.Site.Title | safeHTML }}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
