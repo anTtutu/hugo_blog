@@ -1,5 +1,5 @@
 ---
-title: "shell 13问"
+title: "转载-shell 13问"
 date: 2022-04-22T00:29:47+08:00
 tag : [ "linux", "shell" ]
 description: "shell 13问"
@@ -7,6 +7,8 @@ categories: [ "linux", "shell" ]
 toc: true
 ---
 
+## 前言
+shell编写入门的时候，有幸看到比较经典的 shell 13问，碰到有大佬整理成 markdown 格式，转载过来
 ## 1、为何叫做 Shell？
 我们知道计算机的运作离不开硬件，但却无法直接操作硬件，硬件的驱动只能通过一种称之为“操作系统（OS，Opertating System）的软件来管控。Linux 严格来说是一个操作系统（OS）。
 
