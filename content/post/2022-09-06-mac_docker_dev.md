@@ -114,6 +114,7 @@ total 32
 -rwx------@ 1 test  staff  406  9  6 20:35 docker-redis-7.0-run.sh
 -rwx------@ 1 test  staff  572  9  6 19:36 docker-mysql-8.0-run.sh
 -rwx------@ 1 test  staff  469  9  7 00:58 docker-mongo-6.0-run.sh
+-rwx------@ 1 test  staff  214  9  7 11:07 docker-stop.sh
 drwxr-xr-x  7 test  staff  224  9  6 20:00 ..
 drwxr-xr-x  6 test  staff  192  9  6 21:12 .
 
@@ -761,7 +762,7 @@ admin>
 ```
 
 ## 27、结语
-最后环境准备好了，运行信息如下：
+1、最后环境准备好了，运行信息如下：
 ```bash
 # 容器信息如下：
 docker ps -a
@@ -778,6 +779,43 @@ mongo                    6.0       d34d21a9eb5b   4 days ago     693MB
 mysql                    8.0       ff3b5098b416   7 days ago     447MB
 redis                    7.0       dc7b40a0b05d   2 weeks ago    117MB
 docker/getting-started   latest    cb90f98fd791   4 months ago   28.8MB
+```
+
+2、停止容器  
+停止脚本如下：
+```bash
+container_name=$1
+
+container_id=$(docker ps -a | grep ${container_name} | awk -F"${container_name}" {'print $1'})
+
+docker stop ${container_id}
+
+echo "stop successful, container name[${container_name}]"
+```
+不需要环境了，可以执行停止脚本暂时停止容器，如下：
+```bash
+./docker-stop.sh mysql
+b055811ce23c
+stop successful, container name[mysql]
+
+./docker-stop.sh redis
+e7bbf340c66c
+stop successful, container name[redis]
+
+./docker-stop.sh mongo
+9d71df7b26d0
+stop successful, container name[mongo]
+
+./docker-stop.sh docker/getting-started
+d439c916d2e4
+stop successful, container name[docker/getting-started]
+
+docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS                      PORTS     NAMES
+9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   10 hours ago   Exited (0) 22 seconds ago             mongo6
+e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago   Exited (0) 32 seconds ago             redis7
+b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   18 hours ago   Exited (0) 39 seconds ago             mysql8
+d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Exited (0) 5 seconds ago              crazy_chatterjee
 ```
 
 后续有其他工具补充再继续完善。。。
