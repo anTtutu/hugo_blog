@@ -1,14 +1,27 @@
 ---
-title: "mac配置docker开发工具"
+title: "Mac配置docker开发工具"
 date: 2022-09-06T00:29:47+08:00
 tag : [ "docker", "mac" ]
-description: "mac配置docker开发工具"
+description: "Mac配置docker开发工具"
 categories: [ "docker", "mac" ]
 toc: true
 ---
 
 ## 前言
 2020年整了一套android下的termux开发环境，今天继续配置一套docker环境的开发环境。
+
+开发电脑环境准备如下：
+系统|版本
+-|-
+MacOS|10.14.6
+docker|20.10.12
+
+待安装的开发工具环境如下：
+镜像|版本
+-|-
+mongo|6.0
+redis|7.0
+mysql|8.0
 
 ## 1、查询docker进程
 ```bash
