@@ -8,7 +8,7 @@ toc: true
 ---
 
 ## 前言
-2020年整了一套android下的termux开发环境，今天继续配置一套docker环境的开发环境。
+2020年整了一套android下的termux开发环境，今天继续配置一套docker下的开发环境。
 
 开发电脑环境准备如下：
 系统|版本
@@ -41,7 +41,15 @@ open /Applications/Docker.app
 ```
 
 #### PS:
->目前通过 open /Applications/Docker.app 可以启动，通过 launchctl start com.docker.docker.xxx 方式不能启动了。测试环境：mac ：10.15.6，docker：19.03.8 ，测试时间：2021-09-06
+>目前通过 open /Applications/Docker.app 可以启动，通过 launchctl start com.docker.docker.xxx 方式不能启动了。
+>
+>测试环境信息如下:
+>
+>系统|版本
+>-|-
+>MacOS|10.14.6
+>docker|20.10.12
+>测试时间: 2022-09-06
 
 ## 4、docker的镜像存储位置
 ```bash
@@ -51,6 +59,32 @@ MacOS:
 可以到上面的目录中，查看文件大小, du -sh *
 本机存放位置如下
 /Users/{whoami}/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw
+```
+
+## 5、准备
+```bash
+# docker script
+mkdir -p /Users/{whoami}/Downloads/Docker/shell
+# mysql
+mkdir -p /Users/{whoami}/Downloads/Docker/mysql
+mkdir -p /Users/{whoami}/Downloads/Docker/mysql/config
+mkdir -p /Users/{whoami}/Downloads/Docker/mysql/data
+mkdir -p /Users/{whoami}/Downloads/Docker/mysql/log
+# redis
+mkdir -p /Users/{whoami}/Downloads/Docker/redis
+mkdir -p /Users/{whoami}/Downloads/Docker/redis/config
+mkdir -p /Users/{whoami}/Downloads/Docker/redis/data
+mkdir -p /Users/{whoami}/Downloads/Docker/redis/log
+# mongo
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo/config
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo/data
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo/log
+
+# 复制时区文件
+cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
+
+# 下载redis.conf
 ```
 
 ## 5、查询mysql镜像的所有tags
@@ -160,7 +194,7 @@ oracle
 ```
 
 ## 6、安装mysql需要的tags
-以mysql举例
+以mysql 8.0举例
 ```bash
 docker pull mysql:8.0
 ```
@@ -678,3 +712,25 @@ config   12.00 KiB
 local    72.00 KiB
 admin>
 ```
+
+## 23、结语
+最后环境准备好了，运行信息如下：
+```bash
+# 容器信息如下：
+docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS        PORTS                               NAMES
+9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   9 hours ago    Up 9 hours    0.0.0.0:27017->27017/tcp            mongo6
+e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   13 hours ago   Up 13 hours   0.0.0.0:6379->6379/tcp              redis7
+b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   17 hours ago   Up 17 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
+d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   23 hours ago   Up 23 hours   0.0.0.0:80->80/tcp                  crazy_chatterjee
+
+# 镜像信息如下：
+docker images
+REPOSITORY               TAG       IMAGE ID       CREATED        SIZE
+mongo                    6.0       d34d21a9eb5b   4 days ago     693MB
+mysql                    8.0       ff3b5098b416   7 days ago     447MB
+redis                    7.0       dc7b40a0b05d   2 weeks ago    117MB
+docker/getting-started   latest    cb90f98fd791   4 months ago   28.8MB
+```
+
+后续有其他工具补充再继续完善。。。
