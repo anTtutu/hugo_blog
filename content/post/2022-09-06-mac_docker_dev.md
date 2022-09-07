@@ -8,7 +8,7 @@ toc: true
 ---
 
 ## 前言
-2020年整了一套android下的termux开发环境，今天继续配置一套docker下的开发环境。
+2020年整了一套android下的termux开发环境，今天继续配置一套docker下的开发环境。[termux搭建参考](/post/2022-09-06-mac_docker_dev)
 
 开发电脑环境准备如下：
 系统|版本
@@ -49,7 +49,8 @@ open /Applications/Docker.app
 >-|-
 >MacOS|10.14.6
 >docker|20.10.12
->测试时间: 2022-09-06
+
+测试时间: 2022-09-06
 
 ## 4、docker的镜像存储位置
 ```bash
@@ -61,7 +62,7 @@ MacOS:
 /Users/{whoami}/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw
 ```
 
-## 5、准备工作
+## 5、准备环境
 ```bash
 # docker script
 mkdir -p /Users/{whoami}/Downloads/Docker/shell
@@ -83,16 +84,20 @@ mkdir -p /Users/{whoami}/Downloads/Docker/mongo/log
 
 # 复制时区文件，解决mysql镜像容器运行时区是0问题
 cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
-
-# 1、my.cnf直接参考步骤9创建并写入关键参数配置
-# 2、下载redis.7版本包，提取redis.conf，然后参考步骤16修改配置
-# 3、mongod.conf直接参考步骤22创建并写入关键参数配置
 ```
 
-## 6、准备脚本
+## 6、准备配置文件
+1、my.cnf直接参考步骤9创建并写入关键参数配置  
+[步骤10](#jump10)  
+2、下载redis.7版本包，提取redis.conf，然后参考步骤16修改配置  
+[步骤17](#jump17)  
+3、mongod.conf直接参考步骤22创建并写入关键参数配置  
+[步骤23](#jump23)
+
+## 7、准备脚本
 docker-show-repo-tag.sh
 ```bash
-# 用 v2接口进行解析，需要安装bash的json库
+# 用镜像v2接口进行解析，需要安装bash的json库
 # 安装支持bash的json库-jq
 brew install jq
 
@@ -116,7 +121,7 @@ drwxr-xr-x  6 test  staff  192  9  6 21:12 .
 chmod 700 *.sh
 ```
 
-## 7、查询mysql镜像的所有tags
+## 8、查询mysql镜像的所有tags
 ```bash
 cd /Users/{whoami}/Downloads/Docker/shell
 ./docker-show-repo-tag.sh mysql
@@ -222,13 +227,13 @@ latest
 oracle
 ```
 
-## 8、安装mysql需要的tags
+## 9、安装mysql需要的tags
 以mysql 8.0举例
 ```bash
 docker pull mysql:8.0
 ```
 
-## 9、配置my.cnf
+## <span id="jump10">10、配置my.cnf</span>
 ```bash
 [client]
 default-character-set=utf8mb4
@@ -238,7 +243,7 @@ character-set-server=utf8mb4
 default_authentication_plugin=mysql_native_password
 ```
 
-## 10、启动mysql容器
+## 11、启动mysql容器
 提前准备一些参数
 ```bash
 docker run \
@@ -276,7 +281,7 @@ mysql:8.0
 -e|设置环境变量:<br>MYSQL_USER：添加用户<br>MYSQL_PASSWORD：设置添加用户密码<br>MYSQL_ROOT_PASSWORD：设置root用户密码<br>character-set-server：设置字符集<br>collation-server：设置字符比较规则<br>
 mysql:8.0|mysql(repository) : 8.0(tag)
 
-## 11、停止mysql容器
+## 12、停止mysql容器
 ```bash
 docker ps
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                               NAMES
@@ -287,7 +292,7 @@ docker stop b055811ce23c
 b055811ce23c
 ```
 
-## 12、启动mysql容器
+## 13、启动mysql容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                     PORTS                NAMES
@@ -298,7 +303,7 @@ docker start b055811ce23c
 b055811ce23c
 ```
 
-## 13、进入mysql容器内部
+## 14、进入mysql容器内部
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                               NAMES
@@ -337,7 +342,7 @@ mysql> show databases;
 mysql>
 ```
 
-## 14、查询redis镜像的所有tags
+## 15、查询redis镜像的所有tags
 ```bash
 cd /Users/{whoami}/Downloads/Docker/shell
 ./docker-show-repo-tag.sh redis
@@ -443,12 +448,12 @@ bullseye
 latest
 ```
 
-## 15、安装redis需要的tags
+## 16、安装redis需要的tags
 ```bash
 docker pull redis:7.0
 ```
 
-## 16、配置redis.conf
+## <span id="jump17">17、配置redis.conf</span>
 ```bash
 #bind 127.0.0.1             #注释掉这部分,使redis可以外部访问
 protected-mode no           #修改为no,去掉保护模式,让外网可以访问
@@ -457,7 +462,7 @@ requirepass test123456      #密码
 appendonly yes              #redis持久化,默认是no
 ```
 
-## 17、启动redis容器
+## 18、启动redis容器
 ```bash
 docker run \
 -d \
@@ -500,7 +505,7 @@ docker: Error response from daemon: pull access denied for redis-server, reposit
 See 'docker run --help'.
 ```
 
-## 18、起停redis容器
+## 19、起停redis容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                               NAMES
@@ -515,7 +520,7 @@ docker start e7bbf340c66c
 e7bbf340c66c
 ```
 
-## 19、进入redis容器内部
+## 20、进入redis容器内部
 ```bash
 docker exec -it e7bbf340c66c /bin/bash
 
@@ -527,7 +532,7 @@ OK
 127.0.0.1:6379>
 ```
 
-## 20、查询mongo镜像的所有tags
+## 21、查询mongo镜像的所有tags
 ```bash
 ./docker-show-repo-tag.sh mongo
 4
@@ -632,12 +637,12 @@ windowsservercore-1809
 windowsservercore-ltsc2022
 ```
 
-## 21、安装mongo需要的tags
+## 22、安装mongo需要的tags
 ```bash
 docker pull mongo:6.0
 ```
 
-## 22、配置mongod.conf
+## <span id="jump23">23、配置mongod.conf</span>
 ```yaml
 systemLog:
     destination: file
@@ -661,7 +666,7 @@ security:
     authorization: enabled
 ```
 
-## 23、启动mongo容器
+## 24、启动mongo容器
 ```bash
 docker run \
 -d \
@@ -698,7 +703,7 @@ mongo:6.0 \
 -f /data/mongo/conf/mongod.conf|启动mongo并加载指定配置文件
 mongo:6.0|mongo(repository) : 6.0(tag)
 
-## 24、起停mongo容器
+## 25、起停mongo容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                               NAMES
@@ -714,7 +719,7 @@ docker start 9d71df7b26d0
 9d71df7b26d0
 ```
 
-## 25、进入mongo容器内部
+## 26、进入mongo容器内部
 ```bash
 docker exec -it 9d71df7b26d0 /bin/bash
 
@@ -752,7 +757,7 @@ local    72.00 KiB
 admin>
 ```
 
-## 26、结语
+## 27、结语
 最后环境准备好了，运行信息如下：
 ```bash
 # 容器信息如下：
