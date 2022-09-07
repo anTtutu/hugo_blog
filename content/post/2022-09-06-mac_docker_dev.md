@@ -712,23 +712,23 @@ mongo:6.0|mongo(repository) : 6.0(tag)
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                               NAMES
-9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   0.0.0.0:27017->27017/tcp            mongo6
+5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   0.0.0.0:27017->27017/tcp            mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   4 hours ago     Up 4 hours     0.0.0.0:6379->6379/tcp              redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   8 hours ago     Up 7 hours     0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   13 hours ago    Up 13 hours    0.0.0.0:80->80/tcp                  crazy_chatterjee
 
-docker stop 9d71df7b26d0
-9d71df7b26d0
+docker stop 5d3e522b6295
+5d3e522b6295
 
-docker start 9d71df7b26d0
-9d71df7b26d0
+docker start 5d3e522b6295
+5d3e522b6295
 ```
 
 ## 26、进入mongo容器内部
 ```bash
-docker exec -it 9d71df7b26d0 /bin/bash
+docker exec -it 5d3e522b6295 /bin/bash
 
-root@9d71df7b26d0:/# ./bin/mongosh
+root@5d3e522b6295:/# ./bin/mongosh
 Current Mongosh Log ID:	63177d5eaf46621a26b4d4a0
 Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4
 Using MongoDB:		6.0.1
@@ -768,7 +768,7 @@ admin>
 # 容器信息如下：
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS        PORTS                               NAMES
-9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   9 hours ago    Up 9 hours    0.0.0.0:27017->27017/tcp            mongo6
+5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   9 hours ago    Up 9 hours    0.0.0.0:27017->27017/tcp            mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   13 hours ago   Up 13 hours   0.0.0.0:6379->6379/tcp              redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   17 hours ago   Up 17 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   23 hours ago   Up 23 hours   0.0.0.0:80->80/tcp                  crazy_chatterjee
@@ -808,7 +808,7 @@ e7bbf340c66c
 stop successful, container name[redis]
 
 ./docker-stop.sh mongo
-9d71df7b26d0
+5d3e522b6295
 stop successful, container name[mongo]
 
 ./docker-stop.sh docker/getting-started
@@ -817,7 +817,7 @@ stop successful, container name[docker/getting-started]
 
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS                      PORTS     NAMES
-9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   10 hours ago   Exited (0) 22 seconds ago             mongo6
+5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   10 hours ago   Exited (0) 22 seconds ago             mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago   Exited (0) 32 seconds ago             redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   18 hours ago   Exited (0) 39 seconds ago             mysql8
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Exited (0) 5 seconds ago              crazy_chatterjee
@@ -839,7 +839,7 @@ fi
 需要环境了，可以执行启动脚本再次启动容器，如下：
 ```bash
 ./docker-start-container.sh mongo
-9d71df7b26d0
+5d3e522b6295
 start successful, container name[mongo]
 
 ./docker-start-container.sh redis
@@ -852,7 +852,7 @@ start successful, container name[mysql]
 
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS                         PORTS                               NAMES
-9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   11 hours ago   Up 8 seconds                   0.0.0.0:27017->27017/tcp            mongo6
+5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   11 hours ago   Up 8 seconds                   0.0.0.0:27017->27017/tcp            mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago   Up 6 seconds                   0.0.0.0:6379->6379/tcp              redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   19 hours ago   Up 2 seconds                   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Up 5 minutes                   0.0.0.0:80->80/tcp                  crazy_chatterjee
