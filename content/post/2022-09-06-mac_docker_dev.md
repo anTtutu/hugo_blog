@@ -8,7 +8,7 @@ toc: true
 ---
 
 ## 前言
-2020年整了一套android下的termux开发环境，今天继续配置一套docker下的开发环境。[termux搭建参考](/post/2022-09-06-mac_docker_dev)
+2020年整了一套android下的termux开发环境，今天继续配置一套docker下的开发环境。[termux搭建参考](/post/2020-09-28-android_termux)
 
 开发电脑环境准备如下：
 系统|版本
@@ -49,8 +49,8 @@ open /Applications/Docker.app
 >-|-
 >MacOS|10.14.6
 >docker|20.10.12
-
-测试时间: 2022-09-06
+>
+>测试时间: 2022-09-06
 
 ## 4、docker的镜像存储位置
 ```bash
