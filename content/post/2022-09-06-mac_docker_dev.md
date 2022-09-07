@@ -54,6 +54,15 @@ open /Applications/Docker.app
 
 ## 4、docker的镜像存储位置
 ```bash
+Windows:
+打开docker desktop界面设置，
+Settings -> Resources -> Advanced -> Disk image location
+
+Linux:
+cd /var/lib/docker - 容器与镜像存放在此目录下
+镜像位置: /var/lib/docker/image
+容器位置: /var/lib/docker/containers
+
 MacOS:
 容器和镜像在如下目录下,不同版本或许可能文件版本不一样
 /Users/{whoami}/Library/Containers/com.docker.docker/Data
