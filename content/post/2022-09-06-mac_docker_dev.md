@@ -114,7 +114,8 @@ total 32
 -rwx------@ 1 test  staff  406  9  6 20:35 docker-redis-7.0-run.sh
 -rwx------@ 1 test  staff  572  9  6 19:36 docker-mysql-8.0-run.sh
 -rwx------@ 1 test  staff  469  9  7 00:58 docker-mongo-6.0-run.sh
--rwx------@ 1 test  staff  214  9  7 11:07 docker-stop.sh
+-rwx------@ 1 test  staff  351  9  7 11:32 docker-stop-container.sh
+-rwx------@ 1 test  staff  357  9  7 11:36 docker-start-container.sh
 drwxr-xr-x  7 test  staff  224  9  6 20:00 ..
 drwxr-xr-x  6 test  staff  192  9  6 21:12 .
 
@@ -786,11 +787,15 @@ docker/getting-started   latest    cb90f98fd791   4 months ago   28.8MB
 ```bash
 container_name=$1
 
-container_id=$(docker ps -a | grep ${container_name} | awk -F"${container_name}" {'print $1'})
+container_id=$(docker ps -a | grep ${container_name} | grep "Up" | awk -F"${container_name}" {'print $1'})
 
-docker stop ${container_id}
+if [ ! -z ${container_id} ]; then
+    docker stop ${container_id}
 
-echo "stop successful, container name[${container_name}]"
+    echo "stop successful, container name[${container_name}]"
+else
+    echo "container name[${container_name}] is not exist or stopped."    
+fi
 ```
 不需要环境了，可以执行停止脚本暂时停止容器，如下：
 ```bash
@@ -817,5 +822,41 @@ e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago 
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   18 hours ago   Exited (0) 39 seconds ago             mysql8
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Exited (0) 5 seconds ago              crazy_chatterjee
 ```
+启动脚本如下：
+```bash
+container_name=$1
+
+container_id=$(docker ps -a | grep ${container_name} | grep "Exited" | awk -F"${container_name}" {'print $1'})
+
+if [ ! -z ${container_id} ]; then
+    docker start ${container_id}
+
+    echo "start successful, container name[${container_name}]"
+else
+    echo "container name[${container_name}] is not exist or started."    
+fi
+```
+需要环境了，可以执行启动脚本再次启动容器，如下：
+```bash
+./docker-start-container.sh mongo
+9d71df7b26d0
+start successful, container name[mongo]
+
+./docker-start-container.sh redis
+e7bbf340c66c
+start successful, container name[redis]
+
+./docker-start-container.sh mysql
+b055811ce23c
+start successful, container name[mysql]
+
+docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS                         PORTS                               NAMES
+9d71df7b26d0   mongo:6.0                "docker-entrypoint.s…"   11 hours ago   Up 8 seconds                   0.0.0.0:27017->27017/tcp            mongo6
+e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago   Up 6 seconds                   0.0.0.0:6379->6379/tcp              redis7
+b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   19 hours ago   Up 2 seconds                   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
+d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Up 5 minutes                   0.0.0.0:80->80/tcp                  crazy_chatterjee
+```
+
 
 后续有其他工具补充再继续完善。。。
