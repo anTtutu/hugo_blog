@@ -233,7 +233,8 @@ oracle
 docker pull mysql:8.0
 ```
 
-## <span id="jump10">10、配置my.cnf</span>
+## 10、配置my.cnf
+<span id="jump10">my.cnf</span>
 ```bash
 [client]
 default-character-set=utf8mb4
@@ -453,7 +454,8 @@ latest
 docker pull redis:7.0
 ```
 
-## <span id="jump17">17、配置redis.conf</span>
+## 17、配置redis.conf
+<span id="jump17">redis.conf</span>
 ```bash
 #bind 127.0.0.1             #注释掉这部分,使redis可以外部访问
 protected-mode no           #修改为no,去掉保护模式,让外网可以访问
@@ -642,7 +644,8 @@ windowsservercore-ltsc2022
 docker pull mongo:6.0
 ```
 
-## <span id="jump23">23、配置mongod.conf</span>
+## 23、配置mongod.conf
+<span id="jump23">mongod.conf</span>
 ```yaml
 systemLog:
     destination: file
