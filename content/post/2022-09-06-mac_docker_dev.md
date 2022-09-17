@@ -109,8 +109,8 @@ cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
 [步骤17](#jump17)  
 3、mongod.conf直接参考步骤22创建并写入关键参数配置  
 [步骤23](#jump23)
-4、nginx.conf直接参考步骤**创建并写入关键参数配置
-[步骤**](#jump**)
+4、nginx.conf直接参考步骤27创建并写入关键参数配置
+[步骤27](#jump27)
 
 ## 7、准备脚本
 docker-show-repo-tag.sh
@@ -896,6 +896,7 @@ docker pull nginx:1.22.0
 ```
 
 ## 29、配置conf
+<span id="jump29">nginx.conf</span>
 ```bash
 #user  nobody;
 worker_processes  1;
@@ -1027,11 +1028,11 @@ docker run \
 --network bridge \
 --restart=always \
 --privileged=true \
--v /Users/tuchenguang/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
--v /Users/tuchenguang/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d \
--v /Users/tuchenguang/Downloads/Docker/nginx/cert:/etc/nginx/certs \
--v /Users/tuchenguang/Downloads/Docker/nginx/html:/etc/nginx/html \
--v /Users/tuchenguang/Downloads/Docker/nginx/log:/var/log/nginx \
+-v /Users/${whoami}/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+-v /Users/${whoami}/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d \
+-v /Users/${whoami}/Downloads/Docker/nginx/cert:/etc/nginx/certs \
+-v /Users/${whoami}/Downloads/Docker/nginx/html:/etc/nginx/html \
+-v /Users/${whoami}/Downloads/Docker/nginx/log:/var/log/nginx \
 -e LANG=C.UTF-8 \
 -e LC_ALL=C.UTF-8 \
 nginx:1.22.0
@@ -1046,11 +1047,11 @@ nginx:1.22.0
 --network|网络
 –-restart always|开机启动
 –-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
--v /Users/tuchenguang/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf|nginx的主配置文件
--v /Users/tuchenguang/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d| nginx的自定义配置文件目录，该目录下所有的*.conf会生效
--v /Users/tuchenguang/Downloads/Docker/nginx/cert:/etc/nginx/certs|nginx的ssl证书
--v /Users/tuchenguang/Downloads/Docker/nginx/html:/etc/nginx/html|nginx的静态文件
--v /Users/tuchenguang/Downloads/Docker/nginx/log:/var/log/nginx|nginx的日志目录
+-v /Users/${whoami}/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf|nginx的主配置文件
+-v /Users/${whoami}/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d| nginx的自定义配置文件目录，该目录下所有的*.conf会生效
+-v /Users/${whoami}/Downloads/Docker/nginx/cert:/etc/nginx/certs|nginx的ssl证书
+-v /Users/${whoami}/Downloads/Docker/nginx/html:/etc/nginx/html|nginx的静态文件
+-v /Users/${whoami}/Downloads/Docker/nginx/log:/var/log/nginx|nginx的日志目录
 -e LANG=C.UTF-8|解决nginx中文乱码
 -e LC_ALL=C.UTF-8|解决nginx中文乱码
 nginx:1.22.0|nginx(repository) : 1.22.0(tag)
