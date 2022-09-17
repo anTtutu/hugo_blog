@@ -1085,7 +1085,6 @@ docker start s46b779b40bb5
 ```bash
 docker exec -it 46b779b40bb5 /bin/bash
 
-root@46b779b40bb5:/# ps -ef | grep nginx
 root@46b779b40bb5:/# ls /etc/nginx/nginx.conf
 /etc/nginx/nginx.conf
 root@46b779b40bb5:/# cat /etc/nginx/nginx.conf
