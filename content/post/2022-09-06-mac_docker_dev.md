@@ -108,7 +108,7 @@ cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
 2、下载redis.7版本包，提取redis.conf，然后参考步骤16修改配置  
 [步骤17](#jump17)  
 3、mongod.conf直接参考步骤22创建并写入关键参数配置  
-[步骤23](#jump23)
+[步骤23](#jump23)  
 4、nginx.conf直接参考步骤27创建并写入关键参数配置
 [步骤27](#jump27)
 
