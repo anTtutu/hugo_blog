@@ -90,6 +90,13 @@ mkdir -p /Users/{whoami}/Downloads/Docker/mongo
 mkdir -p /Users/{whoami}/Downloads/Docker/mongo/config
 mkdir -p /Users/{whoami}/Downloads/Docker/mongo/data
 mkdir -p /Users/{whoami}/Downloads/Docker/mongo/log
+# nginx
+mkdir -p /Users/{whoami}/Downloads/Docker/nginx
+mkdir -p /Users/{whoami}/Downloads/Docker/nginx/conf
+mkdir -p /Users/{whoami}/Downloads/Docker/nginx/conf.d
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo/log
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo/html
+mkdir -p /Users/{whoami}/Downloads/Docker/mongo/cert
 
 # 复制时区文件，解决mysql镜像容器运行时区是0问题
 cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
@@ -102,6 +109,8 @@ cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
 [步骤17](#jump17)  
 3、mongod.conf直接参考步骤22创建并写入关键参数配置  
 [步骤23](#jump23)
+4、nginx.conf直接参考步骤**创建并写入关键参数配置
+[步骤**](#jump**)
 
 ## 7、准备脚本
 docker-show-repo-tag.sh
@@ -125,6 +134,11 @@ total 32
 -rwx------@ 1 test  staff  469  9  7 00:58 docker-mongo-6.0-run.sh
 -rwx------@ 1 test  staff  351  9  7 11:32 docker-stop-container.sh
 -rwx------@ 1 test  staff  357  9  7 11:36 docker-start-container.sh
+-rwx------  1 test  staff  149  9  8 18:02 docker-python-demo-v1.0-run.sh
+-rwx------  1 test  staff  147  9  8 18:04 docker-nodejs-demo-v1.0-run.sh
+-rwx------  1 test  staff  145  9  8 18:08 docker-java-demo-v1.0-run.sh
+-rwx------  1 test  staff  146  9  9 14:29 docker-go-demo-v1.0-run.sh
+-rwx------  1 test  staff  545  9 16 10:05 docker-nginx-1.22.0-run.sh
 drwxr-xr-x  7 test  staff  224  9  6 20:00 ..
 drwxr-xr-x  6 test  staff  192  9  6 21:12 .
 
@@ -771,12 +785,433 @@ local    72.00 KiB
 admin>
 ```
 
-## 27、结语
+## 27、查询nginx镜像的所有tags
+```bash
+./docker-show-repo-tag.sh nginx
+1
+1-alpine
+1-alpine-perl
+1-perl
+1.18
+1.18-alpine
+1.18-alpine-perl
+1.18-perl
+1.18.0
+1.18.0-alpine
+1.18.0-alpine-perl
+1.18.0-perl
+1.19
+1.19-alpine
+1.19-alpine-perl
+1.19-perl
+1.19.10
+1.19.10-alpine
+1.19.10-alpine-perl
+1.19.10-perl
+1.19.9
+1.19.9-alpine
+1.19.9-alpine-perl
+1.19.9-perl
+1.20
+1.20-alpine
+1.20-alpine-perl
+1.20-perl
+1.20.0
+1.20.0-alpine
+1.20.0-alpine-perl
+1.20.0-perl
+1.20.1
+1.20.1-alpine
+1.20.1-alpine-perl
+1.20.1-perl
+1.20.2
+1.20.2-alpine
+1.20.2-alpine-perl
+1.20.2-perl
+1.21
+1.21-alpine
+1.21-alpine-perl
+1.21-perl
+1.21.0
+1.21.0-alpine
+1.21.0-alpine-perl
+1.21.0-perl
+1.21.1
+1.21.1-alpine
+1.21.1-alpine-perl
+1.21.1-perl
+1.21.3
+1.21.3-alpine
+1.21.3-alpine-perl
+1.21.3-perl
+1.21.4
+1.21.4-alpine
+1.21.4-alpine-perl
+1.21.4-perl
+1.21.5
+1.21.5-alpine
+1.21.5-alpine-perl
+1.21.5-perl
+1.21.6
+1.21.6-alpine
+1.21.6-alpine-perl
+1.21.6-perl
+1.22
+1.22-alpine
+1.22-alpine-perl
+1.22-perl
+1.22.0
+1.22.0-alpine
+1.22.0-alpine-perl
+1.22.0-perl
+1.23
+1.23-alpine
+1.23-alpine-perl
+1.23-perl
+1.23.0
+1.23.0-alpine
+1.23.0-alpine-perl
+1.23.0-perl
+1.23.1
+1.23.1-alpine
+1.23.1-alpine-perl
+1.23.1-perl
+alpine
+alpine-perl
+latest
+mainline
+mainline-alpine
+mainline-alpine-perl
+mainline-perl
+perl
+stable
+stable-alpine
+stable-alpine-perl
+stable-perl
+```
+
+## 28、安装nginx需要的tags
+```bash
+docker pull nginx:1.22.0
+```
+
+## 29、配置conf
+```bash
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        charset utf-8;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        error_page  404              /404.html;
+        error_page  500              /500.html;
+        error_page  502 503 504      /error.html;
+        # redirect server error pages to the static page /50x.html
+        #
+        #error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+    include conf.d/*.conf;
+}
+```
+
+## 30、启动nginx容器
+```bash
+docker run \
+-d \
+-p 80:80 \
+-p 443:443 \
+--name nginx1.22.0 \
+--network bridge \
+--restart=always \
+--privileged=true \
+-v /Users/tuchenguang/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+-v /Users/tuchenguang/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d \
+-v /Users/tuchenguang/Downloads/Docker/nginx/cert:/etc/nginx/certs \
+-v /Users/tuchenguang/Downloads/Docker/nginx/html:/etc/nginx/html \
+-v /Users/tuchenguang/Downloads/Docker/nginx/log:/var/log/nginx \
+-e LANG=C.UTF-8 \
+-e LC_ALL=C.UTF-8 \
+nginx:1.22.0
+```
+参数说明：
+
+参数|说明
+-|-
+-d|后台运行容器
+-p 80:80<br>-p 443:443| 把容器内的80端口、443端口分别映射到宿主机80端口、443端口
+--name|nginx容器名称
+--network|网络
+–-restart always|开机启动
+–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+-v /Users/tuchenguang/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf|nginx的主配置文件
+-v /Users/tuchenguang/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d| nginx的自定义配置文件目录，该目录下所有的*.conf会生效
+-v /Users/tuchenguang/Downloads/Docker/nginx/cert:/etc/nginx/certs|nginx的ssl证书
+-v /Users/tuchenguang/Downloads/Docker/nginx/html:/etc/nginx/html|nginx的静态文件
+-v /Users/tuchenguang/Downloads/Docker/nginx/log:/var/log/nginx|nginx的日志目录
+-e LANG=C.UTF-8|解决nginx中文乱码
+-e LC_ALL=C.UTF-8|解决nginx中文乱码
+nginx:1.22.0|nginx(repository) : 1.22.0(tag)
+
+## 31、起停nginx容器
+```bash
+docker ps -a
+CONTAINER ID   IMAGE                    COMMAND                  CREATED       STATUS                     PORTS                                      NAMES
+46b779b40bb5   nginx:1.22.0             "/docker-entrypoint.…"   3 days ago    Up 19 seconds              0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   nginx1.22.0
+83c107ac3c1b   docker-gs-ping:v1.0      "/docker-gs-ping"        8 days ago    Up 19 seconds              0.0.0.0:8081->8081/tcp                     go-docker-v1
+170ce646f5cd   java-docker:v1.0         "./mvnw spring-boot:…"   9 days ago    Up 19 seconds              0.0.0.0:8080->8080/tcp                     java-docker-v1
+439741b1c983   node-docker:v1.0         "docker-entrypoint.s…"   9 days ago    Up 18 seconds              0.0.0.0:8000->8000/tcp                     nodejs-docker-v1
+77c73cd73550   python-docker:v1.0       "python3 -m flask ru…"   9 days ago    Up 19 seconds              0.0.0.0:5000->5000/tcp                     python-docker-v1
+5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   10 days ago   Up 18 seconds              0.0.0.0:27017->27017/tcp                   mongo6
+e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   10 days ago   Up 19 seconds              0.0.0.0:6379->6379/tcp                     redis7
+b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   11 days ago   Up 18 seconds              0.0.0.0:3306->3306/tcp, 33060/tcp          mysql8
+d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   11 days ago   Exited (255) 10 days ago   0.0.0.0:80->80/tcp                         crazy_chatterjee
+
+docker stop 46b779b40bb5
+46b779b40bb5
+
+docker start s46b779b40bb5
+46b779b40bb5
+```
+
+## 32、进入nginx容器内部
+```bash
+docker exec -it 46b779b40bb5 /bin/bash
+root@46b779b40bb5:/# ps -ef | grep nginx
+root@46b779b40bb5:/# ls /etc/nginx/nginx.conf
+/etc/nginx/nginx.conf
+root@46b779b40bb5:/# cat /etc/nginx/nginx.conf
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    #access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        charset utf-8;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        error_page  404              /404.html;
+        error_page  500              /500.html;
+        error_page  502 503 504      /error.html;
+        # redirect server error pages to the static page /50x.html
+        #
+        #error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443 ssl;
+    #    server_name  localhost;
+
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_cache    shared:SSL:1m;
+    #    ssl_session_timeout  5m;
+
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers  on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+    include conf.d/*.conf;
+}
+root@46b779b40bb5:/#
+```
+
+## 33、结语
 1、最后环境准备好了，运行信息如下：
 ```bash
 # 容器信息如下：
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS        PORTS                               NAMES
+46b779b40bb5   nginx:1.22.0             "/docker-entrypoint.…"   3 days ago    Up 48 minutes              0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   nginx1.22.0
 5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   9 hours ago    Up 9 hours    0.0.0.0:27017->27017/tcp            mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   13 hours ago   Up 13 hours   0.0.0.0:6379->6379/tcp              redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   17 hours ago   Up 17 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
@@ -785,6 +1220,7 @@ d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   23 hours ago 
 # 镜像信息如下：
 docker images
 REPOSITORY               TAG       IMAGE ID       CREATED        SIZE
+nginx                    1.22.0    2467b41f2ddd   4 days ago     142MB
 mongo                    6.0       d34d21a9eb5b   4 days ago     693MB
 mysql                    8.0       ff3b5098b416   7 days ago     447MB
 redis                    7.0       dc7b40a0b05d   2 weeks ago    117MB
@@ -826,6 +1262,7 @@ stop successful, container name[docker/getting-started]
 
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS                      PORTS     NAMES
+46b779b40bb5   nginx:1.22.0             "/docker-entrypoint.…"   3 days ago    Exited (0) 20 seconds ago              0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   nginx1.22.0
 5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   10 hours ago   Exited (0) 22 seconds ago             mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago   Exited (0) 32 seconds ago             redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   18 hours ago   Exited (0) 39 seconds ago             mysql8
@@ -861,6 +1298,7 @@ start successful, container name[mysql]
 
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS                         PORTS                               NAMES
+46b779b40bb5   nginx:1.22.0             "/docker-entrypoint.…"   3 days ago    Up 48 minutes              0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   nginx1.22.0
 5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   11 hours ago   Up 8 seconds                   0.0.0.0:27017->27017/tcp            mongo6
 e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago   Up 6 seconds                   0.0.0.0:6379->6379/tcp              redis7
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   19 hours ago   Up 2 seconds                   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
