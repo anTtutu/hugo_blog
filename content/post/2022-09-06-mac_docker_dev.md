@@ -109,8 +109,8 @@ cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
 [步骤17](#jump17)  
 3、mongod.conf直接参考步骤22创建并写入关键参数配置  
 [步骤23](#jump23)  
-4、nginx.conf直接参考步骤27创建并写入关键参数配置
-[步骤27](#jump27)
+4、nginx.conf直接参考步骤29创建并写入关键参数配置
+[步骤29](#jump29)
 
 ## 7、准备脚本
 docker-show-repo-tag.sh
@@ -146,7 +146,8 @@ drwxr-xr-x  6 test  staff  192  9  6 21:12 .
 chmod 700 *.sh
 ```
 
-## 8、查询mysql镜像的所有tags
+## 8、mysql
+### 8.1 查询mysql镜像的所有tags
 ```bash
 cd /Users/{whoami}/Downloads/Docker/shell
 ./docker-show-repo-tag.sh mysql
@@ -252,13 +253,13 @@ latest
 oracle
 ```
 
-## 9、安装mysql需要的tags
+### 8.2 安装mysql需要的tags
 以mysql 8.0举例
 ```bash
 docker pull mysql:8.0
 ```
 
-## 10、配置my.cnf
+### 8.3 配置my.cnf
 <span id="jump10">my.cnf</span>
 ```bash
 [client]
@@ -269,7 +270,7 @@ character-set-server=utf8mb4
 default_authentication_plugin=mysql_native_password
 ```
 
-## 11、启动mysql容器
+### 8.4 启动mysql容器
 提前准备一些参数
 ```bash
 docker run \
@@ -307,7 +308,7 @@ mysql:8.0
 -e|设置环境变量:<br>MYSQL_USER：添加用户<br>MYSQL_PASSWORD：设置添加用户密码<br>MYSQL_ROOT_PASSWORD：设置root用户密码<br>character-set-server：设置字符集<br>collation-server：设置字符比较规则<br>
 mysql:8.0|mysql(repository) : 8.0(tag)
 
-## 12、停止mysql容器
+### 8.5 停止mysql容器
 ```bash
 docker ps
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                               NAMES
@@ -318,7 +319,7 @@ docker stop b055811ce23c
 b055811ce23c
 ```
 
-## 13、启动mysql容器
+### 8.6 启动mysql容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                     PORTS                NAMES
@@ -329,7 +330,7 @@ docker start b055811ce23c
 b055811ce23c
 ```
 
-## 14、进入mysql容器内部
+### 8.7 进入mysql容器内部
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS          PORTS                               NAMES
@@ -368,7 +369,8 @@ mysql> show databases;
 mysql>
 ```
 
-## 15、查询redis镜像的所有tags
+## 9、nginx
+### 9.1 查询redis镜像的所有tags
 ```bash
 cd /Users/{whoami}/Downloads/Docker/shell
 ./docker-show-repo-tag.sh redis
@@ -474,12 +476,12 @@ bullseye
 latest
 ```
 
-## 16、安装redis需要的tags
+### 9.2 安装redis需要的tags
 ```bash
 docker pull redis:7.0
 ```
 
-## 17、配置redis.conf
+### 9.3 配置redis.conf
 <span id="jump17">redis.conf</span>
 ```bash
 #bind 127.0.0.1             #注释掉这部分,使redis可以外部访问
@@ -489,7 +491,7 @@ requirepass test123456      #密码
 appendonly yes              #redis持久化,默认是no
 ```
 
-## 18、启动redis容器
+### 9.4 启动redis容器
 ```bash
 docker run \
 -d \
@@ -532,7 +534,7 @@ docker: Error response from daemon: pull access denied for redis-server, reposit
 See 'docker run --help'.
 ```
 
-## 19、起停redis容器
+### 9.5 起停redis容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                               NAMES
@@ -547,7 +549,7 @@ docker start e7bbf340c66c
 e7bbf340c66c
 ```
 
-## 20、进入redis容器内部
+### 9.6 进入redis容器内部
 ```bash
 docker exec -it e7bbf340c66c /bin/bash
 
@@ -559,7 +561,8 @@ OK
 127.0.0.1:6379>
 ```
 
-## 21、查询mongo镜像的所有tags
+## 10、mongo 
+### 10.1 查询mongo镜像的所有tags
 ```bash
 ./docker-show-repo-tag.sh mongo
 4
@@ -664,12 +667,12 @@ windowsservercore-1809
 windowsservercore-ltsc2022
 ```
 
-## 22、安装mongo需要的tags
+### 10.2 安装mongo需要的tags
 ```bash
 docker pull mongo:6.0
 ```
 
-## 23、配置mongod.conf
+### 10.3 配置mongod.conf
 <span id="jump23">mongod.conf</span>
 ```yaml
 systemLog:
@@ -694,7 +697,7 @@ security:
     authorization: enabled
 ```
 
-## 24、启动mongo容器
+### 10.4 启动mongo容器
 ```bash
 docker run \
 -d \
@@ -731,7 +734,7 @@ mongo:6.0 \
 -f /data/mongo/conf/mongod.conf|启动mongo并加载指定配置文件
 mongo:6.0|mongo(repository) : 6.0(tag)
 
-## 25、起停mongo容器
+### 10.5 起停mongo容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                               NAMES
@@ -747,7 +750,7 @@ docker start 5d3e522b6295
 5d3e522b6295
 ```
 
-## 26、进入mongo容器内部
+### 10.6 进入mongo容器内部
 ```bash
 docker exec -it 5d3e522b6295 /bin/bash
 
@@ -785,7 +788,8 @@ local    72.00 KiB
 admin>
 ```
 
-## 27、查询nginx镜像的所有tags
+## 11、nginx
+### 11.1 查询nginx镜像的所有tags
 ```bash
 ./docker-show-repo-tag.sh nginx
 1
@@ -890,12 +894,12 @@ stable-alpine-perl
 stable-perl
 ```
 
-## 28、安装nginx需要的tags
+### 11.2 安装nginx需要的tags
 ```bash
 docker pull nginx:1.22.0
 ```
 
-## 29、配置conf
+### 11.3 配置conf
 <span id="jump29">nginx.conf</span>
 ```bash
 #user  nobody;
@@ -1018,7 +1022,7 @@ http {
 }
 ```
 
-## 30、启动nginx容器
+### 11.4 启动nginx容器
 ```bash
 docker run \
 -d \
@@ -1077,7 +1081,7 @@ docker start s46b779b40bb5
 46b779b40bb5
 ```
 
-## 32、进入nginx容器内部
+### 11.5 进入nginx容器内部
 ```bash
 docker exec -it 46b779b40bb5 /bin/bash
 root@46b779b40bb5:/# ps -ef | grep nginx
@@ -1206,8 +1210,8 @@ http {
 root@46b779b40bb5:/#
 ```
 
-## 33、结语
-1、最后环境准备好了，运行信息如下：
+## 12、结语
+### 12.1 最后环境准备好了，运行信息如下
 ```bash
 # 容器信息如下：
 docker ps -a
@@ -1228,7 +1232,7 @@ redis                    7.0       dc7b40a0b05d   2 weeks ago    117MB
 docker/getting-started   latest    cb90f98fd791   4 months ago   28.8MB
 ```
 
-2、停止容器  
+### 12.2 停止容器  
 停止脚本如下：
 ```bash
 container_name=$1
@@ -1269,7 +1273,8 @@ e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   15 hours ago 
 b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   18 hours ago   Exited (0) 39 seconds ago             mysql8
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Exited (0) 5 seconds ago              crazy_chatterjee
 ```
-启动脚本如下：
+
+### 12.3 启动脚本如下
 ```bash
 container_name=$1
 
