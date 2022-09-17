@@ -25,14 +25,14 @@ Maupassant theme, ported to Hugo.
 8. 支持文章按年份日期进行归档
 9. 支持GA分析统计
 17. 不蒜子页面计数器支持
-11. 代码高亮、代码行号
+11. 代码高亮、代码行号、代码拷贝
 10. sitemap站点地图
 5. RSS支持，并且可以自动发现RSS
 14. Google站内搜索
 15. See Also 支持
 16. Disqus评论支持
 18. 自定义css、js
-19. utteranc评论
+19. utteranc和[waline](https://waline.js.org)评论
 20. 部分自定义的shortcode
 21. 文章自定义摘要
 22. 自定义广告支持
@@ -62,14 +62,6 @@ theme = "maupassant"
 #### 快速开始
 
 在主题的 [exampleSite](exampleSite/) 示例目录下有`config.toml `文件，把`config.toml `文件复制到你的站点目录下，然后根据自己的需求修改即可
-
-**PS: 一定要使用`post`目录，而不是`posts`,一定要记住，所以如果你使用`hugo`命令，你应该`hugo new post/filename.md`这样创建**
-
-**PS: 一定要使用`post`目录，而不是`posts`,一定要记住，所以如果你使用`hugo`命令，你应该`hugo new post/filename.md`这样创建**
-
-**PS: 一定要使用`post`目录，而不是`posts`,一定要记住，所以如果你使用`hugo`命令，你应该`hugo new post/filename.md`这样创建**
-
-
 
 #### 代码高亮
 
@@ -237,6 +229,15 @@ type: archives
     Host = "https://cdn.jsdelivr.net/gh/user/user.github.io"
 ```
 
+#### JS CDN
+
+国内建议换成：cdn.bootcdn.net
+
+```toml
+[params]
+  cdnJsSite = "cdn.bootcdn.net" # 默认：cdnjs.cloudflare.com
+```
+
 #### Disqus
 
 该主题支持Disqus评论，如果要启用Disqus，可以在`config.toml`里添加如下配置即可.
@@ -286,6 +287,18 @@ summaryLength = 140
 3. `title` 按页面title标题的方式。
 
 其他还有几个不常用，这里就不再赘述了。
+#### Waline 评论系统
+Waline一款从 Valine 衍生的带后端评论系统。快速、安全、免费部署、支持评论通知。详见[https://waline.js.org/](https://waline.js.org/)
+
+将```enable```值改为```true```即可启用
+
+```serverURL```可根据官网部署教程获取
+```toml
+[params.waline]
+    enable = false
+    placeholder = "说点什么吧..."
+    serverURL = "Your waline serverURL" #换成你的serverURL
+```
 
 #### 不蒜子页面计数器支持
 
@@ -355,7 +368,7 @@ disablePathToLower = true
    将代码块的语言标识符设置为`sequence`。例如
   
   ```
-  ​```sequence
+  ```sequence
   Alice->Bob: Hello Bob, how are you?
   Note right of Bob: Bob thinks
   Bob-->Alice: I am good thanks!
@@ -382,7 +395,7 @@ disablePathToLower = true
    将代码块的语言标识符设置为`flowchat`或者`flow`。例如
   
    ```
-  ​```flow
+  ```flow
   st=>start: Start
   op=>operation: Your Operation
   cond=>condition: Yes or No?
@@ -406,7 +419,7 @@ disablePathToLower = true
   将代码块的语言标识符设置为`viz-<engin>`， engin是选用的graphviz绘图引擎的名称，包括`circo`、`dot`、`fdp`、`neato` 、`osage`和`twopi`。例如
   
   ```
-  ​```viz-dot
+  ```viz-dot
   digraph G {
   
   	subgraph cluster_0 {
@@ -436,6 +449,24 @@ disablePathToLower = true
   }
   ​```
   ```
+#### 支持在首页上隐藏某篇文章
+
+将 front matter 中的```hiddenFromHomePage```设置为```true``` 即可
+
+ *默认为```false```*
+
+```toml
++++
+title = '{{ replace .Name "-" " " | title }}'
+tags = []
+categories = []
+date = "{{ .Date }}"
+toc = true
+draft = true
+hiddenFromHomePage = false
++++
+
+```
 
 ## 贡献
 
