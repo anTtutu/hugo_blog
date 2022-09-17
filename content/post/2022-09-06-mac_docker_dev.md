@@ -109,7 +109,7 @@ cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
 [步骤17](#jump17)  
 3、mongod.conf直接参考步骤22创建并写入关键参数配置  
 [步骤23](#jump23)  
-4、nginx.conf直接参考步骤29创建并写入关键参数配置
+4、nginx.conf直接参考步骤29创建并写入关键参数配置  
 [步骤29](#jump29)
 
 ## 7、准备脚本
