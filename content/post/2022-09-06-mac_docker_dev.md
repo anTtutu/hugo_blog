@@ -369,7 +369,7 @@ mysql> show databases;
 mysql>
 ```
 
-## 9、nginx
+## 9、redis
 ### 9.1 查询redis镜像的所有tags
 ```bash
 cd /Users/{whoami}/Downloads/Docker/shell
@@ -1060,7 +1060,7 @@ nginx:1.22.0
 -e LC_ALL=C.UTF-8|解决nginx中文乱码
 nginx:1.22.0|nginx(repository) : 1.22.0(tag)
 
-## 31、起停nginx容器
+### 11.5 起停nginx容器
 ```bash
 docker ps -a
 CONTAINER ID   IMAGE                    COMMAND                  CREATED       STATUS                     PORTS                                      NAMES
@@ -1081,7 +1081,7 @@ docker start s46b779b40bb5
 46b779b40bb5
 ```
 
-### 11.5 进入nginx容器内部
+### 11.6 进入nginx容器内部
 ```bash
 docker exec -it 46b779b40bb5 /bin/bash
 root@46b779b40bb5:/# ps -ef | grep nginx
