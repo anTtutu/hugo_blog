@@ -1084,6 +1084,7 @@ docker start s46b779b40bb5
 ### 11.6 进入nginx容器内部
 ```bash
 docker exec -it 46b779b40bb5 /bin/bash
+
 root@46b779b40bb5:/# ps -ef | grep nginx
 root@46b779b40bb5:/# ls /etc/nginx/nginx.conf
 /etc/nginx/nginx.conf
