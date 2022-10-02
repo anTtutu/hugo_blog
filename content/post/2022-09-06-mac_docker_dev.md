@@ -23,8 +23,8 @@ mongo|6.0
 redis|7.0
 mysql|8.0
 nginx|1.22.0
-etcd|latest
 minio|latest
+etcd|latest
 
 ## 1、查询docker进程
 ```bash
@@ -1287,6 +1287,10 @@ docker start 8cc751e02862
 8cc751e02862 
 ```
 
+### 12.4 进入minio控制台
+浏览器访问http://127.0.0.1:9090
+![](/posts/docker/minio_console.png)
+
 ## 13、etcd
 ### 13.1 安装etcd需要的tags
 直接安装最新版本
@@ -1355,6 +1359,17 @@ aa0b29848539
 
 docker start aa0b29848539
 aa0b29848539 
+```
+
+### 13.4 进入etcd容器内部
+```bash
+docker exec -it etcd bin/sh
+/ # etcdctl member list
+1c70f9bbb41018f: name=node1 peerURLs=http://0.0.0.0:2380 clientURLs=http://0.0.0.0:2379 isLeader=true
+/ # etcdctl list
+No help topic for 'list'
+/ # etcdctl ls
+/ #
 ```
 
 ## 14、结语
