@@ -22,6 +22,9 @@ docker|20.10.12
 mongo|6.0
 redis|7.0
 mysql|8.0
+nginx|1.22.0
+etcd|latest
+minio|latest
 
 ## 1、查询docker进程
 ```bash
@@ -97,6 +100,14 @@ mkdir -p /Users/{whoami}/Downloads/Docker/nginx/conf.d
 mkdir -p /Users/{whoami}/Downloads/Docker/mongo/log
 mkdir -p /Users/{whoami}/Downloads/Docker/mongo/html
 mkdir -p /Users/{whoami}/Downloads/Docker/mongo/cert
+# minio
+mkdir -p /Users/{whoami}/Downloads/Docker/minio
+mkdir -p /Users/{whoami}/Downloads/Docker/minio/config
+mkdir -p /Users/{whoami}/Downloads/Docker/minio/data
+# etcd
+mkdir -p /Users/{whoami}/Downloads/Docker/etcd
+mkdir -p /Users/{whoami}/Downloads/Docker/etcd/conf
+mkdir -p /Users/{whoami}/Downloads/Docker/etcd/data
 
 # 复制时区文件，解决mysql镜像容器运行时区是0问题
 cp /etc/localtime /Users/{whoami}/Downloads/Docker/mysql/
@@ -127,20 +138,24 @@ curl -L -s ${repo_url}/${image_name}/tags?page_size=1024 | jq '.results[]["name"
 
 # 下面步骤中提到的脚本也可以搜集整理在这里，其他脚本
 ls -lar
-total 32
--rwx------@ 1 test  staff  314  9  6 16:27 docker-show-repo-tag.sh
--rwx------@ 1 test  staff  406  9  6 20:35 docker-redis-7.0-run.sh
--rwx------@ 1 test  staff  572  9  6 19:36 docker-mysql-8.0-run.sh
--rwx------@ 1 test  staff  469  9  7 00:58 docker-mongo-6.0-run.sh
--rwx------@ 1 test  staff  351  9  7 11:32 docker-stop-container.sh
--rwx------@ 1 test  staff  357  9  7 11:36 docker-start-container.sh
--rwx------  1 test  staff  149  9  8 18:02 docker-python-demo-v1.0-run.sh
--rwx------  1 test  staff  147  9  8 18:04 docker-nodejs-demo-v1.0-run.sh
--rwx------  1 test  staff  145  9  8 18:08 docker-java-demo-v1.0-run.sh
--rwx------  1 test  staff  146  9  9 14:29 docker-go-demo-v1.0-run.sh
--rwx------  1 test  staff  545  9 16 10:05 docker-nginx-1.22.0-run.sh
-drwxr-xr-x  7 test  staff  224  9  6 20:00 ..
-drwxr-xr-x  6 test  staff  192  9  6 21:12 .
+total 120
+-rwx------@  1 test  staff  314  9  6 16:27 docker-show-repo-tag.sh
+-rwx------@  1 test  staff  406  9  6 20:35 docker-redis-7.0-run.sh
+-rwx------@  1 test  staff  469  9  7 00:58 docker-mongo-6.0-run.sh
+-rwx------@  1 test  staff  357  9  7 11:39 docker-start-container.sh
+-rwx------   1 test  staff  149  9  8 18:02 docker-python-demo-v1.0-run.sh
+-rwx------   1 test  staff  147  9  8 18:04 docker-nodejs-demo-v1.0-run.sh
+-rwx------   1 test  staff  145  9  8 18:08 docker-java-demo-v1.0-run.sh
+-rwx------   1 test  staff  146  9  9 14:29 docker-go-demo-v1.0-run.sh
+-rwx------   1 test  staff  180  9 20 14:55 docker-getting-started-laster-run.sh
+-rwx------   1 test  staff  557  9 27 21:48 demo.sh
+-rwx------   1 test  staff  548  9 28 11:29 docker-nginx-1.22.0-run.sh
+-rwx------@  1 test  staff  590  9 29 19:26 docker-mysql-8.0-run.sh
+-rwx------@  1 test  staff  356  9 30 17:02 docker-stop-container.sh
+-rwx------   1 test  staff  347 10  2 18:02 docker-minio-latest-run.sh
+-rwx------@  1 test  staff  550 10  2 19:09 docker-etcd-latest-run.sh
+drwxr-xr-x  10 test  staff  320 10  2 16:20 ..
+drwxr-xr-x  17 test  staff  544 10  2 19:12 .
 
 # 给700权限
 chmod 700 *.sh
@@ -1210,29 +1225,173 @@ http {
 root@46b779b40bb5:/#
 ```
 
-## 12、结语
-### 12.1 最后环境准备好了，运行信息如下
+## 12、minio
+### 12.1 安装minio需要的tags
+直接安装最新版本
+```bash
+docker pull quay.io/minio/minio:latest
+```
+
+### 12.2 启动minio容器
+```bash
+docker run \
+-d \
+--network bridge \
+--restart=always \
+--privileged=true \
+-p 9000:9000 \
+-p 9090:9090 \
+--user $(id -u):$(id -g) \
+--name minio1 \
+-e "MINIO_ROOT_USER=admin" \
+-e "MINIO_ROOT_PASSWORD=admin123456" \
+-v /Users/${whoami}/Downloads/Docker/minio/data:/data \
+quay.io/minio/minio server /data --console-address ":9090"
+```
+参数说明：
+
+参数|说明
+-|-
+-d|后台运行容器
+-p 9000:9000<br>-p 9090:9090| 把容器内的9000端口、9090端口分别映射到宿主机9000端口、9090端口
+--name|minio容器名称
+--network|网络
+–-restart always|开机启动
+–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--user|设置属组权限
+-e "MINIO_ROOT_USER=admin"|设置 root 账号
+-e "MINIO_ROOT_PASSWORD=admin123456"|设置 root 密码
+-v /Users/${whoami}/Downloads/Docker/minio/data:/data|绑定minio 的数据目录
+--console-address ":9090"|启动参数，控制台端口9090
+
+### 12.3 启停minio容器
+```bash
+docker ps -a
+CONTAINER ID   IMAGE                           COMMAND                  CREATED          STATUS          PORTS                                            NAMES
+aa0b29848539   quay.io/coreos/etcd:latest      "/usr/local/bin/etcd…"   49 minutes ago   Up 49 minutes   0.0.0.0:2379-2380->2379-2380/tcp                 etcd
+8cc751e02862   quay.io/minio/minio             "/usr/bin/docker-ent…"   2 hours ago      Up 2 hours      0.0.0.0:9000->9000/tcp, 0.0.0.0:9090->9090/tcp   minio1
+1ee4158a624a   docker/getting-started:latest   "/docker-entrypoint.…"   12 days ago      Up 34 minutes   0.0.0.0:3000->3000/tcp, 0.0.0.0:8001->80/tcp     getting-started-latest
+46b779b40bb5   nginx:1.22.0                    "/docker-entrypoint.…"   2 weeks ago      Up 35 minutes   0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp         nginx1.22.0
+83c107ac3c1b   docker-gs-ping:v1.0             "/docker-gs-ping"        3 weeks ago      Up 34 minutes   0.0.0.0:8081->8081/tcp                           go-docker-v1
+170ce646f5cd   java-docker:v1.0                "./mvnw spring-boot:…"   3 weeks ago      Up 34 minutes   0.0.0.0:8080->8080/tcp                           java-docker-v1
+439741b1c983   node-docker:v1.0                "docker-entrypoint.s…"   3 weeks ago      Up 34 minutes   0.0.0.0:8000->8000/tcp                           nodejs-docker-v1
+77c73cd73550   python-docker:v1.0              "python3 -m flask ru…"   3 weeks ago      Up 34 minutes   0.0.0.0:5000->5000/tcp                           python-docker-v1
+5d3e522b6295   mongo:6.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:27017->27017/tcp                         mongo6
+e7bbf340c66c   redis:7.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:6379->6379/tcp                           redis7
+b055811ce23c   mysql:8.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:3306->3306/tcp, 33060/tcp                mysql8
+
+docker stop 8cc751e02862
+8cc751e02862
+
+docker start 8cc751e02862
+8cc751e02862 
+```
+
+## 13、etcd
+### 13.1 安装etcd需要的tags
+直接安装最新版本
+```bash
+docker pull quay.io/coreos/etcd:latest
+```
+
+### 13.2 启动etcd容器
+```bash
+NODE1=0.0.0.0
+
+REGISTRY=quay.io/coreos/etcd
+
+docker run \
+-d \
+-p 2379:2379 \
+-p 2380:2380 \
+--name etcd \
+--network bridge \
+--restart=always \
+--privileged=true \
+--volume=/Users/${whoami}/Downloads/Docker/etcd/data:/etcd/data \
+${REGISTRY}:latest \
+/usr/local/bin/etcd \
+--data-dir=/etcd/data --name node1 \
+--initial-advertise-peer-urls http://${NODE1}:2380 --listen-peer-urls http://0.0.0.0:2380 \
+--advertise-client-urls http://${NODE1}:2379 --listen-client-urls http://0.0.0.0:2379 \
+```
+参数说明：
+
+参数|说明
+-|-
+-d|后台运行容器
+-p 2379:2379<br>-p 2380:2380| 把容器内的2379端口、2380端口分别映射到宿主机2379端口、2380端口
+--name|etcd容器名称
+--network|网络
+–-restart always|开机启动
+–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--volume=/Users/${whoami}/Downloads/Docker/etcd/data:/etcd/data|绑定数据目录
+${REGISTRY}:latest|etcd(repository) : latest(tag)
+--data-dir|etcd 数据目录
+--name|etcd 名称 node1
+--initial-advertise-peer-urls http://${NODE1}:2380|该节点同伴监听地址，这个值会告诉集群中其他节点。
+--listen-peer-urls http://0.0.0.0:2380|和同伴通信的地址，比如http://ip:2380，如果有多个，使用逗号分隔。需要所有节点都能够访问，所以不要使用 localhost！
+--advertise-client-urls http://${NODE1}:2379|对外公告的该节点客户端监听地址，这个值会告诉集群中其他节点。
+--listen-client-urls http://0.0.0.0:2379|对外提供服务的地址：比如http://ip:2379,http://127.0.0.1:2379，客户端会连接到这里和 etcd 交互。
+
+### 13.3 启停etcd容器
+```bash
+docker ps -a
+CONTAINER ID   IMAGE                           COMMAND                  CREATED          STATUS          PORTS                                            NAMES
+aa0b29848539   quay.io/coreos/etcd:latest      "/usr/local/bin/etcd…"   49 minutes ago   Up 49 minutes   0.0.0.0:2379-2380->2379-2380/tcp                 etcd
+8cc751e02862   quay.io/minio/minio             "/usr/bin/docker-ent…"   2 hours ago      Up 2 hours      0.0.0.0:9000->9000/tcp, 0.0.0.0:9090->9090/tcp   minio1
+1ee4158a624a   docker/getting-started:latest   "/docker-entrypoint.…"   12 days ago      Up 34 minutes   0.0.0.0:3000->3000/tcp, 0.0.0.0:8001->80/tcp     getting-started-latest
+46b779b40bb5   nginx:1.22.0                    "/docker-entrypoint.…"   2 weeks ago      Up 35 minutes   0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp         nginx1.22.0
+83c107ac3c1b   docker-gs-ping:v1.0             "/docker-gs-ping"        3 weeks ago      Up 34 minutes   0.0.0.0:8081->8081/tcp                           go-docker-v1
+170ce646f5cd   java-docker:v1.0                "./mvnw spring-boot:…"   3 weeks ago      Up 34 minutes   0.0.0.0:8080->8080/tcp                           java-docker-v1
+439741b1c983   node-docker:v1.0                "docker-entrypoint.s…"   3 weeks ago      Up 34 minutes   0.0.0.0:8000->8000/tcp                           nodejs-docker-v1
+77c73cd73550   python-docker:v1.0              "python3 -m flask ru…"   3 weeks ago      Up 34 minutes   0.0.0.0:5000->5000/tcp                           python-docker-v1
+5d3e522b6295   mongo:6.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:27017->27017/tcp                         mongo6
+e7bbf340c66c   redis:7.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:6379->6379/tcp                           redis7
+b055811ce23c   mysql:8.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:3306->3306/tcp, 33060/tcp                mysql8
+
+docker stop aa0b29848539
+aa0b29848539
+
+docker start aa0b29848539
+aa0b29848539 
+```
+
+## 14、结语
+### 14.1 最后环境准备好了，运行信息如下
 ```bash
 # 容器信息如下：
 docker ps -a
-CONTAINER ID   IMAGE                    COMMAND                  CREATED        STATUS        PORTS                               NAMES
-46b779b40bb5   nginx:1.22.0             "/docker-entrypoint.…"   3 days ago    Up 48 minutes              0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   nginx1.22.0
-5d3e522b6295   mongo:6.0                "docker-entrypoint.s…"   9 hours ago    Up 9 hours    0.0.0.0:27017->27017/tcp            mongo6
-e7bbf340c66c   redis:7.0                "docker-entrypoint.s…"   13 hours ago   Up 13 hours   0.0.0.0:6379->6379/tcp              redis7
-b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   17 hours ago   Up 17 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql8
-d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   23 hours ago   Up 23 hours   0.0.0.0:80->80/tcp                  crazy_chatterjee
+CONTAINER ID   IMAGE                           COMMAND                  CREATED          STATUS          PORTS                                            NAMES
+aa0b29848539   quay.io/coreos/etcd:latest      "/usr/local/bin/etcd…"   49 minutes ago   Up 49 minutes   0.0.0.0:2379-2380->2379-2380/tcp                 etcd
+8cc751e02862   quay.io/minio/minio             "/usr/bin/docker-ent…"   2 hours ago      Up 2 hours      0.0.0.0:9000->9000/tcp, 0.0.0.0:9090->9090/tcp   minio1
+1ee4158a624a   docker/getting-started:latest   "/docker-entrypoint.…"   12 days ago      Up 34 minutes   0.0.0.0:3000->3000/tcp, 0.0.0.0:8001->80/tcp     getting-started-latest
+46b779b40bb5   nginx:1.22.0                    "/docker-entrypoint.…"   2 weeks ago      Up 35 minutes   0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp         nginx1.22.0
+83c107ac3c1b   docker-gs-ping:v1.0             "/docker-gs-ping"        3 weeks ago      Up 34 minutes   0.0.0.0:8081->8081/tcp                           go-docker-v1
+170ce646f5cd   java-docker:v1.0                "./mvnw spring-boot:…"   3 weeks ago      Up 34 minutes   0.0.0.0:8080->8080/tcp                           java-docker-v1
+439741b1c983   node-docker:v1.0                "docker-entrypoint.s…"   3 weeks ago      Up 34 minutes   0.0.0.0:8000->8000/tcp                           nodejs-docker-v1
+77c73cd73550   python-docker:v1.0              "python3 -m flask ru…"   3 weeks ago      Up 34 minutes   0.0.0.0:5000->5000/tcp                           python-docker-v1
+5d3e522b6295   mongo:6.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:27017->27017/tcp                         mongo6
+e7bbf340c66c   redis:7.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:6379->6379/tcp                           redis7
+b055811ce23c   mysql:8.0                       "docker-entrypoint.s…"   3 weeks ago      Up 35 minutes   0.0.0.0:3306->3306/tcp, 33060/tcp                mysql8
 
 # 镜像信息如下：
 docker images
 REPOSITORY               TAG       IMAGE ID       CREATED        SIZE
-nginx                    1.22.0    2467b41f2ddd   4 days ago     142MB
-mongo                    6.0       d34d21a9eb5b   4 days ago     693MB
-mysql                    8.0       ff3b5098b416   7 days ago     447MB
-redis                    7.0       dc7b40a0b05d   2 weeks ago    117MB
-docker/getting-started   latest    cb90f98fd791   4 months ago   28.8MB
+quay.io/minio/minio      latest    7857bafef273   6 days ago     228MB
+nginx                    1.22.0    2467b41f2ddd   2 weeks ago    142MB
+docker-gs-ping           v1.0      3b7b51a5f6d6   3 weeks ago    541MB
+node-docker              v1.0      2378b1604401   3 weeks ago    944MB
+java-docker              v1.0      04764e57adf2   3 weeks ago    559MB
+python-docker            v1.0      cbc159df0b06   3 weeks ago    129MB
+mongo                    6.0       d34d21a9eb5b   4 weeks ago    693MB
+mysql                    8.0       ff3b5098b416   4 weeks ago    447MB
+redis                    7.0       dc7b40a0b05d   5 weeks ago    117MB
+docker/getting-started   latest    cb90f98fd791   5 months ago   28.8MB
+quay.io/coreos/etcd      latest    61ad63875109   4 years ago    39.5MB
 ```
 
-### 12.2 停止容器  
+### 14.2 停止容器  
 停止脚本如下：
 ```bash
 container_name=$1
@@ -1274,7 +1433,7 @@ b055811ce23c   mysql:8.0                "docker-entrypoint.s…"   18 hours ago 
 d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago   Exited (0) 5 seconds ago              crazy_chatterjee
 ```
 
-### 12.3 启动脚本如下
+### 14.3 启动脚本如下
 ```bash
 container_name=$1
 
