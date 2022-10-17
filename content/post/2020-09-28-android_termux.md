@@ -18,7 +18,7 @@ toc: true
 2|termux|另外一个android下的linux模拟器神器，不需root
 
 ## 1、准备
-android手机一部，建议用吃灰的手机，不需要太新也不需要太久，建议android版本5.0或者以上，android版本7.0比较好。
+android手机一部，建议用吃灰的手机，不需要太新也不需要太旧，建议android版本5.0或者以上，android版本7.0比较好。
 
 分类|名称|说明|备注
 |-|-|-|-|
@@ -43,8 +43,8 @@ Huawei手机之前的型号都是自带google服务框架的，前几年的手�
 [Go谷歌安装器下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.goplaycn.googleinstall "Go谷歌安装器下载地址")  
 可以检测Google服务框架是否存在
 
-[Google Play Store下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.android.vending "Google Play下载地址")  
-Google Play Store官方的apk，无需FQ下载
+[Google Play Store下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.android.vending "Google Play下载地址")
+Google Play Store官方的apk，无需FQ下载 -- 下架了选酷安
 
 [Google Play Store的termux下载地址](https://play.google.com/store/apps/details?id=com.termux "Google Play的termux下载地址")  
 开始需要FQ，但是版本进度和插件比较清晰
