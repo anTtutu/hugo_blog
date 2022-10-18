@@ -43,7 +43,7 @@ Huawei手机之前的型号都是自带google服务框架的，前几年的手�
 [Go谷歌安装器下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.goplaycn.googleinstall "Go谷歌安装器下载地址")  
 可以检测Google服务框架是否存在
 
-[Google Play Store下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.android.vending "Google Play下载地址")
+[Google Play Store下载地址](https://sj.qq.com/myapp/detail.htm?apkName=com.android.vending "Google Play下载地址")  
 Google Play Store官方的apk，无需FQ下载 -- 下架了选酷安
 
 [Google Play Store的termux下载地址](https://play.google.com/store/apps/details?id=com.termux "Google Play的termux下载地址")  
@@ -124,6 +124,7 @@ mongodb|mongodb|无法顺利安装，需要使用其他开发者改造的安装�
 nginx|nginx|pkg install nginx|nginx
 hugo|hugo|pkg install hugo|golang static blog, hugo
 asciinema|asciinema|pip install asciinema|command line player，python
+openJDK|openJDK|无法顺利安装，需要使用其他开发者改造的安装文件，[参考](https://github.com/MasterDevX/Termux-Java)|git clone https://github.com/MasterDevX/Termux-Java.git<br>cd Termux-Java<br>chmod 700 installjava uninstall_java.sh<br>bash installjava<br>Java was successfully installed!
 
 验证
 ```bash
@@ -246,4 +247,5 @@ mongodb
 ![](/posts/termux/mongodb.png)
 
 ## 9、基本功能完成，还有很多进阶设置和玩法待开发和更新进来(未完待续)
-未完待续，待补充进阶设置和玩法
+未完待续，待补充进阶设置和玩法  
+进阶安装 openJDK 参考下一篇: [android下的termux模拟器安装openJDK和运行springboot项目](/post/2021-03-10-android_termux_java)
