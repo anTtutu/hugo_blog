@@ -1,8 +1,8 @@
 ---
-title: "dockerfile学习"
+title: "dockerfile"
 date: 2022-09-13T00:29:47+08:00
 tag : [ "docker", " dockerfile" ]
-description: "dockerfile学习"
+description: "dockerfile"
 categories: [ "docker", "dockerfile" ]
 toc: true
 ---
