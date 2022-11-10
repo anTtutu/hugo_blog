@@ -1,8 +1,8 @@
 ---
-title: "转载-shell13问"
+title: "转载-shell 13问"
 date: 2022-04-22T00:29:47+08:00
 tag : [ "linux", "shell" ]
-description: "shell13问"
+description: "shell 13问"
 categories: [ "linux", "shell" ]
 toc: true
 ---
