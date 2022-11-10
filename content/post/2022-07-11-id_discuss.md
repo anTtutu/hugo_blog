@@ -57,4 +57,5 @@ Nano ID 与 UUID v4 (基于随机) 相当。它们在 ID 中有相似数量的�
 * 非人类可读是许多开发人员在 NanoID 中看到的主要缺点，因为它使调试变得更加困难。但是，与 UUID 相比，NanoID 更短且可读。
 * 另外，如果使用 NanoID 作为表的主键，如果使用同一列作为聚集索引，也会出现问题。这是因为 NanoID 不是连续的
 
-
+## 5、代码示例
+github: <https://github.com/anTtutu/anttu.code.github.io.git>
