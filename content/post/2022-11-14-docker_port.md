@@ -113,8 +113,7 @@ docker start cbe26510c276
 ```
 
 ## 2、Mac
-Mac要麻烦一些，因为在 Docker for MacOS 中，容器的宿主机并不是 MacOS 本身，而是在 MacOS 中运行的一个 VM 虚拟机
-。虚拟机的路径可以通过查看 Docker Desktop 的配置界面 Disk image location 配置获得。
+Mac要麻烦一些，因为在 Docker for MacOS 中，容器的宿主机并不是 MacOS 本身，而是在 MacOS 中运行的一个 VM 虚拟机，VM中运行的小型(定制)Alpine Linux。虚拟机的路径可以通过查看 Docker Desktop 的配置界面 Disk image location 配置获得。
 
 那么我们如何进入这个虚拟机呢？
 
@@ -128,6 +127,7 @@ docker run -it --rm --privileged --pid=host justincormack/nsenter1
 –rm|表示在退出的时候就自动删除该容器；
 –privileged|表示允许该容器访问宿主机（也就是我们想要登录的 VM ）中的各种设备；
 –pid=host|表示允许容器共享宿主机的进程命名空间（namespace），或者通俗点儿解释就是允许容器看到宿主机中的各种进程；
+
 然后再进入 /var/lib/docker/containers 目录修改 config.v2.json 配置文件和 hostconfig.json 配置文件即可。整体来说，在 MacOS 上除了进入 /var/lib/docker/containers 目录时，进入方式有所不同以外，修改配置文件方式和上文一样。需要注意的是，修改的时候请使用 vi 编辑器，因为这个镜像没有安装 vim 编辑器的。
 
 ### 2.2 进入容器
