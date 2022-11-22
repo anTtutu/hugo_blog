@@ -124,7 +124,7 @@ org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
     </resources>
 </build>
 ```
-* 3、代码配置问题
+* 3、代码配置问题  
 检查MapperScan
 ```java
 @MapperScan({"com.*.mapper"})
@@ -147,6 +147,8 @@ mybatis:
   mapperLocations: classpath:**/mapper/**/*Mapper.xml
   type-aliases-package: com.**.entity
 ```
+
+to be continue...
 
 ## 5、官方文档
 spring cache：<https://docs.spring.io/spring/docs/5.1.9.RELEASE/spring-framework-reference/integration.html#cache>  
