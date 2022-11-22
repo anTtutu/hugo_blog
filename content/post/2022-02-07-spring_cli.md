@@ -1,8 +1,8 @@
 ---
-title: "spring boot cli&spring cloud cli简单介绍"
+title: "springboot cli&springcloud cli简单介绍"
 date: 2022-02-07T00:29:47+08:00
 tag : [ "java", "springboot", "cli" ]
-description: "spring boot cli&spring cloud cli简单介绍"
+description: "springboot cli&springcloud cli简单介绍"
 categories: [ "java", "springboot", "cli" ]
 toc: true
 ---
