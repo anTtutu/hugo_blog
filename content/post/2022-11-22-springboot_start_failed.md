@@ -141,7 +141,7 @@ org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
 ......
 </select>
 ```
-检查mybatis的配置
+检查mybatis的配置，如果不是标准目录和命名需要细心检查
 ```yml
 mybatis:
   mapperLocations: classpath:**/mapper/**/*Mapper.xml
