@@ -16,7 +16,7 @@ docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAdd
 ```
 
 ```bash
-Anttus-MacBook-Pro:shell $ docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+$ docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 /etcd - 172.17.0.6
 /minio1 - 172.17.0.2
 /getting-started-latest - 172.17.0.3
@@ -36,7 +36,7 @@ docker inspect containerId
 ```
 
 ```bash
-Anttus-MacBook-Pro:shell $ docker inspect b055811ce23c
+$ docker inspect b055811ce23c
 [
     {
         "Id": "b055811ce23cf53d3b5e2cf193c0cd4a22a5befbf101bdd940662ecbe64ccc2c",
@@ -300,7 +300,7 @@ Anttus-MacBook-Pro:shell $ docker inspect b055811ce23c
         }
     }
 ]
-Anttus-MacBook-Pro:shell $
+$
 ```
 
 ## 3、查看容器的ip
@@ -361,7 +361,7 @@ docker network ls
 ```
 
 ```bash
-Anttus-MacBook-Pro:shell $ docker network ls
+$ docker network ls
 NETWORK ID     NAME      DRIVER    SCOPE
 df04e694c73a   bridge    bridge    local
 6fed755b2279   host      host      local
