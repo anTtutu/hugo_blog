@@ -1,9 +1,9 @@
 ---
 title: "go多版本管理工具"
 date: 2022-11-10T00:29:47+08:00
-tag : [ "go" ]
+tag : [ "go", "sdk" ]
 description: "go多版本管理工具"
-categories: [ "go" ]
+categories: [ "go", "sdk" ]
 toc: true
 ---
 
