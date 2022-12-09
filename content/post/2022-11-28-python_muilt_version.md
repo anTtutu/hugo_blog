@@ -16,7 +16,7 @@ python多版本管理工具整理介绍
 2|virtualenv|pip install virtualenv|通过创建虚拟机方式管理|
 3|anaconda|https://repo.anaconda.com/archive/|带了很多科学计算包的发行版，包含conda|
 4|miniconda|https://repo.anaconda.com/miniconda/|不带科学计算包的mini版本，只有python和conda|
-5|miniforge|https://github.com/conda-forge/miniforge|-|-
+5|miniforge|https://github.com/conda-forge/miniforge|miniforge是由社区赞助、领导的，并且用GitHub托管所有的包，使用 （而且只用）conda-forge 作为（默认）下载channel，避开了Anaconda的repository|-
 
 ## 1、Conda自身管理
 ### 1.1 更新conda
