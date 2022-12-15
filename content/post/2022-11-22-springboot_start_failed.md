@@ -148,9 +148,48 @@ mybatis:
   type-aliases-package: com.**.entity
 ```
 
+## 5、excel
+如果excel保存在 resource 目录下，mvn编译时复制到target\class目录下，容易破坏二进制导致poi解析异常
+```java
+Exception in thread "main" org.apache.poi.openxml4j.exceptions.InvalidOperationException: Could not open the specified zip entry source stream
+	at org.apache.poi.openxml4j.opc.ZipPackage.openZipEntrySourceStream(ZipPackage.java:212)
+	at org.apache.poi.openxml4j.opc.ZipPackage.openZipEntrySourceStream(ZipPackage.java:194)
+	at org.apache.poi.openxml4j.opc.ZipPackage.openZipEntrySourceStream(ZipPackage.java:168)
+	at org.apache.poi.openxml4j.opc.ZipPackage.<init>(ZipPackage.java:149)
+	at org.apache.poi.openxml4j.opc.OPCPackage.open(OPCPackage.java:277)
+	at org.apache.poi.openxml4j.opc.OPCPackage.open(OPCPackage.java:186)
+	at com.alibaba.excel.analysis.v07.XlsxSaxAnalyser.readOpcPackage(XlsxSaxAnalyser.java:191)
+	at com.alibaba.excel.analysis.v07.XlsxSaxAnalyser.<init>(XlsxSaxAnalyser.java:89)
+	at com.alibaba.excel.analysis.ExcelAnalyserImpl.choiceExcelExecutor(ExcelAnalyserImpl.java:103)
+	at com.alibaba.excel.analysis.ExcelAnalyserImpl.<init>(ExcelAnalyserImpl.java:55)
+	at com.alibaba.excel.ExcelReader.<init>(ExcelReader.java:27)
+	at com.alibaba.excel.read.builder.ExcelReaderBuilder.build(ExcelReaderBuilder.java:202)
+	at com.alibaba.excel.read.builder.ExcelReaderBuilder.sheet(ExcelReaderBuilder.java:239)
+	at com.alibaba.excel.read.builder.ExcelReaderBuilder.sheet(ExcelReaderBuilder.java:227)
+Caused by: java.io.IOException: ZIP entry size is too large or invalid
+	at org.apache.poi.openxml4j.util.ZipArchiveFakeEntry.<init>(ZipArchiveFakeEntry.java:43)
+	at org.apache.poi.openxml4j.util.ZipInputStreamZipEntrySource.<init>(ZipInputStreamZipEntrySource.java:53)
+	at org.apache.poi.openxml4j.opc.ZipPackage.openZipEntrySourceStream(ZipPackage.java:210)
+```
+需要在 pom 的 maven-resources-plugin 增加 filter，这样 excel 文件被 mvn 复制到 target\class 时不编译保留原格式
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>2.4.3</version>
+    <!-- resource 目录下的 xls 被 mvn 复制到 target/class 目录后二进制文件会破坏导致 excel 解析异常，需添加这个过滤 -->
+    <configuration>
+        <nonFilteredFileExtensions>
+            <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+            <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+        </nonFilteredFileExtensions>
+    </configuration>
+</plugin>
+```
+
 to be continue...
 
-## 5、官方文档
+## 6、官方文档
 spring cache：<https://docs.spring.io/spring/docs/5.1.9.RELEASE/spring-framework-reference/integration.html#cache>  
 spring：<https://docs.spring.io/spring-framework/docs/5.1.9.RELEASE/spring-framework-reference/>  
 spring yml核心参数: <https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties>
