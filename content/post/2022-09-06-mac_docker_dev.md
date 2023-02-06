@@ -296,7 +296,7 @@ docker run \
 --restart always \
 --privileged=true \
 -v /Users/{whoami}/Downloads/Docker/mysql/config/my.cnf:/etc/mysql/my.cnf \
--v /Users/{whoami}/Downloads/Docker/mysql/data:/usr/data \
+-v /Users/{whoami}/Downloads/Docker/mysql/data:/var/lib/mysql \
 -v /Users/{whoami}/Downloads/Docker/mysql/log:/logs \
 -v /Users/{whoami}/Downloads/Docker/mysql/localtime:/etc/localtime \
 -e MYSQL_ROOT_PASSWORD="root123456" \
@@ -317,7 +317,7 @@ mysql:8.0
 –-restart always|开机启动
 –-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 -v /Users/{whoami}/Downloads/Docker/mysql/config/my.cnf:/etc/mysql/my.cnf|映射my.cnf
--v /Users/{whoami}/Downloads/Docker/mysql/data:/usr/data|映射data目录
+-v /Users/{whoami}/Downloads/Docker/mysql/data:/var/lib/mysql|映射data目录
 -v /Users/{whoami}/Downloads/Docker/mysql/log:/logs|映射logs目录
 -v /Users/{whoami}/Downloads/Docker/mysql/localtime:/etc/localtime|映射时区，解决容器mysql是0时区问题
 -e|设置环境变量:<br>MYSQL_USER：添加用户<br>MYSQL_PASSWORD：设置添加用户密码<br>MYSQL_ROOT_PASSWORD：设置root用户密码<br>character-set-server：设置字符集<br>collation-server：设置字符比较规则<br>
