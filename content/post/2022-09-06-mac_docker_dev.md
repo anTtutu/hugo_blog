@@ -1409,17 +1409,52 @@ quay.io/coreos/etcd      latest    61ad63875109   4 years ago    39.5MB
 ### 14.2 停止容器  
 停止脚本如下：
 ```bash
-container_name=$1
+function stop()
+{
+    container_name=$1
 
-container_id=$(docker ps -a | grep ${container_name} | grep "Up" | awk -F"${container_name}" {'print $1'})
+    if [ "${container_name}" == "all" ]; then
+        # 获取所有状态为 running 的容器 ID
+        container_ids=$(docker ps -aqf "status=running")
 
-if [ ! -z ${container_id} ]; then
-    docker stop ${container_id}
+        # 如果没有容器处于运行状态，则输出提示信息并退出脚本
+        if [ -z "${container_ids}" ]; then
+            echo "No running containers. Done."
+            exit 0
+        fi
 
-    echo "stop successful, container name[${container_name}]"
-else
-    echo "container name[${container_name}] is not exist or stopped."    
-fi
+        # 循环停止所有处于运行状态的容器
+        for container in ${container_ids}; do
+            docker stop ${container}
+        done
+    else
+        container_id=$(docker ps -a | grep "${container_name}" | grep "Up" | awk -F"${container_name}" {'print $1'})
+
+        if [ ! -z ${container_id} ]; then
+            docker stop ${container_id}
+            echo "stop successful, container name[${container_name}]"
+        else
+            echo "container name[${container_name}] is not exist or stopped."    
+        fi
+    fi
+}
+
+
+function main()
+{
+    if [ $# -eq 1 ]; then
+        if [ "$1" == "all" ]; then
+            stop "all"
+        else
+            stop "$1"    
+        fi
+    else
+        echo "Error Parameter, egg: ./docker-stop-container mysql or ./docker-stop-container all "
+        exit 1
+    fi
+}
+
+main $1
 ```
 不需要环境了，可以执行停止脚本暂时停止容器，如下：
 ```bash
@@ -1450,17 +1485,53 @@ d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago 
 
 ### 14.3 启动脚本如下
 ```bash
-container_name=$1
+function start()
+{
+    container_name=$1
 
-container_id=$(docker ps -a | grep ${container_name} | grep "Exited" | awk -F"${container_name}" {'print $1'})
+    if [ "${container_name}" == "all" ]; then
+        # 获取所有状态为 exited 的容器 ID
+        container_ids=$(docker ps -aqf "status=exited")
 
-if [ ! -z ${container_id} ]; then
-    docker start ${container_id}
+        # 如果没有容器处于停止状态，则输出提示信息并退出脚本
+        if [ -z "${container_ids}" ]; then
+            echo "No exited containers. Done."
+            exit 0
+        fi
 
-    echo "start successful, container name[${container_name}]"
-else
-    echo "container name[${container_name}] is not exist or started."    
-fi
+        # 循环启动所有处于停止状态的容器
+        for container in ${container_ids}; do
+            docker start ${container}
+        done
+    else
+        container_id=$(docker ps -a | grep ${container_name} | grep "Exited" | awk -F"${container_name}" {'print $1'})
+
+        if [ ! -z ${container_id} ]; then
+            docker start ${container_id}
+
+            echo "start successful, container name[${container_name}]"
+        else
+            echo "container name[${container_name}] is not exist or started."    
+        fi
+    fi
+
+} 
+
+function main()
+{
+    if [ $# -eq 1 ]; then
+        if [ "$1" == "all" ]; then
+            start "all"
+        else
+            start "$1"    
+        fi
+    else
+        echo "Error Parameter, egg: ./docker-start-container mysql or ./docker-start-container all "
+        exit 1
+    fi
+}
+
+main $1
 ```
 需要环境了，可以执行启动脚本再次启动容器，如下：
 ```bash
