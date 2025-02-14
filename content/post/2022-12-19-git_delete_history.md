@@ -1,5 +1,5 @@
 ---
-title: " git删除历史提交记录"
+title: "git删除历史提交记录"
 date: 2022-12-19T00:29:47+08:00
 tag : [ "git", "linux" ]
 description: "git删除历史提交记录"
