@@ -12,10 +12,10 @@ toc: true
 因23年开始陆续每年有重要项目要上线，很少有时间静下心来写问题东西，这里简短记录下最近编译个开源组件的os镜像的一些问题和解决方案
 
 ## 1、docker hub无法访问问题
-可以用国内一些云厂商的代理或者加速地址。
-[https://github.com/dongyubin/DockerHub]
+可以用国内一些云厂商的代理或者加速地址。  
+<https://github.com/dongyubin/DockerHub>
 比如道客就提供了一个，这里不是说只有道客提供，只是正好用道客的加速成功拉取了ubuntu的镜像就以道客举例
-[https://github.com/DaoCloud/public-image-mirror]
+<https://github.com/DaoCloud/public-image-mirror>
 
 ## 2、Mac端编译其他平台格式
 比如要编译centos AMD64
