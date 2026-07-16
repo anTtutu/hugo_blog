@@ -120,10 +120,10 @@ function main()
     hugoDeployGithub "$1" "${GITHUB}"
 
     # deploy coding me pages
-    hugoDeployCoding "$1" "${CODING}"
+    #hugoDeployCoding "$1" "${CODING}"
 
     # deploy gitee pages
-    hugoDeployGitee "$1" "${GITEE}"
+    #hugoDeployGitee "$1" "${GITEE}"
 }
 
 main "$1"
