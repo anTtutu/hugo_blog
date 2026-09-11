@@ -1,6 +1,6 @@
 <footer id="footer">
     <div>
-        &copy; {{ now.Format "2006" }} <a href="{{ .Site.BaseURL | absURL }}">{{ .Site.Title }} By {{ .Site.Author.name }}</a>
+        &copy; {{ now.Format "2006" }} <a href="{{ .Site.BaseURL | absURL }}">{{ .Site.Title }} By {{ .Site.Params.Author }}</a>
         {{ if .Site.Params.beian }}
         | <a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn/">{{.Site.Params.beian}}</a>
         {{ end }}
@@ -132,9 +132,8 @@
 
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src='{{ "js/totop.js?v=0.0.0" | relURL }}' async=""></script>
-{{- if hasPrefix .Site.GoogleAnalytics "UA-" -}}
-    {{ template "_internal/google_analytics_async.html" . }}
-{{- else if hasPrefix .Site.GoogleAnalytics "G-" -}}
+{{- $gaID := .Site.Config.Services.GoogleAnalytics.ID -}}
+{{- if or (hasPrefix $gaID "UA-") (hasPrefix $gaID "G-") -}}
     {{ template "_internal/google_analytics.html" . }}
 {{- end -}}
 

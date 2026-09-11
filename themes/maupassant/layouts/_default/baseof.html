@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}zh-CN{{end}}">
+<html lang="{{ with .Site.Language.Locale }}{{ . }}{{ else }}zh-CN{{end}}">
 {{ partial "head" . }}
 
 <body>

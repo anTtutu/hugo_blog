@@ -1,7 +1,7 @@
 baseURL = "https://anTtutu.github.io/"          #github.io
 #baseURL = "https://y31w9z.coding-pages.com/"    #coding.net
 #baseURL = "https://anttu.gitee.io/"              #gitee.io
-languageCode = "zh-CN"
+locale = "zh-CN"
 defaultContentLanguage = "zh-cn"                          # en / zh-cn / ... (This field determines which i18n file to use)
 title = "Anttu's Blog"
 theme = "maupassant"                                      # 主题
@@ -70,6 +70,10 @@ fancybox = true           # see https://github.com/fancyapps/fancybox           
   # use public git repo url to link lastmod git commit, enableGitInfo should be true.
   # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.
   gitRepo = "https://github.com/anTtutu/anTtutu.github.io"
+
+[services]
+  [services.googleAnalytics]
+    ID = ""
 
 # 代码高亮
 [markup]
