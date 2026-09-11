@@ -27,6 +27,11 @@ docker build --platform linux/amd64 -t iamges_name .
 官方也有岀，但是没梯子情况下网络是不通的
 ```
 docker pull registry.cn-shanghai.aliyuncs.com/wittchen/factorio:2.0.60
+
+仓库地址
+https://hub.docker.com/r/miguerubsk/factorio-headless
+
+docker pull miguerubsk/factorio-headless:2.1.14
 ```
 
 ## 4、IDC机房编译不行试试本地编译
@@ -41,4 +46,14 @@ macOS的 “钥匙串访问”
 密码：粘贴第一步复制的个人访问令牌（不是你的账户登录密码）。
 点击 登录 或 允许，并务必勾选“始终允许”。
 完成后，凭据将被永久安全地存储在macOS系统钥匙串中，后续所有操作均无需再输入
+```
+
+## 6、docker push超时
+
+反复多次超时，如果没有更好的梯子，可以更换工具，用crane
+
+```
+docker save harbor-test.***.cn/bdmp/***:latest -o /tmp/***.tar
+
+crane push /tmp/***.tar harbor-test.***.cn/bdmp/***:latest
 ```
