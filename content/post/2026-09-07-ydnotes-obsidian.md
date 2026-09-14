@@ -13,7 +13,8 @@ toc: true
 
 ## 1、准备工具
 
-先前找到的工具[youdaonote-pull](https://github.com/DeppWang/youdaonote-pull)，但是一看时间，作者2024年迁移成功后就没有再更新了，再看了下issue，确实有不少用户提了一些细节兼容不足的问题，又找到了另外一个工具[youdaonote-pull](https://github.com/chunxingque/youdaonote-pull), 这个作者2026年初还更新过，也是看了下后者有参考前者并修复了一些兼容性问题，便用后者试一试，如果还有细节不足，可以用cc修复下
+先前找到的工具[youdaonote-pull](https://github.com/DeppWang/youdaonote-pull)，但是一看时间，作者2024年迁移成功后就没有再更新了，再看了下issue，确实有不少用户提了一些细节兼容不足的问题。  
+又找到了另外一个工具[youdaonote-pull](https://github.com/chunxingque/youdaonote-pull)，这个作者2026年初还更新过，也是看了下后者有参考前者并修复了一些兼容性问题，便用后者试一试，如果还有细节不足，可以用cc修复下
 
 ```bash
 git clone --depth=1 https://github.com/chunxingque/youdaonote-pull
@@ -29,12 +30,15 @@ YNOTE_LOGIN=3||************
 YNOTE_CSTK=************
 ```
 
-有很明显的格式，比如SESS参数是v2|后面是遗传类似hash的值，LOGIN参数是3||纯数字类似id，CSTK参数是类似一串很短的字符串(类似token经过hash后经过缩短提炼的字符串)，可能推理不准请指正，我只是根据参数含义和值大致推理的
+有很明显的格式，比如:  
+SESS参数是v2|后面是一串类似hash的值，  
+LOGIN参数是3||纯数字类似id，  
+CSTK参数是类似一串很短的字符串(类似token经过hash后经过缩短提炼的字符串)，可能推理不准请指正，我只是根据参数含义和值大致推理的
 
 ## 3、测试
 
 因为有道云经营了10多年，还在不停迭代，只是迭代速度一般般，所以不能保证刚下的工具就可以使用，发现基本上正常，只有一些比较早起的笔记转换失败，这个时候有2中方法：
->1、升级你的有道云笔记客户端，重新登录下，把测试报错的笔记从html格式转换成最新版本适配的格式。这个办法比较笨，需要记录错误日志的路径并挨个转换，如果多就有点麻烦
+>1、升级你的有道云笔记客户端，重新登录下，把测试报错的笔记从html格式转换成最新版本适配的格式。这个办法比较笨，需要记录错误日志的路径并挨个转换，如果多就有点麻烦  
 >2、打开claude code或者其他coding工具，让cc帮你分析错误信息并修复，我就是走的这条路
 
 ```bash

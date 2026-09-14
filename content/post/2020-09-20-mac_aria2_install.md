@@ -8,33 +8,44 @@ toc: true
 ---
 
 ## 前言
+
 尝试在自己的Mac上源码方式安装aria2，根据教程修改了下限制的线程数，然后总结下经验
 
 ## 1、下载aria2源码
+
 下载地址：<https://github.com/aria2/aria2>
+
 ```bash
-git clone https://github.com/aria2/aria2.git
+git clone --depth=1 https://github.com/aria2/aria2.git
 ```
 
 ## 2、提前准备Mac的编译环境
+
 因aria2是C++的，需要C++的环境，可以通过brew安装
+
 ```bash
 xcode-select --install
 
 brew install autoconf automake cppunit libtool libxml2 gettext openssl pkg-config sqlite zlib
 ```
+
 ## 3、参考前人总结的源码修改经验修改aria2的源码
+
 ```bash
 cd aria2/src
 vim OptionHandlerFactory.cc
 ```
+
 ### 3.1 将
+
 ```c++
 OptionHandler* op(new NumberOptionHandler(PREF_MAX_CONNECTION_PER_SERVER,
                                                TEXT_MAX_CONNECTION_PER_SERVER,
                                                "1", 1, 16, 'x'));
 ```
+
 修改为
+
 ```c++
 OptionHandler* op(new NumberOptionHandler(PREF_MAX_CONNECTION_PER_SERVER,
                                                TEXT_MAX_CONNECTION_PER_SERVER,
@@ -42,71 +53,170 @@ OptionHandler* op(new NumberOptionHandler(PREF_MAX_CONNECTION_PER_SERVER,
 ```
 
 ### 3.2 将
+
 ```c++
 PREF_MIN_SPLIT_SIZE, TEXT_MIN_SPLIT_SIZE, "20M", 1_m, 1_g, 'k'));
 ```
+
 修改为
+
 ```c++
 PREF_MIN_SPLIT_SIZE, TEXT_MIN_SPLIT_SIZE, "4K", 1_k, 1_g, 'k'));
 ```
 
 ### 3.3 将
+
 ```c++
 PREF_CONNECT_TIMEOUT, TEXT_CONNECT_TIMEOUT, "60", 1, 600));
 ```
+
 修改为
+
 ```c++
 PREF_CONNECT_TIMEOUT, TEXT_CONNECT_TIMEOUT, "30", 1, 600));
 ```
 
 ### 3.4 将
+
 ```c++
 PREF_PIECE_LENGTH, TEXT_PIECE_LENGTH, "1M", 1_m, 1_g));
 ```
+
 修改为
+
 ```c++
 PREF_PIECE_LENGTH, TEXT_PIECE_LENGTH, "4k", 1_k, 1_g));
 ```
 
 ### 3.5 将
+
 ```c++
 new NumberOptionHandler(PREF_RETRY_WAIT, TEXT_RETRY_WAIT, "0", 0, 600));
 ```
+
 修改为
+
 ```c++
 new NumberOptionHandler(PREF_RETRY_WAIT, TEXT_RETRY_WAIT, "2", 0, 600));
 ```
 
 ### 3.6 将
+
 ```c++
 new NumberOptionHandler(PREF_SPLIT, TEXT_SPLIT, "5", 1, -1, 's'));
 ```
+
 修改为
+
 ```c++
 new NumberOptionHandler(PREF_SPLIT, TEXT_SPLIT, "8", 1, -1, 's'));
 ```
-好的，到这里为止我们全部修改完成，保存退出。
+
+好的，到这里为止我们全部修改完成，保存退出。  
+
+修改参数解读，实际上就是让aria2更加激进，分包多线程下载
+
+```properties
+1. PREF_MAX_CONNECTION_PER_SERVER（-x）
+修改内容：默认值从 "1" 改成 "128"，最大值从 16 改成 -1（表示无上限）。
+
+参数含义：--max-connection-per-server，同一台服务器最多允许几个连接。
+
+aria2 把文件分成多块，每块可以从同一个服务器用不同连接并行下载。默认只允许 1 个连接，意味着即使服务器支持多连接，aria2 也不会用。改成 128 后，单服务器可以开最多 128 个连接并行拉取，对支持多连接的高速服务器提速明显。
+
+2. PREF_MIN_SPLIT_SIZE（-k）
+修改内容：默认值从 "20M" 改成 "4K"，最小值从 1_m 改成 1_k。
+
+参数含义：--min-split-size，文件分片的最小大小。
+
+aria2 决定“要不要把文件拆成多块并行下载”时，会看文件大小是否超过这个阈值。默认 20M 意味着小于 20M 的文件不拆分，只用一个连接。改成 4K 后，几乎任何文件都会被拆成多块，从而触发多连接并行下载。
+
+3. PREF_CONNECT_TIMEOUT
+修改内容：默认值从 "60" 改成 "30"。
+
+参数含义：--connect-timeout，建立连接的超时时间（秒）。
+
+默认 60 秒意味着如果一个服务器 60 秒内没连上，aria2 才会放弃并重试。改成 30 秒后，连接失败能更快被发现，从而更快切换到备用连接或重试，减少等待时间。
+
+4. PREF_PIECE_LENGTH（--piece-length）
+修改内容：默认值从 "1M" 改成 "4k"，最小值从 1_m 改成 1_k。
+
+参数含义：--piece-length，分片长度。
+
+这个参数和 BitTorrent 的“piece”概念类似，它决定每个分片有多大。分片越小，理论上并行粒度越细，但元数据开销也越大。改成 4K 是为了让小文件也能被拆得更细，配合前面的 min-split-size，让更多文件走多连接下载。
+
+5. PREF_RETRY_WAIT（--retry-wait）
+修改内容：默认值从 "0" 改成 "2"。
+
+参数含义：--retry-wait，重试前的等待秒数。
+
+默认 0 表示失败后立刻重试，容易在服务器短暂抖动时反复撞墙。改成 2 秒后，每次重试前先等 2 秒，给服务器一点恢复时间，降低无效重试。
+
+6. PREF_SPLIT（-s）
+修改内容：默认值从 "5" 改成 "8"。
+
+参数含义：--split，单个文件最多分成几块并行下载。
+
+默认 5 表示一个文件最多拆成 5 块同时下。改成 8 后，并行度更高，配合前面的 max-connection-per-server=128，可以同时开更多连接抢带宽。
+
+提醒:
+这些改动是把 aria2 的默认行为推向“激进多连接”。对支持多连接的高速服务器效果很好，但如果遇到限速严格或对连接数敏感的服务器，反而可能触发风控、被限流甚至封 IP。建议在 aria2.conf 里按需覆盖
+```
 
 ## 4、编译
+
 每一步都没ERROR，注意查看控制台信息并排错，如果前面编译环境准备到位，应该不会编译环节报错的
+
 ```bash
+# 下载github依赖包
 autoreconf -i
 
-autoconf configure.ac
-
-autoconf -i
-
+# mac下可以用macos的TLS
+./configure --without-openssl --without-gnutls --with-appletls
+或
 ./configure
 
+# 测试可以忽略，一般会报错，如果报错可以忽略直接make && make install，底下会展示报错样例
 make check
 
-sudo make
+# 多线程编译
+sudo make -j$(sysctl -n hw.ncpu)
 
 sudo make install
 ```
+
 make install执行完没有任何报错表示安装成功
 
+make check我个人碰到下面错，可以忽略
+
+```bash
+ld: warning: -bind_at_load is deprecated on macOS
+/Library/Developer/CommandLineTools/usr/bin/make  check-TESTS
+FAIL: aria2c
+============================================================================
+Testsuite summary for aria2 1.37.0
+============================================================================
+# TOTAL: 1
+# PASS:  0
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  1
+# XPASS: 0
+# ERROR: 0
+============================================================================
+See test/test-suite.log for debugging.
+Some test(s) failed.  Please report this to https://github.com/aria2/aria2/issues,
+together with the test-suite.log file (gzipped) and your system
+information.  Thanks.
+============================================================================
+make[3]: *** [test-suite.log] Error 1
+make[2]: *** [check-TESTS] Error 2
+make[1]: *** [check-am] Error 2
+make: *** [check-recursive] Error 1
+```
+
 检测aria2c命令，可以出现参数介绍
+
 ```bash
 > aria2c -h
 
@@ -126,17 +236,21 @@ Options:
                               "#http". If non-tag word is given, print the usage
                               for the options whose name includes that word.
 
-                              Possible Values: #basic, #advanced, #http, #https, #ftp, #metalink, #bittorrent, #cookie, #hook, #file, #rpc, #checksum, #experimental, #deprecated, #help, #all
+                              Possible Values: #basic, #advanced, #http, #https, #ftp,#metalink, #bittorrent,
+                              #cookie, #hook, #file, #rpc, #checksum, #experimental, #deprecated, #help, #all
                               Default: #basic
                               Tags: #basic, #help
 
  -l, --log=LOG                The file name of the log file. If '-' is
  ......
 ```
+
 表示环境变量也准备成功
 
 ## 5、设置aria2的配置文件(可选)
+
 aria2配置文件参考如下
+
 ```bash
 mkdir ~/.aria2
 
@@ -144,6 +258,7 @@ vim ~/.aria2/aria2.conf
 ```
 
 输入以下参数，供参考：
+
 ```properties
 ## 下载设置 ##
 
@@ -267,21 +382,29 @@ file-allocation=prealloc
 # 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M
 disk-cache=64M
 ```
+
 如果新增了conf文件后下载报错，也可以去掉conf文件
 
 ## 6、测试下载
+
 ```bash
 aria2c http://mirror.compevo.com/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso
 ```
+
 稍等会看到下载目录下有centos的iso镜像
 
 ## 7、注意
+
 Mac下开启rpc配置项和ssl证书需要参考官方这里的讨论做下测试  
 打开rpc配置：
+
 ```properties
 ## RPC相关设置 ##
 
 # 启用RPC, 默认:false
 enable-rpc=true
 ```
-issue：<https://github.com/aria2/aria2/issues/1379>
+
+### issue参考
+
+issue参考：<https://github.com/aria2/aria2/issues/1379>
