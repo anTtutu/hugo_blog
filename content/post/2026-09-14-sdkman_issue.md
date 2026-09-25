@@ -13,7 +13,7 @@ toc: true
 
 ## 1、分析
 
-如何是发现问题经过：
+如下是发现问题经过：
 
 ```bash
 (base) ➜  **** git:(dev-ui) sdk current
