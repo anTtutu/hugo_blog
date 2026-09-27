@@ -164,7 +164,7 @@ default:
 }
 ```
 
-## 6、defer:  
+## 6、defer:
 A "defer" statement invokes a function whose execution is deferred to the moment the surrounding function returns, either because the surrounding function executed a return statement, reached the end of its function body, or because the corresponding goroutine is panicking.  
 一个defer语句在函数返回、函数结束或者对应的goroutine发生panic的时候defer就会执行。  
 在golang中，我们使用defer语句来进行一些错误处理和收尾工作，它的作用类似java里面finally关键字的作用

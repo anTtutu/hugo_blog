@@ -1,7 +1,7 @@
 ---
 title: "有道云笔记迁移到obsidian"
 date: 2026-09-07T00:29:47+08:00
-tag : [ "notes", "obsidian", "ydnotes" ]
+tags: [ "notes", "obsidian", "ydnotes" ]
 description: "有道云笔记迁移到obsidian"
 categories: [ "notes", "obsidian", "ydnotes" ]
 toc: true

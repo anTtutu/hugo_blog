@@ -12,13 +12,13 @@ toc: true
 网上的图形验证码方案都是零星的，弄了一个随机字体、随机彩色字符、随机字体大小、随机扭曲、随机旋转等技术，能有效的防OCR、描边、深浅色等技术识别。    
 本意是想区分登录、领券、抽奖等一些场景操作的，后来一想，随机拼人品吧，于是就有了下面的工具类。
 
-## 1、效果图如下：    
+## 1、效果图如下：
 ### 1.1 静态jpg
 ![](/posts/imgCode/AYhf.jpg) ![](/posts/imgCode/ni8P.jpg) ![](/posts/imgCode/2GmY.jpg)
 ### 1.2 动态gif
 ![](/posts/imgCode/grNc.gif) ![](/posts/imgCode/arLP.gif) ![](/posts/imgCode/bdPp.gif)
 
-## 2、代码如下：    
+## 2、代码如下：
 如下共计有6个类，图形验证码工具类，使用方法调用，老外的Encoder、GifDecoder、GifEncoder、Quant等4个工具类  
 因下面的代码太长，具体的可以参考我的[github](https://github.com/anTtutu/anttu.code.github.io.git)
 
@@ -1005,7 +1005,7 @@ public class Encoder
 }  
 ```
 
-### 2.3.2 GifDecoder  
+### 2.3.2 GifDecoder
 ```java
 package com.test.test;  
     
@@ -1903,7 +1903,7 @@ public class GifDecoder
 }  
 ``` 
  
-### 2.3.3 GifEncoder 
+### 2.3.3 GifEncoder
 ```java
 package com.test.test;    
     
@@ -2474,7 +2474,7 @@ public class GifEncoder
     }    
 }  
 ```  
-### 2.3.4 Quant 
+### 2.3.4 Quan
 ```java
 package com.test.test;    
     

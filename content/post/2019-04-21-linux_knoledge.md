@@ -11,7 +11,7 @@ toc: true
 linux的一些小细节记录
 
 ## 1、tmp目录、var目录自动清理
-tmp下的文件或目录长时间没有更新或者改动的话会被系统定期时间，配置参考如下:
+tmp下的文件或目录长时间没有更新或者改动的话，systemd-tmpfiles 会按配置定期清理，配置参考如下:
 ```bash
 vi /usr/lib/tmpfiles.d/tmp.conf
 ``` 
@@ -37,6 +37,8 @@ ESTABLISHED 34
 LAST_ACK 1
 LISTEN 23
 ```
+
+> 注：netstat 属于已停止维护的 net-tools 套件，新发行版推荐用 ss 等价替代：`ss -ant | awk 'NR>1 {++S[$1]} END {for(a in S) print (a,S[a])}'`。
 
 ## 3、wget下载提示ssl错
 ```bash
@@ -80,24 +82,31 @@ echo "Do something else"
 ## 7、ssh登录提示信息
 类型|说明
 -|-
-/etc/motd|用于登陆的提示信息
+/etc/motd|用于登录的提示信息
 
 ## 8、使用iptables模拟故障
 使用 iptables 来模拟网络故障的时候，我们针对 Redis 写入进行处理。  
-简单来说就是在 Redis Server 端口 OUTPUT 的网络包分别进行 REJECT 和 DROP 操作。
+简单来说就是在 Redis Server 端口 OUTPUT 的网络包分别进行 REJECT 和 DROP 操作。先**添加**规则模拟故障：
 ```bash
-sudo iptables -D OUTPUT -p tcp --destination-port 22368 -j REJECT
-sudo iptables -D OUTPUT -p tcp --destination-port 22368 -j DROP
+# REJECT 立即拒绝（客户端快速收到拒绝）
+sudo iptables -A OUTPUT -p tcp --destination-port 22368 -j REJECT
+# DROP 静默丢弃（客户端表现为连接超时）
+sudo iptables -A OUTPUT -p tcp --destination-port 22368 -j DROP
 ```
 异常信息：
 ```java
 Caused by: java.net.SocketTimeoutException: connect timed out
 ```
+故障恢复后用 `-D` 删除对应规则即可（每条 `-A` 对应一条 `-D`）：
+```bash
+sudo iptables -D OUTPUT -p tcp --destination-port 22368 -j REJECT
+sudo iptables -D OUTPUT -p tcp --destination-port 22368 -j DROP
+```
 
 ## 9、tty、pts
 类型|说明
 -|-
-tty|本地登陆
+tty|本地登录
 pts|远程登录
 
 ## 10、base64
@@ -131,7 +140,7 @@ certutil -decode 2.txt 3.txt
 #### 注:
 windows的base64编码是将1.txt的内容输出到2.txt，2.txt必须不存在由命令自己生成  
 base64解码是将刚才生成的2.txt的编码输出到3.txt，3.txt必须不存在由命令自己生成  
-windows的base64编码比标准的base64尾部数字有少许字符不同或者缺少
+certutil 输出的是带 `-----BEGIN CERTIFICATE-----` 头尾行、每 64 字符换行的证书格式，与标准裸 base64 有差异，解码时它能自己识别；若要与 linux/mac 互通，需手工去掉头尾行与换行
 
 ## 11、md5等摘要生成
 ### linux：

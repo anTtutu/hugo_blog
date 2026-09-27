@@ -1,7 +1,7 @@
 ---
 title: "python生成matplotlib的统计图"
 date: 2021-04-30T00:29:47+08:00
-tag : [ "python", "pandas", "matplotlib" ]
+tags: [ "python", "pandas", "matplotlib" ]
 description: "python生成matplotlib统计图"
 categories: [ "python", "pandas", "matplotlib" ]
 toc: true
@@ -913,7 +913,7 @@ if __name__ == "__main__":
 适用场景|适用于有空间位置的数据集，一般分成行政地图（气泡图、面积图）和GIS地图。行政地图一般有省份、城市数据就够了（比如福建-泉州）；而GIS地图则需要经纬度数据，更细化到具体区域，只要有数据，可做区域、全国甚至全球的地图。
 优劣势|特殊状况下使用，涉及行政区域。
 
-#### demo： 
+#### demo：
 ```python
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-

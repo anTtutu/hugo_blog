@@ -175,7 +175,7 @@ ssh $(whoami)@192.168.*.* -p 8022 #ssh termux账号@termux IP，8022端口，不
 ![](/posts/termux/ssh.png)
 
 ## 8、开始用ssh操作termux的一些服务
-### 8.1 设置mysql的root帐号密码
+### 8.1 设置mysql的root账号密码
 ```bash
 # 登录Termux用户，
 mysql -u $(whoami)

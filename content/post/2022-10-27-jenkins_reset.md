@@ -1,7 +1,7 @@
 ---
 title: "jenkins的admin密码忘记了如何重置"
 date: 2022-10-27T00:29:47+08:00
-tag : [ "jenkins", " devops" ]
+tags: [ "jenkins", " devops" ]
 description: "jenkins的admin密码忘记了如何重置"
 categories: [ "jenkins", "devops" ]
 toc: true

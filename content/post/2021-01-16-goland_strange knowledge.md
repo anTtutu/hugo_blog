@@ -72,14 +72,14 @@ dep是golang官方的一个实验项目，后2种属于第三方包管理工具�
 可以参考官方对比: <https://github.com/golang/go/wiki/PackageManagementTools>
 
 1.13版本开始默认使用Go Modules模式，也就是GO111MODULE=on默认是开启状态：  
-### 4.1 一共有3种状态可以了解下 
+### 4.1 一共有3种状态可以了解下
 环境变量参数|模式|说明
 -|-|-
 GO111MODULE=auto|默认模式|同时满足以下两个条件时使用Go Modules：<br>1、当前目录不在GOPATH/src/下<br>2、在当前目录或上层目录中存在go.mod文件
 GO111MODULE=off|GOPATH模式|从不使用Go Modules。相反，它查找vendor目录和GOPATH以查找依赖项
 GO111MODULE=on|GO MOdules模式|从不咨询GOPATH。GOPATH不再作为导入目录，但它仍然存储下载的依赖项（GOPATH/pkg/mod/）和已安装的命令（GOPATH/bin/），只移除了GOPATH/src/
 
-### 4.2 配置Go Modules相关命令：  
+### 4.2 配置Go Modules相关命令：
 #### windows设置命令：注释需要去掉
 ```golang
 go env -w GO111MODULE=on //(or off，1.13后推荐开启on)
@@ -158,7 +158,7 @@ example.com/apple v0.1.2/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 
 常用的七牛云代理：https://goproxy.cn  
 
-### direct参数：  
+### direct参数：
 1、为特殊指示符，用于指示Go回源到模块版本的源地址去抓取(比如 GitHub 等)，当值列表中上一个Go module proxy返回404或410错误时，Go自动尝试列表中的下一个，遇见“direct”时回源，遇见EOF时终止并抛出类似“invalid version: unknown revision...”的错误  
 2、可以拉去私有库
 
@@ -244,12 +244,12 @@ func OpenFile(filename string) (*File, error) {
 	return f, nil
 }
 ```
-### 7.2、不能有多余的import和变量，全局的可以  
+### 7.2、不能有多余的import和变量，全局的可以
 静态检查，标红：  
 ![](/posts/golang/unused_import.jpg)
 去掉多余的import后，正常：  
 ![](/posts/golang/normal_import.jpg)
-### 7.3、只能有一个main package，相当于程序入口  
+### 7.3、只能有一个main package，相当于程序入口
 ```golang
 package main
 ```
@@ -317,7 +317,7 @@ func bubbleSort(array []int) {
     }
 }
 ```
-## 9、=与:=的使用区别  
+## 9、=与:=的使用区别
 =赋值  
 :=声明并赋值
 
@@ -346,7 +346,7 @@ var number1, number2, number3 = 1, 2, 3
 number1, number2, number3 := 1, 2, 3
 ```
 
-### 那最终=与:=还有其他区别么，有  
+### 那最终=与:=还有其他区别么，有
 :=这个符号直接取代了var和type,这种形式叫做简短声明。不过它有一个限制，那就是它只能用在函数内部；在函数外部使用则会无法编译通过，所以一般用var方式来定义全局变量。  
 
 :=只能在声明“局部变量”的时候使用，而“var”没有这个限制
@@ -356,7 +356,7 @@ Go语言通过首字母的大小写来控制访问权限。无论是方法，变
 
 结构体中的字段名，如果首字母小写的话，则该字段无法被外部包访问和解析，比如，json解析  
 
-### 简短整理就是：  
+### 简短整理就是：
 首字母大写 == public  
 首字母小写 == private  
 如：

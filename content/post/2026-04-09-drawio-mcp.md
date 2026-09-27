@@ -1,7 +1,7 @@
 ---
 title: "Draw.io MCP + Claude Code 集成教程"
 date: 2026-04-09T00:29:47+08:00
-tag : [ "claude code", "drawio", "mcp" ]
+tags: [ "claude code", "drawio", "mcp" ]
 description: "Draw.io MCP + Claude Code 集成教程"
 categories: [ "claude code", "drawio", "mcp" ]
 toc: true

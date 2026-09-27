@@ -12,6 +12,8 @@ toc: true
 
 ruby建议是在Linux环境下安装的，但是工作电脑是windows比较常见，下面记录下在windows 7 64bit版本下安装ruby + jekyll + ruby devkit的经历，进过坑，不过都爬出来了，把爬坑经历记录下方便后来者。
 
+> 注：本文写作于 2017 年，ruby 2.3 / Python 2.7 / Windows 7 均为当时的主流环境，如今（ruby 3.x / Python 3.x / Win10+）新装 jekyll 建议直接参考官方当前文档，本文仅作历史踩坑记录。
+
 ## 1、准备
 windows 7 64bit电脑举例
 ### 步骤一：下载ruby x64、ruby devkit x64、Python 2.7 x64
@@ -93,7 +95,7 @@ cd D:\RubyDevKit
 ![](/posts/jekyll/port-check-pid.jpg)
 ![](/posts/jekyll/pid.jpg)
 ![](/posts/jekyll/service-close.jpg)
-### 6.2 FAQ2 - 关闭冲突端口 
+### 6.2 FAQ2 - 关闭冲突端口
 如果没碰到4000端口占用问题，可以不理会上面的端口冲突关闭其他4000占用进程步骤，开始进一步的完善jekyll，先查看启动的服务界面。  
 在浏览器输入<http://127.0.0.1:4000>，可以看到如下界面，表示jekyll服务初步成功
 ![](/posts/jekyll/127.jpg)

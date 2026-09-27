@@ -1,7 +1,7 @@
 ---
 title: "挖矿病毒4-容器挖矿病毒清理"
 date: 2022-01-26T00:29:47+08:00
-tag : [ "mine", "virus", "linux", "check", "docker" ]
+tags: [ "mine", "virus", "linux", "check", "docker" ]
 description: "挖矿病毒4-容器挖矿病毒清理"
 categories: [ "mine", "virus", "linux", "check", "docker" ]
 toc: true
@@ -130,7 +130,7 @@ b541f979ea7d8ff2ea4f0d2690ce02135174d6ee4995a80d1836d480aecc7c4b   alpine       
 ```
 
 ## 11、入侵原因
-容器的入侵途径没 ECS 方便定位，等后续学会了再补充。。。  
+容器的入侵途径没 ECS 方便定位，等后续学会了再补充……  
 不过清理容器挖矿比 ECS 还方便，查看了下 ECS 日志，只能看到部分 messages 里面存在日志，其他找不到蛛丝马迹了  
 不过可以把测试服务器的开源软件版本搜集下，搜查下 CVE 库看看是否有漏洞，如果有漏洞的话可以升级下安全版本
 

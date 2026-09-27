@@ -1,7 +1,7 @@
 ---
 title: "caffeine和springcache"
 date: 2021-10-11T00:29:47+08:00
-tag : [ "caffeine", "java", "cache" ]
+tags: [ "caffeine", "java", "cache" ]
 description: "caffeine和springcache"
 categories: [ "caffeine", "java", "cache" ]
 toc: true

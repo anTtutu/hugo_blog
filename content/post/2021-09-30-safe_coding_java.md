@@ -1,13 +1,13 @@
 ---
 title: "java编码安全"
 date: 2021-09-30T00:29:47+08:00
-tag : [ "java", "safe" ]
+tags: [ "java", "safe" ]
 description: "java编码安全"
 categories: [ "java", "safe" ]
 toc: true
 ---
 
-##### 后端java开发  -- 转自腾讯github 
+##### 后端java开发  -- 转自腾讯github
 
 ## 1.1 数据持久化
 

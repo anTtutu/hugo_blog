@@ -1,7 +1,7 @@
 ---
 title: "docker修改运行的容器端口"
 date: 2022-11-14T00:29:47+08:00
-tag : [ "docker" ]
+tags: [ "docker" ]
 description: "docker修改运行的容器端口"
 categories: [ "docker" ]
 toc: true
@@ -124,9 +124,9 @@ docker run -it --rm --privileged --pid=host justincormack/nsenter1
 ```
 参数|说明
 -|-
-–rm|表示在退出的时候就自动删除该容器；
-–privileged|表示允许该容器访问宿主机（也就是我们想要登录的 VM ）中的各种设备；
-–pid=host|表示允许容器共享宿主机的进程命名空间（namespace），或者通俗点儿解释就是允许容器看到宿主机中的各种进程；
+-rm|表示在退出的时候就自动删除该容器；
+-privileged|表示允许该容器访问宿主机（也就是我们想要登录的 VM ）中的各种设备；
+-pid=host|表示允许容器共享宿主机的进程命名空间（namespace），或者通俗点儿解释就是允许容器看到宿主机中的各种进程；
 
 然后再进入 /var/lib/docker/containers 目录修改 config.v2.json 配置文件和 hostconfig.json 配置文件即可。整体来说，在 MacOS 上除了进入 /var/lib/docker/containers 目录时，进入方式有所不同以外，修改配置文件方式和上文一样。需要注意的是，修改的时候请使用 vi 编辑器，因为这个镜像没有安装 vim 编辑器的。
 

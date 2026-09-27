@@ -1,7 +1,7 @@
 ---
 title: "dockerfile"
 date: 2022-09-13T00:29:47+08:00
-tag : [ "docker", " dockerfile" ]
+tags: [ "docker", " dockerfile" ]
 description: "dockerfile"
 categories: [ "docker", "dockerfile" ]
 toc: true

@@ -1,7 +1,7 @@
 ---
 title: "国内的pages服务都嘎了"
 date: 2026-01-26T00:29:47+08:00
-tag : [ "pages", "github" ]
+tags: [ "pages", "github" ]
 description: "国内的pages服务都嘎了"
 categories: [ "pages", "github" ]
 toc: true

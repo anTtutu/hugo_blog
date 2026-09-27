@@ -1,7 +1,7 @@
 ---
 title: "springboot常见兼容性错误"
 date: 2022-11-22T00:29:47+08:00
-tag : [ "springboot" ]
+tags: [ "springboot" ]
 description: "springboot常见兼容性错误"
 categories: [ "springboot" ]
 toc: true
@@ -75,7 +75,7 @@ maven的版本包冲突，具体详细原因暂时没查到，后续分析出了
 
 ## 3、spring cache
 spring cache碰到的执行错误，不影响启动
-### 3.1 
+### 3.1
 ```java
 java.lang.IllegalStateException: No cache could be resolved for 'Builder[public com.sxt.entity.Teacher com.sxt.service.impl.TeacherServiceImpl.queryById(java.lang.Integer)] caches=[] | key=''member:'+#id' | keyGenerator='' | cacheManager='' | cacheResolver='' | condition='' | unless='#result == null' | sync='false'' using resolver 'org.springframework.cache.interceptor.SimpleCacheResolver@4ae15abe'. At least one cache should be provided per cache operation.
 ```

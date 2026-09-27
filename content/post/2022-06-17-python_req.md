@@ -1,7 +1,7 @@
 ---
 title: "python打包-只依赖自己项目引用的module"
 date: 2022-06-17T00:29:47+08:00
-tag : [ "python", "package" ]
+tags: [ "python", "package" ]
 description: "python打包-只依赖自己项目引用的module"
 categories: [ "python", "package" ]
 toc: true

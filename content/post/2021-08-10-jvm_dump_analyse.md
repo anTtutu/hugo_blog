@@ -1,13 +1,13 @@
 ---
 title: "jvm的大dump文件分析"
 date: 2021-08-10T00:29:47+08:00
-tag : [ "dump", "jvm", "java" ]
+tags: [ "dump", "jvm", "java" ]
 description: "jvm的大dump文件分析"
 categories: [ "dump", "jvm", "java" ]
 toc: true
 ---
 
-## 前言 
+## 前言
 参考dump文件的大小，如果超过6G、8G 一般我们本地电脑无法打开，可以找大容量的linux服务器，配置对应启动的jvm 内存后可以参考下面的步骤
 
 ## 1、下载linux版本的mat

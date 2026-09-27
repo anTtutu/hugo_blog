@@ -1,15 +1,30 @@
 ---
-title: "关于我"
-date: 2015-03-10 00:13:27
-description: 《Go 实战笔记》系列作者，《Golang Gin 实战》系列作者，《Android Gradle权威指南》作者，现负责技术管理
+title: "关于"
+date: 2020-02-16T15:47:16+08:00
+tags: [ "about" ]
+categories: [ "about" ]
+toc: true
 ---
 
-《Go 实战笔记》系列作者，《Golang Gin 实战》系列作者，《Android Gradle权威指南》作者，现负责技术管理。
+## 我是谁
+一位Java开发者，喜欢研究一些技术。因为anttu被老外占用了，改用anTtutu注册。
 
-[Android Gradle权威指南](http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e)
+平时喜欢整理个人博客，逛逛技术论坛，折腾Pi开发板等。
 
-公众号，扫码关注
+了解一些linux、DB、服务器方面的少量知识。
 
-![扫码关注](qrcode_for_weixin.jpg)
+学习Golang和Python中，目前Golang比较感兴趣。
 
+这个博客是基于 Maupassant Hugo 主题二次开发搭建的，欢迎我们共同成长。
 
+## Fellow me？
++ [Github](https://github.com/anTtutu)  
++ Email: anttu0531@gmail.com 
++ Wechat: anTtutu
++ TG: @anT_tu
++ QQ技术群: 655158296 | [技术小站](https://jq.qq.com/?_wv=1027&k=5tYpFCR)
+
+## 二维码
+QQ Group|QQ|Wechat
+|-|-|-|
+![](/contact/qqgroup_qrcode.JPG)|![](/contact/qq_qrcode.JPG)|![](/contact/wechat_qrcode.JPG)

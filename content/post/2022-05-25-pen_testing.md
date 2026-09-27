@@ -1,7 +1,7 @@
 ---
 title: "渗透测试的部分资料"
 date: 2022-05-25T00:29:47+08:00
-tag : [ "testing" ]
+tags: [ "testing" ]
 description: "渗透测试的部分资料"
 categories: [ "testing" ]
 toc: true
@@ -124,7 +124,7 @@ Version: 1.8.4/a47961e0/COMMUNITY-ADVANCED
 Licensed to tangshoupu, license is valid until 2022-08-03 08:00:00
 ```
 
-![image-20220417134619810](https://cdn.jsdelivr.net/gh/Asura88/Mannix/img/202204171346877.png)
+![image-20220417134619810](/posts/pentest/pentest_1.png)
 
 ##### [安装 ca 证书](https://docs.xray.cool/#/tutorial/webscan_proxy?id=安装-ca-证书)
 
@@ -132,11 +132,11 @@ Licensed to tangshoupu, license is valid until 2022-08-03 08:00:00
 
 右上角搜索 `x-ray`，可以看到一条记录，有一个红叉，被标记为不受信任的。
 
-![image-20220417140809490](https://cdn.jsdelivr.net/gh/Asura88/Mannix/img/202204171408560.png)
+![image-20220417140809490](/posts/pentest/pentest_2.png)
 
 然后双击这条记录，将 `SSL` 那一项改为始终信任，然后点击左上角关闭窗口，输入密码授权。
 
-![image-20220417140918077](https://cdn.jsdelivr.net/gh/Asura88/Mannix/img/202204171409126.png)
+![image-20220417140918077](/posts/pentest/pentest_3.png)
 
 ##### [启动代理](https://docs.xray.cool/#/tutorial/webscan_proxy?id=启动代理)
 
@@ -203,7 +203,7 @@ Plugins:
 [INFO] 2022-04-17 14:14:57 [collector:mitm.go:270] starting mitm server at 127.0.0.1:7777
 ```
 
-![image-20220417141619539](https://cdn.jsdelivr.net/gh/Asura88/Mannix/img/202204171416609.png)
+![image-20220417141619539](/posts/pentest/pentest_4.png)
 
 ##### [配置代理](https://docs.xray.cool/#/tutorial/webscan_proxy?id=配置代理)
 
@@ -459,7 +459,7 @@ https://github.com/chaitin/rad/releases/tag/0.4
 AkTaFrP8/RnAYMjNKusPfREn2lGBVHf9gUkWnh/CR+UI65sfnwFPT80bxVQf0j8M9NorYJIDv4YAgtah+bI5n9AZ0XUo3t3uI8azU7IO241f/xmtnTmK3Vi90v04SiD+jsYlJOMysVur51mKDcklYjQayqrQxv/iVJNaImjoFMku5dMGTWD5Vxab/TTCfP6xEvk9OWoWkAo7aW8MJEmn9KbegdTw1M0TzbDcrdJpZFaC+7wbps2Leks62NTdhSS72ZWR0xiX9Ooxu6DXuJNO9dbIhG23fjcVb9HxYsOnvUDezanF7EDpBBs7ivGxjdot+vodOzJRqi2Yxa6qkZvMvN/Tsf2R/gjYtRkBmqAkRABofGGlIeMCAqS43wI7ivzpGXQy2EG02TnV2Ezb0A8GNaipEeDxLScbhtJ+6CuT22mSOmQHsLIW5FwqHgcfOjPupP2r29b1D+QaUgMppgsnZy4uOWOL4VRQjYtqhnwzpu9QC9eYQ6WKl6bVshIqz0MUN46bFVr8BpGqAm2T7e+NJJbYtSwVr/cOJSVaOHd2yyzSPGXa0kHBzs5t3SUGb7j5KE1ZRFG8kfbE9IyyZumjsGAOorUV+O2zri4zk+B/WvZVz1x9WoH9pUh3xpYYfo7feElrdDdSSnpFMHdqMmt6WUc=
 ```
 
-![image-20220417190155033](https://cdn.jsdelivr.net/gh/Asura88/Mannix/img/202204171901176.png)
+![image-20220417190155033](/posts/pentest/pentest_5.png)
 
 ### 1.2 Acunetix
 
@@ -483,7 +483,7 @@ PassWord: Awvs@awvs.lan
 
 > #### Acunetix Build History
 >
-> #### Version 14 build 14.7.220401065 for Windows, Linux and macOS – 1st April 2022
+> #### Version 14 build 14.7.220401065 for Windows, Linux and macOS - 1st April 2022
 >
 > #### New Vulnerability checks
 >
@@ -508,7 +508,7 @@ PassWord: Awvs@awvs.lan
    Mac     : /Applications/Acunetix.app/Contents/Resources/data/license/
    ```
 
-3. 复制完后设置 license_info.json 为只读模式。注：也是最重要的一步！！！无论哪个系统都要。
+3. 复制完后设置 license_info.json 为只读模式。注：也是最重要的一步！无论哪个系统都要。
 4. 开启awvs服务，完毕。
 
 ```http

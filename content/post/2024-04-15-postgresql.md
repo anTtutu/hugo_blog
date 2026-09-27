@@ -1,7 +1,7 @@
 ---
 title: "postgresql数据库常用记录"
 date: 2024-04-15T00:29:47+08:00
-tag : [ "pg", "postgresql", "db" ]
+tags: [ "pg", "postgresql", "db" ]
 description: "postgresql数据库常用记录"
 categories: [ "pg", "postgresql", "db" ]
 toc: true

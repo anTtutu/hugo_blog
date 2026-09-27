@@ -1,7 +1,7 @@
 ---
 title: "python多版本管理工具"
 date: 2022-11-28T00:29:47+08:00
-tag : [ "python", "sdk" ]
+tags: [ "python", "sdk" ]
 description: "python多版本管理工具"
 categories: [ "python", "sdk" ]
 toc: true
@@ -242,9 +242,11 @@ anaconda search  jieba
 
 展示该版本的信息
 ```bash
-anaconda show conda‐forge/jieba
+anaconda show conda-forge/jieba
+```
 
-找到对应的渠道信息，如上面最后一行，直接进行安装即可
+找到对应的渠道信息，如上面最后一行，直接进行安装即可：
+
 ```bash
 conda install --channel https://conda.anaconda.org/conda-forge jieba
 ```

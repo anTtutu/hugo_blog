@@ -1,7 +1,7 @@
 ---
 title: "前端编码安全"
 date: 2021-10-07T00:29:47+08:00
-tag : [ "前端", "safe" ]
+tags: [ "前端", "safe" ]
 description: "前端编码安全"
 categories: [ "前端", "safe" ]
 toc: true
@@ -81,6 +81,8 @@ if (validURL(sUrl)) {
 
 - 使用`.html()`、`.append()`、`.prepend()`、`.wrap()`、`.replaceWith()`、`.wrapAll()`、`.wrapInner()`、`.after()`、`.before()`时，如变量值外部可控，应对特殊字符（`&, <, >, ", '`）做编码转义。
 - 引入`jQuery 1.x（等于或低于1.12）、jQuery2.x（等于或低于2.2）`，且使用`$()`时，应优先考虑替换为最新版本。如一定需要使用，应对传入参数值中的特殊字符（`&, <, >, ", '`）做编码转义。
+
+> **生态现状（2026）**：jQuery 1.x/2.x 早已 EOL，3.x 仍维护但前端主流已转向 React/Vue 等框架时代——这些框架默认对插值做自动转义，从机制上消除了这一类 XSS 注入点。新项目优先用框架原生安全机制，不要为安全原因引入 jQuery；存量系统至少升到 3.7+，并按本节做转义防御。
 
 ```javascript
 // bad：将不可信内容，带入jQuery不安全函数.after()操作

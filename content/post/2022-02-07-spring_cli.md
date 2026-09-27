@@ -1,7 +1,7 @@
 ---
 title: "springboot cli&springcloud cli简单介绍"
 date: 2022-02-07T00:29:47+08:00
-tag : [ "java", "springboot", "cli" ]
+tags: [ "java", "springboot", "cli" ]
 description: "springboot cli&springcloud cli简单介绍"
 categories: [ "java", "springboot", "cli" ]
 toc: true
@@ -15,6 +15,8 @@ toc: true
 官方介绍：<https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.system-requirements>
 #### 注意：
 需要核对版本支持的jdk、maven、gradle、springboot版本，不能过于追求最新版本，比如springboot3.0.0.M1就只支持jdk17
+
+> **版本现状（2026）**：文中所用 Spring Boot 2.6.3 属 2.x 线，社区支持已于 2023-11 结束（EOL）。2.x → 3.x 迁移最大的工作量是 **`javax.*` → `jakarta.*` 命名空间切换**（Servlet/JPA/Validation 等 API 包名全变），且 3.x 基线要求 JDK 17+；CLI 创建的项目直接用 spring initializr 选 3.x 起步即可。另外 spring-cloud-cli 项目已在 GitHub 归档停止维护，Spring Cloud 项目的依赖管理现推荐走父 POM/BOM 而非 CLI 插件。
 
 我们不采用官方介绍的sdkman、homebrew等安装方式，直接手工安装
 官方下载链接: <https://repo.spring.io/ui/native/release/org/springframework/boot/spring-boot-cli/2.6.3/>

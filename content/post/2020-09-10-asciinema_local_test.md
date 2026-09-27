@@ -43,7 +43,7 @@ asciinema upload filename
 ```
 
 ## 3、转本地化blog播放
-### 3.1 github下载asciinema-player项目的js和css文件  
+### 3.1 github下载asciinema-player项目的js和css文件
 下载地址：<https://github.com/asciinema/asciinema-player>
 
 ### 3.2 添加到hugo的自定义js和css中，config.yml配置

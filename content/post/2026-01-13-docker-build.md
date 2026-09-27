@@ -1,7 +1,7 @@
 ---
 title: "docker build的一些问题"
 date: 2026-01-13T00:29:47+08:00
-tag : [ "docker", "images", "build" ]
+tags: [ "docker", "images", "build" ]
 description: "docker build的一些问题"
 categories: [ "docker", "images", "build" ]
 toc: true

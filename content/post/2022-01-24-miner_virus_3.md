@@ -1,7 +1,7 @@
 ---
 title: "挖矿病毒3-分析和清理过程"
 date: 2022-01-24T00:29:47+08:00
-tag : [ "mine", "virus", "linux", "check" ]
+tags: [ "mine", "virus", "linux", "check" ]
 description: "挖矿病毒3-分析和清理过程"
 categories: [ "mine", "virus", "linux", "check" ]
 toc: true
@@ -12,7 +12,7 @@ toc: true
 
 ## 1、分析
 这次思路改进了些，起初有个只是定时任务没被清理，阿里云通过定时任务关键字"pool.minexmr.com:4444"报了蠕虫病毒，但是根据关键字查看，这像挖矿  
-然后 top 了半天没看到结果，怀疑是top被篡改了？？？然后进了/usr/bin/核对下 top 的时间，发现没差异呀，但是本着稳妥起见，还是下载 busybox
+然后 top 了半天没看到结果，怀疑是top被篡改了？然后进了/usr/bin/核对下 top 的时间，发现没差异呀，但是本着稳妥起见，还是下载 busybox
 ```bash
 wget https://busybox.net/downloads/binaries/1.30.0-i686/busybox 
 chmod +x busybox
@@ -95,7 +95,7 @@ history日志 echo > /root/.bash_history
 
 history -c
 
-查看机器创建以来登陆过的用户
+查看机器创建以来登录过的用户
 /var/log/wtmp
 
 查看机器当前登录的全部用户

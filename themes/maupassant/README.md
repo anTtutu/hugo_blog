@@ -2,10 +2,12 @@
 
 Maupassant theme, ported to Hugo.
 
-1. 预览效果:[飞雪无情的博客](http://www.flysnow.org)
+1. 预览效果:[Anttu的博客](https://anTtutu.github.io)
 2. [English Docs](README_EN.md)
 
 一款非常简洁、性能高的Hugo主题，适配不同的设备（PC，Mobile等）。 主要是基于 Typecho [Cho](https://github.com/pagecho/maupassant/), 从 [JokerQyou](https://github.com/JokerQyou/maupassant-hugo) forked，修改和添加了很多功能而成，如GA统计、最近的文章、标签云、自定义菜单、按日期归档等 .
+
+> 致谢：本主题参考了[飞雪无情](https://www.flysnow.org/)的 [maupassant-hugo](https://github.com/flysnow-org/maupassant-hugo) 二开版本，在其基础上再次二开与优化，适配个人需要和新版 Hugo，感谢原作者们的开源精神。
 
 ## Preview
 
@@ -19,32 +21,34 @@ Maupassant theme, ported to Hugo.
 4. 标签云支持
 5. 文章目录支持
 6. 一键回到页面顶部
-13. 支持关键字SEO优化
-6. 自定义菜单支持，不限个数，自定义排序
-7. 自定义友情链接支持
-8. 支持文章按年份日期进行归档
-9. 支持GA分析统计
-17. 不蒜子页面计数器支持
-11. 代码高亮、代码行号、代码拷贝
-10. sitemap站点地图
-5. RSS支持，并且可以自动发现RSS
-14. Google站内搜索
-15. See Also 支持
-16. Disqus评论支持
-18. 自定义css、js
-19. utteranc和[waline](https://waline.js.org)评论
-20. 部分自定义的shortcode
-21. 文章自定义摘要
-22. 自定义广告支持
-23. 自定义备案信息
-24. 自定义图片CDN
-25. 图片点击放大
+7. 支持关键字SEO优化
+8. 自定义菜单支持，不限个数，自定义排序
+9. 自定义友情链接支持
+10. 支持文章按年份日期进行归档
+11. 支持GA分析统计
+12. 不蒜子页面计数器支持
+13. 代码高亮、代码行号、代码拷贝
+14. sitemap站点地图
+15. RSS支持，并且可以自动发现RSS
+16. Google站内搜索
+17. See Also 支持
+18. Disqus评论支持
+19. 自定义css、js
+20. utteranc和[waline](https://waline.js.org)评论
+21. 部分自定义的shortcode
+22. 文章自定义摘要
+23. 自定义广告支持
+24. 自定义备案信息
+25. 自定义图片CDN
+26. 图片点击放大
+27. asciinema播放cli操作录屏
+28. 流程图、序列图等一些常见markdown图形
 
 ## 下载安装
 
 ```bash
 cd <YOUR Bolg Root Dir>
-git clone https://github.com/flysnow-org/maupassant-hugo themes/maupassant
+git clone https://github.com/anTtutu/maupassant-hugo themes/maupassant
 ```
 
 ## 配置
@@ -86,18 +90,18 @@ theme = "maupassant"
 #### 自定义菜单
 
 ```toml
+# 分类
 [menu]
-
-  [[menu.main]]
-    identifier = "books"
-    name = "新书"
-    url = "/books/"
-    weight = 2
-
   [[menu.main]]
     identifier = "archives"
     name = "归档"
     url = "/archives/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "分类"
+    url = "/tags/"
     weight = 3
 
   [[menu.main]]
@@ -142,13 +146,13 @@ type: "search"
 
 ```toml
 [[params.links]]
-  title = "Android Gradle权威指南"
-  name = "Android Gradle权威指南"
-  url = "http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e"
+  title = "Hugo 官方文档"
+  name = "Hugo 官方文档"
+  url = "https://gohugo.io/documentation/"
 [[params.links]]
-  title = "常用开发工具CDN镜像"
-  name = "常用开发工具CDN镜像"
-  url = "http://mirrors.flysnow.org/"
+  title = "Go 语言官网"
+  name = "Go 语言官网"
+  url = "https://go.dev/"
 ```
 
 `params.links`是一个数组，所以我们可以自定义很多友情链接。`name`表示显示的链接文本，`title`表示鼠标悬停在友情链接时，显示的文本。
@@ -159,22 +163,22 @@ type: "search"
 
 ```toml
 [[params.ads]]
-  title = "领取￥1888阿里云产品通用代金券"
-  url = "https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=jdg9oj97"
+  title = "阿里云产品通用代金券"
+  url = "https://www.aliyun.com/"
 
 [[params.ads]]
-  title = "领取￥1888阿里云产品通用代金券"
-  url = "https://promotion.aliyun.com/ntms/act/vmpt/aliyun-group/home.html?userCode=jdg9oj97"
+  title = "阿里云产品通用代金券"
+  url = "https://www.aliyun.com/activity"
   img = "https://img.alicdn.com/tfs/TB17qJhXpzqK1RjSZFvXXcB7VXa-200-126.jpg"
 [[params.ads]]
-  title = "领取￥1888阿里云产品通用代金券"
-  url = "https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=jdg9oj97"
+  title = "阿里云产品通用代金券"
+  url = "https://www.aliyun.com/daily-act"
   img = "https://img.alicdn.com/tfs/TB1aDXhXpzqK1RjSZFvXXcB7VXa-259-194.jpg"
 ```
 
 `params.ads`是一个数组，所以我们可以自定义很多广告。如果`img`存在，则优先使用图片广告,`title`表示鼠标悬停在广告链接时，显示的文本。
 
-具体效果参考 [http://www.flysnow.org/](http://www.flysnow.org/)
+具体效果参考 [https://anTtutu.github.io/](https://anTtutu.github.io/)
 
 #### 添加GA分析统计
 
@@ -189,7 +193,7 @@ Hugo默认是不支持生成归档文件的，需要自己实现。该主题已�
 
 ```md
 title: "归档"
-description: Android资深工程师 ，Go和Java打杂师，《Android Gradle权威指南》作者，Android官方技术文档译者
+description: 你的个人简介，会展示在归档页面上
 type: archives
 ```
 
@@ -480,7 +484,7 @@ hiddenFromHomePage = false
 + Wordpress：https://github.com/iMuFeng/maupassant/
 + Ghost: https://github.com/LjxPrime/maupassant/
 + Hexo: https://github.com/tufu9441/maupassant-hexo
-+ Hugo: https://github.com/flysnow-org/maupassant-hugo
++ Hugo: https://github.com/anTtutu/maupassant-hugo
 
 ```
 

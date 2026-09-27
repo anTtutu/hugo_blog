@@ -1,7 +1,7 @@
 ---
 title: "redis日常使用的一些建议"
 date: 2022-03-05T00:29:47+08:00
-tag : [ "redis", "safe" ]
+tags: [ "redis", "safe" ]
 description: "redis日常使用的一些建议"
 categories: [ "redis", "safe" ]
 toc: true

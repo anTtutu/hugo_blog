@@ -1,7 +1,7 @@
 ---
 title: "几种id浅谈"
 date: 2022-07-11T00:29:47+08:00
-tag : [ "id" ]
+tags: [ "id" ]
 description: "几种id浅谈"
 categories: [ "id" ]
 toc: true

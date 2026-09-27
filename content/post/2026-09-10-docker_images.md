@@ -1,7 +1,7 @@
 ---
 title: "日常研究备用的一些镜像记录"
 date: 2026-09-10T00:29:47+08:00
-tag : [ "docker", "image", "k8s" ]
+tags: [ "docker", "image", "k8s" ]
 description: "日常研究备用的一些镜像记录"
 categories: [ "docker", "image", "k8s" ]
 toc: true

@@ -1,7 +1,7 @@
 ---
 title: "claude code skill介绍"
 date: 2026-04-30T00:29:47+08:00
-tag : [ "claude code", "skill" ]
+tags: [ "claude code", "skill" ]
 description: "claude code skill介绍"
 categories: [ "claude code", "skill" ]
 toc: true
@@ -176,3 +176,9 @@ toc: true
 ---
 
 > 更多详细使用说明请参考各技能目录下的 `skill.md` 文件。
+---
+
+## 相关阅读
+
+- [AI开发入门：Agent与Skill体系详解](/post/2026-03-20-ai-agent-and-skill/)
+- [Claude Code常用命令速查](/post/2026-07-02-claude-code-cli-cheatsheet/)

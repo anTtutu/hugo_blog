@@ -1,7 +1,7 @@
 ---
 title: "maven的scope参数"
 date: 2021-07-15T00:29:47+08:00
-tag : [ "maven", "java" ]
+tags: [ "maven", "java" ]
 description: "maven的scope参数"
 categories: [ "maven", "java" ]
 toc: true

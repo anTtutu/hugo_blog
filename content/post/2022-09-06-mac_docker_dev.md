@@ -1,7 +1,7 @@
 ---
 title: "Mac配置docker开发工具"
 date: 2022-09-06T00:29:47+08:00
-tag : [ "docker", "mac" ]
+tags: [ "docker", "mac" ]
 description: "Mac配置docker开发工具"
 categories: [ "docker", "mac" ]
 toc: true
@@ -314,8 +314,8 @@ mysql:8.0
 -p|将容器的3306端口映射到主机的3306端口
 --name|MySQL容器名称
 --network|网络
-–-restart always|开机启动
-–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--restart always|开机启动
+--privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 -v /Users/{whoami}/Downloads/Docker/mysql/config/my.cnf:/etc/mysql/my.cnf|映射my.cnf
 -v /Users/{whoami}/Downloads/Docker/mysql/data:/var/lib/mysql|映射data目录
 -v /Users/{whoami}/Downloads/Docker/mysql/log:/logs|映射logs目录
@@ -532,12 +532,12 @@ redis-server /etc/redis/redis.conf \
 -p 6379:6379| 把容器内的6379端口映射到宿主机6379端口
 --name|redis容器名称
 --network|网络
-–-restart always|开机启动
-–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--restart always|开机启动
+--privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 -v /Users/{whoami}/Downloads/Docker/redis/config/redis.conf:/etc/redis/redis.conf| 将到宿主机的文件/Users/{whoami}/Downloads/Docker/redis/config/redis.conf 作为redis容器的配置文件/etc/redis/redis.conf
 -v /Users/{whoami}/Downloads/Docker/redis/data:/data|把redis持久化的数据放在宿主机目录/mydata/redis/data中，做数据备份
 redis-server /etc/redis/redis.conf|这个是关键配置，让redis不是无配置启动，而是按照这个redis.conf的配置启动
-–-appendonly yes|redis启动后数据持久化
+--appendonly yes|redis启动后数据持久化
 --requirepass test123456|redis的密码
 redis:7.0|redis(repository) : 7.0(tag)
 
@@ -576,7 +576,7 @@ OK
 127.0.0.1:6379>
 ```
 
-## 10、mongo 
+## 10、mongo
 ### 10.1 查询mongo镜像的所有tags
 ```bash
 ./docker-show-repo-tag.sh mongo
@@ -738,8 +738,8 @@ mongo:6.0 \
 -p 27017:27017| 把容器内的27017端口映射到宿主机27017端口
 --name|mongodb容器名称
 --network|网络
-–-restart always|开机启动
-–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--restart always|开机启动
+--privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 -e MONGO_INITDB_ROOT_USERNAME|root账号
 -e MONGO_INITDB_ROOT_PASSWORD|root密码
 -e TZ=Asia/Shanghai|时区指定shanghai(上海)
@@ -1064,8 +1064,8 @@ nginx:1.22.0
 -p 80:80<br>-p 443:443| 把容器内的80端口、443端口分别映射到宿主机80端口、443端口
 --name|nginx容器名称
 --network|网络
-–-restart always|开机启动
-–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--restart always|开机启动
+--privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 -v /Users/${whoami}/Downloads/Docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf|nginx的主配置文件
 -v /Users/${whoami}/Downloads/Docker/nginx/conf.d:/etc/nginx/conf.d| nginx的自定义配置文件目录，该目录下所有的*.conf会生效
 -v /Users/${whoami}/Downloads/Docker/nginx/cert:/etc/nginx/certs|nginx的ssl证书
@@ -1256,8 +1256,8 @@ quay.io/minio/minio server /data --console-address ":9090"
 -p 9000:9000<br>-p 9090:9090| 把容器内的9000端口、9090端口分别映射到宿主机9000端口、9090端口
 --name|minio容器名称
 --network|网络
-–-restart always|开机启动
-–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--restart always|开机启动
+--privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 --user|设置属组权限
 -e "MINIO_ROOT_USER=admin"|设置 root 账号
 -e "MINIO_ROOT_PASSWORD=admin123456"|设置 root 密码
@@ -1327,8 +1327,8 @@ ${REGISTRY}:latest \
 -p 2379:2379<br>-p 2380:2380| 把容器内的2379端口、2380端口分别映射到宿主机2379端口、2380端口
 --name|etcd容器名称
 --network|网络
-–-restart always|开机启动
-–-privileged=true|提升容器内权限（false可能会因权限导致无法启动）
+--restart always|开机启动
+--privileged=true|提升容器内权限（false可能会因权限导致无法启动）
 --volume=/Users/${whoami}/Downloads/Docker/etcd/data:/etcd/data|绑定数据目录
 ${REGISTRY}:latest|etcd(repository) : latest(tag)
 --data-dir|etcd 数据目录
@@ -1406,7 +1406,7 @@ docker/getting-started   latest    cb90f98fd791   5 months ago   28.8MB
 quay.io/coreos/etcd      latest    61ad63875109   4 years ago    39.5MB
 ```
 
-### 14.2 停止容器  
+### 14.2 停止容器
 停止脚本如下：
 ```bash
 function stop()
@@ -1557,4 +1557,4 @@ d439c916d2e4   docker/getting-started   "/docker-entrypoint.…"   24 hours ago 
 ```
 
 
-后续有其他工具补充再继续完善。。。
+后续有其他工具补充再继续完善……

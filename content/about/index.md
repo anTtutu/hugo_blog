@@ -15,7 +15,7 @@ toc: true
 
 学习Golang和Python中，目前Golang比较感兴趣。
 
-这个博客是我参考[飞雪无情](https://www.flysnow.org)优化的模板主题，欢迎我们共同成长。
+这个博客是基于 Maupassant Hugo 主题二次开发搭建的，欢迎我们共同成长。
 
 ## Fellow me？
 + [Github](https://github.com/anTtutu)  

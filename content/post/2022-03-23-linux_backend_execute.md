@@ -1,7 +1,7 @@
 ---
 title: "linux后台执行可用方式整理"
 date: 2022-03-23T00:29:47+08:00
-tag : [ "linux", "backend_execute" ]
+tags: [ "linux", "backend_execute" ]
 description: "linux后台执行可用方式整理"
 categories: [ "linux", "backend_execute" ]
 toc: true
@@ -92,6 +92,8 @@ centos7版本下直接yum安装
 ```
 centos6版本需要编译安装  
 tmux官网下载地址：http://tmux.github.io/
+
+> **系统停更提示**：CentOS 8 已于 2021-12、CentOS 7 已于 2024-06 结束维护，CentOS 项目本身转型为滚动更新的 CentOS Stream（不再是 RHEL 的稳定复刻）。新机器建议改用 RockyLinux / AlmaLinux（与 RHEL 1:1 兼容）或 OpenAnolis；上面的 yum 安装命令在这些发行版上通用。
 
 Tmux的使用
 安装完成后输入命令tmux即可打开软件，界面十分简单，类似一个下方带有状态栏的终端控制台；  

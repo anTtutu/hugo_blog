@@ -1,7 +1,7 @@
 ---
 title: "系统端口速查"
 date: 2021-05-01T00:29:47+08:00
-tag : [ "port", "linux", "win10" ]
+tags: [ "port", "linux", "win10" ]
 description: "系统端口速查"
 categories: [ "port", "linux", "win10" ]
 toc: true
@@ -1278,7 +1278,7 @@ toc: true
 3379|socorfs SOCORFS
 3381|geneous Geneous
 3383|Enterprise Software Products License Manager
-3389|Win2000 远程登陆端口
+3389|Win2000 远程登录端口
 3390|dsc
 3391|savant
 3392|efi-lm

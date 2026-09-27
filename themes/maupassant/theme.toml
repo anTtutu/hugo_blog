@@ -6,15 +6,15 @@
 name = "Maupassant Hugo"
 license = "MIT"
 licenselink = ""
-description = "Maupassant 最初是由Cho大神为Typecho平台设计开发的一套响应式模板，简洁、大气，大道至简。"
-homepage = "https://github.com/pagecho/maupassant"
+description = "Maupassant 最初是由 Cho 大神为 Typecho 平台设计开发的一套响应式模板，简洁、大气，大道至简。致敬飞雪无情（flysnow.org）在 JokerQyou 移植版基础上的二开，本主题参考其 maupassant-hugo 再次二开与优化，适配个人需要与新版本 Hugo"
+homepage = "https://anTtutu.github.io"
 tags = ["maupassant"]
 features = ["Tag","Category","Menu","Recent Post","Archives"]
 min_version = "0.30"
 
 [author]
-  name = "飞雪无情"
-  homepage = "https://www.flysnow.org"
+  name = "Anttu"
+  homepage = "https://anTtutu.github.io"
 
 [originauthor]
   name = "Joker Qyou"

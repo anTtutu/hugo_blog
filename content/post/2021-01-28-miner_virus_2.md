@@ -39,7 +39,7 @@ toc: true
 ![](/posts/virus/byte.png)
 
 ### 1.5 有能力的可以上ida查看汇编信息
-本人不才。。。只能看个图
+本人不才……只能看个图
 不管是汇编视图还是二进制视图，因个人能力不足，无法查看更多有价值的信息
 ![](/posts/virus/ida1.png)
 ![](/posts/virus/ida2.png)

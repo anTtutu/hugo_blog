@@ -1,7 +1,7 @@
 ---
 title: "sdkman与conda冲突问题解决"
 date: 2026-09-14T00:29:47+08:00
-tag : [ "sdkman", "conda" ]
+tags: [ "sdkman", "conda" ]
 description: "sdkman与conda冲突问题解决"
 categories: [ "sdkman", "conda" ]
 toc: true

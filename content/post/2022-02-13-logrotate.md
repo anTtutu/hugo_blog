@@ -1,7 +1,7 @@
 ---
 title: "logrotate日志切割"
 date: 2022-02-13T00:29:47+08:00
-tag : [ "linux", "log", "split" ]
+tags: [ "linux", "log", "split" ]
 description: "logrotate日志切割"
 categories: [ "linux", "log", "split" ]
 toc: true

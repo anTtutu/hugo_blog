@@ -7,7 +7,7 @@ categories: [ "oracle", "dataguard" ]
 toc: true
 ---
 
-## 前言 
+## 前言
 网上有很多Oracle Dataguard的配置教程，但不难发现，很多采用的是rman duplicate这种方法，尽管此种方法较为简便。但在某种程度上，却也误导了初学者，虽说也能配置成功，但只知其然不知其所以然，Dataguard的本质没有吃透，也不利于其维护和调优。
 
 ### 注：
