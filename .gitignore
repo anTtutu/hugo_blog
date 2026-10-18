@@ -1,3 +1,4 @@
 /public/*
 /.git
 /config.toml.bak
+/claude_skip_persimisson.sh
